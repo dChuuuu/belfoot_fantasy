@@ -9,28 +9,51 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
+import os
+from . import env
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Попытка импорта среды переменных. В случае неуспеха будет использована тестовая БД. //TODO ВОЗМОЖНОСТЬ ЗАПИСИ ПЕРЕМЕННЫХ ЧЕРЕЗ CI/CD
+try:
+    env.set_env()
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    DATABASES = {
+        'default': {
+            'ATOMIC_REQUESTS': True,
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('NAME'),
+            'USER': os.getenv('USER'),
+            'PASSWORD': os.getenv('PASSWORD'),
+            'HOST': os.getenv('HOST'),
+            'PORT': os.getenv('PORT')
+            }
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+        }
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'some_secret'
+except:
+    SECRET_KEY = 'SOME_SECRET_KEY'
+    DATABASES = {
+        'default': {
+            'ATOMIC_REQUESTS': True,
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'test_belfoot_fantasy_db',
+            'USER': 'belfoot_root_1_test',
+            'PASSWORD': "test",
+            'HOST': '127.0.0.1',
+            'PORT': '5432'
+        }
+    }
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# Режим разработчика. Выключить при проде
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+# Хосты, которые будет обслуживать фреймворк. //TODO РАССМОТРЕТЬ ВОЗМОЖНОСТЬ ИСПОЛЬЗОВАНИЯ КОНКРЕТНОГО ИМЕНИ ХОСТА
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-
-# Application definition
-
+# Здесь хранятся приложения бэкенда. При создании новых добавлять сюда
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,9 +61,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users'
+    'apps.users',
+    'rest_framework'
 ]
 
+# Промежуточный софт. //TODO НАСТРОИТЬ ЛОГИРОВАНИЕ + УВЕДОМЛЕНИЯ НА ПОЧТУ(?)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,8 +76,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Хранилище урлов
 ROOT_URLCONF = 'belfoot_fantasy.urls'
 
+# Перечень шаблонов Django
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -69,24 +96,10 @@ TEMPLATES = [
     },
 ]
 
+# Указатель WSGI настроек приложений
 WSGI_APPLICATION = 'belfoot_fantasy.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite',
-
-        'NAME': 'users_db',
-    }
-}
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+# Валидаторы для паролей
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -102,25 +115,95 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Модель, используемая для аутентификации.
+AUTH_USER_MODEL = 'users.CustomUser'
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
+# Настройка урлов для логина, логаута пользователей и редиректа в случае наличия сессии //TODO НАСТРОИТЬ?
+# LOGIN_REDIRECT_URL = '/accounts/profile'
+# LOGIN_URL = '/accounts/login/'
+# LOGOUT_REDIRECT_URL = '/accounts/logout'
+# PASSWORD_RESET_TIMEOUT = 900
 
-LANGUAGE_CODE = 'en-us'
+# Настройка сообщений логов //TODO НАСТРОИТЬ КОГДА ДЕЛО КОСНЁТСЯ MIDDLEWARE
+#MESSAGE_LEVEL = 'задать'
+#MESSAGE_STORAGE = 'задать'
 
-TIME_ZONE = 'UTC'
+# Настройки сессий
+SESSION_COOKIE_HTTPONLY = True  # Куки-файл с сессией недоступен для JS скрипта
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True    # Сессия закрывается при закрытии браузера
+SESSION_FILE_PATH = None    # Файлы, в котором хранятся сессии
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'   # Сериализатор для сессий
+
+#SITE_ID = 'Понадобится в будущем'   # ID сайта в случае, если одна БД обслуживает несколько сайтов
+
+LANGUAGE_CODE = 'ru-RU'
+
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_COOKIE_HTTPONLY = True # CSRF куки недоступен для JS скрипта
+CSRF_TRUSTED_ORIGINS = []   # Доверенные домены, для которых CSRF не нужен
+
+# Отключенные юзерагенты различных парсеров
+# DISALLOWED_USER_AGENTS = ['BLEXBot', 'coccocbot-web', 'Baiduspider', 'Cliqzbot', 'SeopultContentAnalyzer',
+#                           'serpstatbot', 'LinkpadBot', 'DataForSeoBot', 'Scrapy', 'FlipboardRSS', 'Amazonbot',
+#                           'Needle', 'Diffbot']
+
+# Директории с фикстурами для тестов
+FIXTURE_DIRS = []
+
+# Настройки REST
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "UPDATE_LAST_LOGIN": False,
+
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "VERIFYING_KEY": "",
+    "AUDIENCE": None,
+    "ISSUER": None,
+    "JSON_ENCODER": None,
+    "JWK_URL": None,
+    "LEEWAY": 0,
+
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+    "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
+
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_TYPE_CLAIM": "token_type",
+    "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
+
+    "JTI_CLAIM": "jti",
+
+    "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
+    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=14),
+
+    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
+    "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
+    "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
+    "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
+    "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
+    "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
+}
