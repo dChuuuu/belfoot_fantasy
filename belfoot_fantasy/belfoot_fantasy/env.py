@@ -1,4 +1,5 @@
 #Рабочие данные. Не передавать никуда!!!
+#
 import os
 def set_env():
     os.environ['SECRET_KEY'] = 'django-insecure-+&!)jq^(5f64m+=$yg9c79v_b)wa2=#$8&16v7e58op_5wwrmb'

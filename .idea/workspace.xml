@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbb19345-55bd-4e5c-86a8-84cbd3f22d06" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/env.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/sometest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/belfoot_fantasy/apps/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/belfoot_fantasy/apps/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/belfoot_fantasy/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/belfoot_fantasy/apps/users/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/.env.py" beforeDir="false" afterPath="$PROJECT_DIR$/belfoot_fantasy/apps/users/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/belfoot_fantasy/belfoot_fantasy/env.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
