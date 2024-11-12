@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     'rest_framework'
 ]
 
-# Промежуточный софт. //TODO НАСТРОИТЬ ЛОГИРОВАНИЕ + УВЕДОМЛЕНИЯ НА ПОЧТУ(?)
+# Промежуточный софт
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -118,15 +118,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Модель, используемая для аутентификации.
 AUTH_USER_MODEL = 'users.CustomUser'
 
-# Настройка урлов для логина, логаута пользователей и редиректа в случае наличия сессии //TODO НАСТРОИТЬ?
+# Настройка урлов для логина, логаута пользователей и редиректа в случае наличия сессии //TODO ЛИЧНЫЙ КАБИНЕТ
 # LOGIN_REDIRECT_URL = '/accounts/profile'
 # LOGIN_URL = '/accounts/login/'
 # LOGOUT_REDIRECT_URL = '/accounts/logout'
 # PASSWORD_RESET_TIMEOUT = 900
 
-# Настройка сообщений логов //TODO НАСТРОИТЬ КОГДА ДЕЛО КОСНЁТСЯ MIDDLEWARE
-#MESSAGE_LEVEL = 'задать'
-#MESSAGE_STORAGE = 'задать'
 
 # Настройки сессий
 SESSION_COOKIE_HTTPONLY = True  # Куки-файл с сессией недоступен для JS скрипта
@@ -207,3 +204,37 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'belfoot_fantasy.log',
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file', 'console'],
+            'level': 'WARNING',
+            'propagate': True
+        },
+    }
+}
+
+#//TODO АДМИНКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

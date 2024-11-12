@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from rest_framework_simplejwt.views import token_obtain_pair
@@ -132,12 +132,31 @@ class LoginUser(APIView):
             return token_cookie(user)
 
 
-#@authentication_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
+class LogoutUser(APIView):
+    '''Представление для логаута пользователя. Аутентификация необходима'''
+    def post(self, request):
+        refresh = request.COOKIES['refresh_token']
+        refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
+        user_id = refresh_decoded['user_id']
+        user = CustomUser.objects.get(id=user_id)
+        user.refresh_token = None
+        user.save()
+        response = Response(status=status.HTTP_200_OK)
+        response.set_cookie(key='access_token', value=f'{None}', max_age=3600, expires=None,
+                            path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+        response.set_cookie(key='refresh_token', value=f'{None}', max_age=604800, expires=None,
+                            path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+
+        return response
 
 
+
+
+@permission_classes([IsAuthenticated])
 class SecuredView(APIView):
     '''Тестовое представление для проверки прав доступа(авторизации)'''
 
     def get(self, request):
 
-        return auth(request)
+        return Response('Успешный запрос')

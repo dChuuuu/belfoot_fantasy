@@ -1,0 +1,189 @@
+INFO 2024-11-12 18:57:36,367 autoreload 11012 14132 Watching for file changes with StatReloader
+INFO 2024-11-12 18:57:55,165 autoreload 11012 14132 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-12 18:57:55,524 autoreload 13428 1128 Watching for file changes with StatReloader
+INFO 2024-11-12 18:58:18,497 autoreload 13428 1128 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 18:58:18,843 autoreload 4844 9272 Watching for file changes with StatReloader
+ERROR 2024-11-12 18:58:20,886 log 4844 10788 Internal Server Error: /users/auth/login
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 130, in post
+    user = Custo1mUser.objects.get(username=data['username'])
+           ^^^^^^^^^^^
+NameError: name 'Custo1mUser' is not defined
+INFO 2024-11-12 18:58:37,737 autoreload 4844 9272 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 18:58:38,079 autoreload 2548 2168 Watching for file changes with StatReloader
+INFO 2024-11-12 18:59:28,645 autoreload 2548 2168 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-12 18:59:28,991 autoreload 3420 12972 Watching for file changes with StatReloader
+INFO 2024-11-12 19:00:28,879 autoreload 3420 12972 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 19:00:29,236 autoreload 2304 11908 Watching for file changes with StatReloader
+INFO 2024-11-12 19:00:36,843 autoreload 2304 11908 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 19:00:37,207 autoreload 6712 13328 Watching for file changes with StatReloader
+INFO 2024-11-12 19:00:49,969 autoreload 6712 13328 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 19:00:50,324 autoreload 11320 2536 Watching for file changes with StatReloader
+INFO 2024-11-12 19:01:01,009 autoreload 11320 2536 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 19:01:01,386 autoreload 2432 7644 Watching for file changes with StatReloader
+ERROR 2024-11-12 19:01:03,061 log 2432 6028 Internal Server Error: /users/auth/login
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 130, in post
+    user = Custo1mUser.objects.get(username=data['username'])
+           ^^^^^^^^^^^
+NameError: name 'Custo1mUser' is not defined
+INFO 2024-11-12 19:01:29,519 autoreload 2432 7644 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-12 19:01:53,214 autoreload 1500 2736 Watching for file changes with StatReloader
+INFO 2024-11-12 19:33:42,772 autoreload 9652 4616 Watching for file changes with StatReloader
+WARNING 2024-11-12 19:33:50,743 log 9652 9176 Unauthorized: /users/auth/logout
+ERROR 2024-11-12 19:34:08,170 log 9652 9176 Internal Server Error: /users/auth/logout
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 141, in post
+    user_id = refresh_decoded['id']
+              ~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'id'
+INFO 2024-11-12 19:34:53,085 autoreload 9652 4616 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 19:34:53,435 autoreload 2040 7184 Watching for file changes with StatReloader
+ERROR 2024-11-12 19:34:55,703 log 2040 8768 Internal Server Error: /users/auth/logout
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 142, in post
+    user = CustomUser.objects.get(user_id=user_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'user_id' into field. Choices are: date_joined, email, groups, id, is_active, is_staff, is_superuser, last_login, logentry, password, refresh_token, user_permissions, username
+INFO 2024-11-12 19:35:12,356 autoreload 2040 7184 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 19:35:12,731 autoreload 3136 6060 Watching for file changes with StatReloader
+WARNING 2024-11-12 19:35:21,879 log 3136 13176 Method Not Allowed: /users/auth/secured_view
+WARNING 2024-11-12 19:35:30,979 log 3136 13176 Unauthorized: /users/auth/secured_view
+INFO 2024-11-12 19:35:50,066 autoreload 3136 6060 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 19:35:50,414 autoreload 13020 11624 Watching for file changes with StatReloader
+WARNING 2024-11-12 19:36:29,245 log 13020 12036 Unauthorized: /users/auth/secured_view
+INFO 2024-11-12 19:36:50,317 autoreload 13020 11624 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-12 19:36:50,686 autoreload 1712 9852 Watching for file changes with StatReloader
+INFO 2024-11-12 19:37:59,737 autoreload 1712 9852 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-12 19:38:00,099 autoreload 3936 7644 Watching for file changes with StatReloader
+INFO 2024-11-12 19:40:41,189 autoreload 5936 12012 Watching for file changes with StatReloader
+WARNING 2024-11-12 19:40:43,337 log 5936 8492 Not Found: /
+WARNING 2024-11-12 19:40:43,352 log 5936 8492 Not Found: /favicon.ico
+WARNING 2024-11-12 19:40:51,571 log 5936 8492 Not Found: /admin/
