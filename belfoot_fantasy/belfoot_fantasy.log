@@ -187,3 +187,2004 @@ INFO 2024-11-12 19:40:41,189 autoreload 5936 12012 Watching for file changes wit
 WARNING 2024-11-12 19:40:43,337 log 5936 8492 Not Found: /
 WARNING 2024-11-12 19:40:43,352 log 5936 8492 Not Found: /favicon.ico
 WARNING 2024-11-12 19:40:51,571 log 5936 8492 Not Found: /admin/
+INFO 2024-11-12 20:09:24,720 autoreload 3136 10464 Watching for file changes with StatReloader
+INFO 2024-11-12 20:10:09,165 autoreload 3136 10464 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-12 20:10:09,538 autoreload 1424 11320 Watching for file changes with StatReloader
+INFO 2024-11-12 20:17:20,478 autoreload 1424 11320 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-11-12 20:17:20,832 autoreload 14128 3948 Watching for file changes with StatReloader
+INFO 2024-11-12 22:22:30,088 autoreload 14128 3948 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-12 22:22:30,994 autoreload 13032 9856 Watching for file changes with StatReloader
+INFO 2024-11-21 19:17:33,187 autoreload 1460 3304 Watching for file changes with StatReloader
+INFO 2024-11-21 19:17:59,056 autoreload 1460 3304 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:17:59,397 autoreload 8496 11228 Watching for file changes with StatReloader
+WARNING 2024-11-21 19:18:11,881 log 8496 4752 Unauthorized: /users/auth/forgot_password
+INFO 2024-11-21 19:18:23,430 autoreload 8496 11228 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:18:23,781 autoreload 3988 5896 Watching for file changes with StatReloader
+INFO 2024-11-21 19:18:31,138 autoreload 3988 5896 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:18:31,498 autoreload 12836 3204 Watching for file changes with StatReloader
+WARNING 2024-11-21 19:18:32,944 log 12836 4480 Unauthorized: /users/auth/forgot_password
+INFO 2024-11-21 19:18:49,360 autoreload 12836 3204 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:18:49,711 autoreload 10524 7744 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:18:51,410 log 10524 13976 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\utils\json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "D:\Python\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\json\encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\utils\encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type CustomUser is not JSON serializable
+INFO 2024-11-21 19:19:38,380 autoreload 10524 7744 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:19:38,738 autoreload 1460 5876 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:19:41,163 log 1460 13308 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 177, in post
+    return Response(data=serializer.data)
+                         ^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 571, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 245, in data
+    raise AssertionError(msg)
+AssertionError: When a serializer is passed a `data` keyword argument you must call `.is_valid()` before attempting to access the serialized `.data` representation.
+You should either call `.is_valid()` first, or access `.initial_data` instead.
+INFO 2024-11-21 19:20:12,154 autoreload 1460 5876 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:20:12,525 autoreload 3956 1768 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:20:14,318 log 3956 9480 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 511, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 423, in finalize_response
+    assert isinstance(response, HttpResponseBase), (
+AssertionError: Expected a `Response`, `HttpResponse` or `StreamingHttpResponse` to be returned from the view, but received a `<class 'NoneType'>`
+INFO 2024-11-21 19:20:40,655 autoreload 3956 1768 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:20:41,010 autoreload 1516 12648 Watching for file changes with StatReloader
+WARNING 2024-11-21 19:20:43,066 log 1516 14072 Bad Request: /users/auth/forgot_password
+INFO 2024-11-21 19:31:26,112 autoreload 1516 12648 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:31:26,488 autoreload 11888 11204 Watching for file changes with StatReloader
+WARNING 2024-11-21 19:31:29,439 log 11888 6316 Bad Request: /users/auth/forgot_password
+INFO 2024-11-21 19:32:03,936 autoreload 11888 11204 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:32:04,306 autoreload 6392 9084 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:32:07,941 log 6392 3964 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 174, in post
+    data = {'email': email_instance['email']}
+                     ~~~~~~~~~~~~~~^^^^^^^^^
+TypeError: 'CustomUser' object is not subscriptable
+INFO 2024-11-21 19:32:18,070 autoreload 6392 9084 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:32:18,428 autoreload 3760 3988 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:32:20,108 log 3760 7436 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 173, in post
+    email_instance = CustomUser.objects.get(email=email).values()
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'values'
+INFO 2024-11-21 19:32:26,068 autoreload 3760 3988 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:32:26,424 autoreload 14364 12652 Watching for file changes with StatReloader
+INFO 2024-11-21 19:33:25,198 autoreload 14364 12652 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:33:25,560 autoreload 5372 14944 Watching for file changes with StatReloader
+WARNING 2024-11-21 19:33:27,377 log 5372 7744 Bad Request: /users/auth/forgot_password
+INFO 2024-11-21 19:33:51,611 autoreload 5372 14944 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:33:51,999 autoreload 15184 15148 Watching for file changes with StatReloader
+INFO 2024-11-21 19:35:34,924 autoreload 15184 15148 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:35:35,281 autoreload 9060 13672 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:35:37,002 log 9060 13864 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 173, in post
+    email_instance = CustomUser.objects.get(email=email)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+apps.users.models.CustomUser.DoesNotExist: CustomUser matching query does not exist.
+INFO 2024-11-21 19:35:48,034 autoreload 9060 13672 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:35:48,436 autoreload 8896 13976 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:35:50,017 log 8896 14680 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\renderers.py", line 100, in render
+    ret = json.dumps(
+          ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\utils\json.py", line 25, in dumps
+    return json.dumps(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "D:\Python\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\json\encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\utils\encoders.py", line 67, in default
+    return super().default(obj)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type CustomUser is not JSON serializable
+INFO 2024-11-21 19:36:49,445 autoreload 8896 13976 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:36:49,798 autoreload 14692 3216 Watching for file changes with StatReloader
+INFO 2024-11-21 19:37:00,404 autoreload 14692 3216 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:37:00,803 autoreload 15036 14892 Watching for file changes with StatReloader
+ERROR 2024-11-21 19:37:02,771 log 15036 2236 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 176, in post
+    if serializer.is_valid(raise_exception=True):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 216, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+INFO 2024-11-21 19:37:10,483 autoreload 15036 14892 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 19:37:10,847 autoreload 2792 7856 Watching for file changes with StatReloader
+INFO 2024-11-21 20:40:52,368 autoreload 2792 7856 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:40:52,791 autoreload 2920 1592 Watching for file changes with StatReloader
+INFO 2024-11-21 20:47:44,084 autoreload 4368 2332 Watching for file changes with StatReloader
+ERROR 2024-11-21 20:47:46,222 log 4368 5740 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\fields.py", line 437, in get_attribute
+    return get_attribute(instance, self.source_attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\fields.py", line 104, in get_attribute
+    instance = getattr(instance, attr)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QuerySet' object has no attribute 'password'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 179, in post
+    return Response(data=serializer.data)
+                         ^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 571, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 525, in to_representation
+    attribute = field.get_attribute(instance)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\fields.py", line 470, in get_attribute
+    raise type(exc)(msg)
+AttributeError: Got AttributeError when attempting to get a value for field `password` on serializer `CustomUserSerializer`.
+The serializer field might be named incorrectly and not match any attribute or key on the `QuerySet` instance.
+Original exception text was: 'QuerySet' object has no attribute 'password'.
+INFO 2024-11-21 20:48:34,633 autoreload 14912 3184 Watching for file changes with StatReloader
+INFO 2024-11-21 20:49:53,027 autoreload 14912 3184 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:49:53,434 autoreload 14504 3264 Watching for file changes with StatReloader
+INFO 2024-11-21 20:50:43,630 autoreload 14504 3264 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:50:43,979 autoreload 8160 2600 Watching for file changes with StatReloader
+INFO 2024-11-21 20:51:02,774 autoreload 8160 2600 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:51:03,135 autoreload 15172 6960 Watching for file changes with StatReloader
+INFO 2024-11-21 20:51:47,801 autoreload 15172 6960 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:51:48,166 autoreload 9016 2572 Watching for file changes with StatReloader
+INFO 2024-11-21 20:54:17,521 autoreload 9016 2572 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:54:17,884 autoreload 11548 15048 Watching for file changes with StatReloader
+INFO 2024-11-21 20:54:47,640 autoreload 11548 15048 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:54:47,980 autoreload 7952 1780 Watching for file changes with StatReloader
+WARNING 2024-11-21 20:55:10,303 log 7952 13196 Not Found: /
+WARNING 2024-11-21 20:55:10,328 log 7952 13196 Not Found: /favicon.ico
+ERROR 2024-11-21 20:56:27,827 log 7952 8380 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail(subject=email, message=f"{serializer.data['otp']}", from_email="test", recipient_list=email)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 82, in send_mail
+    mail = EmailMultiAlternatives(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 462, in __init__
+    super().__init__(
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 219, in __init__
+    raise TypeError('"to" argument must be a list or tuple')
+TypeError: "to" argument must be a list or tuple
+INFO 2024-11-21 20:57:00,012 autoreload 7952 1780 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:57:00,402 autoreload 3224 14836 Watching for file changes with StatReloader
+INFO 2024-11-21 20:58:21,832 autoreload 3224 14836 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 20:58:22,187 autoreload 2536 13060 Watching for file changes with StatReloader
+ERROR 2024-11-21 20:58:30,149 log 2536 2716 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail(email,
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+INFO 2024-11-21 21:00:38,167 autoreload 2536 13060 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-21 21:00:38,525 autoreload 14224 9604 Watching for file changes with StatReloader
+INFO 2024-11-21 21:01:00,815 autoreload 7556 15292 Watching for file changes with StatReloader
+ERROR 2024-11-21 21:01:27,331 log 7556 11732 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail(email,
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-21 21:02:34,757 autoreload 7556 15292 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-21 21:02:35,119 autoreload 15224 14728 Watching for file changes with StatReloader
+ERROR 2024-11-21 21:03:00,135 log 15224 11120 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-21 21:04:59,420 autoreload 15224 14728 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-21 21:05:47,489 autoreload 15048 4784 Watching for file changes with StatReloader
+ERROR 2024-11-21 21:05:53,731 log 15048 6520 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+INFO 2024-11-21 21:08:48,643 autoreload 15048 4784 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-21 21:08:49,012 autoreload 11924 14472 Watching for file changes with StatReloader
+ERROR 2024-11-21 21:08:56,830 log 11924 4872 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+INFO 2024-11-28 19:05:28,406 autoreload 10172 11200 Watching for file changes with StatReloader
+ERROR 2024-11-28 19:05:56,375 log 10172 14888 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-28 19:08:07,049 autoreload 10172 11200 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:08:07,428 autoreload 5556 8992 Watching for file changes with StatReloader
+ERROR 2024-11-28 19:08:36,782 log 5556 14040 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-28 19:09:36,210 autoreload 5556 8992 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:09:36,575 autoreload 12224 10828 Watching for file changes with StatReloader
+ERROR 2024-11-28 19:10:02,193 log 12224 13268 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-28 19:12:14,120 autoreload 12224 10828 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:12:14,514 autoreload 12076 15096 Watching for file changes with StatReloader
+INFO 2024-11-28 19:16:14,842 autoreload 12076 15096 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:16:15,200 autoreload 1680 4036 Watching for file changes with StatReloader
+INFO 2024-11-28 19:16:25,781 autoreload 1680 4036 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:16:26,139 autoreload 16004 16016 Watching for file changes with StatReloader
+ERROR 2024-11-28 19:16:51,439 log 16004 8776 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-28 19:17:20,053 autoreload 16004 16016 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:17:20,429 autoreload 15892 15932 Watching for file changes with StatReloader
+INFO 2024-11-28 19:17:42,433 autoreload 15892 15932 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:17:42,822 autoreload 15728 8804 Watching for file changes with StatReloader
+ERROR 2024-11-28 19:18:07,281 log 15728 10420 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-28 19:18:33,635 autoreload 15728 8804 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:18:34,011 autoreload 9112 14692 Watching for file changes with StatReloader
+ERROR 2024-11-28 19:18:58,849 log 9112 292 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 19:19:14,804 log 9112 16228 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-28 19:19:55,567 autoreload 9112 14692 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:19:55,943 autoreload 15348 3076 Watching for file changes with StatReloader
+INFO 2024-11-28 19:32:18,935 autoreload 15348 3076 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 19:32:19,324 autoreload 11056 4180 Watching for file changes with StatReloader
+ERROR 2024-11-28 19:32:52,004 log 11056 2748 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 21:37:30,608 log 11056 16584 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 21:55:03,485 log 11056 16624 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-28 21:55:19,502 autoreload 11056 4180 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-28 21:55:19,888 autoreload 3488 16736 Watching for file changes with StatReloader
+ERROR 2024-11-28 21:55:45,380 log 3488 15976 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 21:57:07,158 log 3488 16624 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 21:59:43,606 log 3488 16400 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 22:01:38,886 log 3488 16496 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 22:09:51,995 log 3488 6080 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 22:10:44,080 log 3488 6080 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 22:12:34,861 log 3488 11196 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-28 22:13:21,150 log 3488 11196 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-30 12:00:42,138 autoreload 6448 4356 Watching for file changes with StatReloader
+ERROR 2024-11-30 12:01:33,234 log 6448 14108 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-30 12:16:11,775 log 6448 3772 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-30 12:18:51,268 autoreload 6448 4356 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-11-30 12:18:51,633 autoreload 4532 12488 Watching for file changes with StatReloader
+ERROR 2024-11-30 12:19:16,196 log 4532 6936 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+ERROR 2024-11-30 12:21:16,039 log 4532 10244 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-11-30 12:22:36,748 autoreload 4532 12488 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-11-30 12:22:37,103 autoreload 5516 8496 Watching for file changes with StatReloader
+ERROR 2024-11-30 12:23:02,103 log 5516 9224 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера

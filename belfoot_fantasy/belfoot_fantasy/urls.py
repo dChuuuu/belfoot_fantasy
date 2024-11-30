@@ -16,15 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from apps.users.views import RegisterUser, TokenAuthUser, SecuredView, LoginUser, LogoutUser
+from apps.users.views import RegisterUser, TokenAuthUser, SecuredView, LoginUser, LogoutUser, ForgotPassword
 
-
+#//TODO РОУТЕРЫ
 urlpatterns = [
     path('users/admin/', admin.site.urls),
     path('users/auth/register', RegisterUser.as_view(), name='register_user'),
     path('users/auth/token_check', TokenAuthUser.as_view(), name='token_check'),
     path('users/auth/login', LoginUser.as_view(), name='login_user'),
-    path('users/auth/secured_view', SecuredView.as_view()),
-    path('users/auth/logout', LogoutUser.as_view())
-
+    path('users/auth/secured_view', SecuredView.as_view(), name='test_secured_view'),
+    path('users/auth/logout', LogoutUser.as_view(), name='logout_user'),
+    path('users/auth/forgot_password', ForgotPassword.as_view(), name='forgot_password')
 ]

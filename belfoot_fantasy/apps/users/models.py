@@ -81,6 +81,9 @@ class CustomUser(AbstractUser):
     # refresh-токен для обновления access-токена. По умолчанию None
     refresh_token = models.TextField(null=True)
 
+    # одноразовый код для восстановления пароля пользователя
+    otp = models.CharField(max_length=6, null=True, blank=True)
+
     def __str__(self):
         return self.username
 

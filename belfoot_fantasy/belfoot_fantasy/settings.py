@@ -237,4 +237,16 @@ LOGGING = {
     }
 }
 
-#//TODO АДМИНКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# SERVER_EMAIL = 'root@bf13.by'
+# EMAIL_PORT = '25'
+# EMAIL_HOST = '45.135.234.125'
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'dustychuuu@gmail.com'
+
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'bf13.by'
+EMAIL_PORT = 25
+EMAIL_USER = ''
+EMAIL_PASSWORD = ''
+SERVER_EMAIL = 'root@bf13.by'

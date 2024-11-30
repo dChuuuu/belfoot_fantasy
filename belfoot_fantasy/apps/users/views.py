@@ -1,3 +1,5 @@
+from random import randint
+
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -21,6 +23,7 @@ import re
 
 import jwt
 
+from django.core.mail import send_mail
 from django.conf import settings
 
 
@@ -71,19 +74,21 @@ class RegisterUser(APIView):
             username = request.data['username']
             password = request.data['password']
             email = request.data['email']
+            otp = str(randint(100000, 999999))
 
         except:
             return Response({"Ошибка": "Некорректные либо неполные данные"}, status=status.HTTP_400_BAD_REQUEST)
 
         data = {"username": username,
                 "password": password,
-                "email": email}
+                "email": email,
+                "otp": otp}
 
         serializer = CustomUserSerializer(data=data)
 
         # Проверка корректности данных для связей в БД, создание записи пользователя в БД и генерация токена
         if serializer.is_valid():
-            user = CustomUser.objects.create(username=username, password=password, email=email)
+            user = CustomUser.objects.create(username=username, password=password, email=email, otp=otp)
             return token_cookie(user)
 
         # Улучшение отображения внешнего вида ошибок
@@ -160,3 +165,24 @@ class SecuredView(APIView):
     def get(self, request):
 
         return Response('Успешный запрос')
+
+
+@authentication_classes([])
+@permission_classes([])
+class ForgotPassword(APIView):
+    '''Представление для сброса пароля пользователя'''
+
+    def post(self, request):
+        email = request.data['email']
+        email_instance = CustomUser.objects.get(email=email)
+        #data = {'email': email_instance['email']}
+        serializer = CustomUserSerializer(instance=email_instance)
+        send_mail('Subject is here',
+        '{serializer.data["otp"]}',
+    "root@bf13.by",
+    ['{serializer.data["otp"]}'],
+    fail_silently=False,)
+
+        #reset_link = f'users/auth/reset/{user_link}'
+
+        return Response(data=serializer.data)
