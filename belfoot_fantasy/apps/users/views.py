@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
@@ -67,7 +69,26 @@ def auth(request):
 class RegisterUser(APIView):
     '''Класс для регистрации пользователей, принимающий только один метод POST'''
 
+    request_schema_dict = openapi.Schema(
+        title=("Регистрация пользователя"),
+        type=openapi.TYPE_OBJECT,
+        properties={
 
+            'username': openapi.Schema(type=openapi.TYPE_STRING,
+                                    description=('Имя пользователя'),
+                                    example='test'),
+
+            'password': openapi.Schema(type=openapi.TYPE_STRING,
+                                      description=('Пароль пользователя'),
+                                      example="123321"),
+
+            'email': openapi.Schema(type=openapi.TYPE_STRING,
+                                      description=(
+                                          'Почта пользователя'),
+                                      example="someuser@example.com"),
+        }
+    )
+    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
 
         # Проверка корректности ввода данных для валидации
@@ -105,12 +126,20 @@ class RegisterUser(APIView):
 @permission_classes([])
 class TokenAuthUser(APIView):
     '''Аутентификация пользователя через JWT'''
+    request_schema_dict = openapi.Schema(
+        title=("Проверка токена. Сюда просто отправляем post-запрос без тела запроса от имени пользователя,"
+               " сервер анализирует куки сам"),
+        type=openapi.TYPE_OBJECT,
+
+    )
+
+    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
 
         # Проверка на наличие и валидность access-токена //TODO ЛОГИКА ДАЛЬШЕ
         try:
             JWTAuthentication().authenticate(request)
-            return Response(data=f'ЗДЕСЬ{JWTAuthentication().authenticate(request)}')
+            return Response(status=status.HTTP_200_OK)
         # Исключение на случай его отсутствия. Сначала проверяем наличие refresh-токена и генерируем новую пару.
         # Если токен невалиден, или отсутствует, редирект на обычную страницу логина //TODO ПРОВЕРКА ВАЛИДНОСТИ КАК? + ФУНКЦИИ
         except:
@@ -129,7 +158,25 @@ class TokenAuthUser(APIView):
 @authentication_classes([])
 @permission_classes([])
 class LoginUser(APIView):
-    '''Представление для логина пользователя. Требуется только токен'''
+    '''Обычный логин по паролю. Используется, если отсутствует access-token и refresh-token в куках клиента'''
+    request_schema_dict = openapi.Schema(
+        title=("Регистрация пользователя"),
+        type=openapi.TYPE_OBJECT,
+        properties={
+
+            'username': openapi.Schema(type=openapi.TYPE_STRING,
+                                       description=('Имя пользователя'),
+                                       example='test'),
+
+            'password': openapi.Schema(type=openapi.TYPE_STRING,
+                                       description=('Пароль пользователя'),
+                                       example="123321"),
+
+
+        }
+    )
+
+    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
         data = request.data
         serializer = CustomUserSerializer(data=data)
@@ -141,6 +188,13 @@ class LoginUser(APIView):
 @permission_classes([IsAuthenticated])
 class LogoutUser(APIView):
     '''Представление для логаута пользователя. Аутентификация необходима'''
+    request_schema_dict = openapi.Schema(
+        title=("Логаут пользователя. Боди пустое, должны быть куки с токенами"),
+        type=openapi.TYPE_OBJECT,
+
+    )
+
+    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
         refresh = request.COOKIES['refresh_token']
         refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
@@ -161,7 +215,7 @@ class LogoutUser(APIView):
 
 @permission_classes([IsAuthenticated])
 class SecuredView(APIView):
-    '''Тестовое представление для проверки прав доступа(авторизации)'''
+    '''Тестовое представление для проверки прав доступа(авторизации)!!!ДЛЯ БЭКЕНДА'''
 
     def get(self, request):
 
@@ -172,7 +226,20 @@ class SecuredView(APIView):
 @permission_classes([])
 class ForgotPassword(APIView):
     '''Представление для получения otp'''
+    request_schema_dict = openapi.Schema(
+        title=("Получение одноразового кода для сброса пароля на почту юзера. На фронте после этого надо будет делать редирект"
+               "на страницу для ввода кода"),
+        type=openapi.TYPE_OBJECT,
+        properties={
 
+            'email': openapi.Schema(type=openapi.TYPE_STRING,
+                                    description=(
+                                        'Почта пользователя'),
+                                    example="someuser@example.com"),
+        }
+    )
+
+    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
         email = request.data['email']
         email_instance = CustomUser.objects.get(email=email)
@@ -198,6 +265,27 @@ class ForgotPassword(APIView):
 class ResetPassword(APIView):
     '''Представление для сброса пароля и генерации нового otp'''
 
+    request_schema_dict = openapi.Schema(
+        title=("Ввод кода для смены пароля + смена пароля"),
+        type=openapi.TYPE_OBJECT,
+        properties={
+
+            'otp': openapi.Schema(type=openapi.TYPE_STRING,
+                                       description=('Одноразовый пароль'),
+                                       example='test'),
+
+            'new_password': openapi.Schema(type=openapi.TYPE_STRING,
+                                       description=('Новый пароль пользователя'),
+                                       example="12332321"),
+
+            'email': openapi.Schema(type=openapi.TYPE_STRING,
+                                    description=(
+                                        'Почта пользователя'),
+                                    example="someuser@example.com"),
+        }
+    )
+
+    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
         otp = request.data['otp']
         email = request.data['email']

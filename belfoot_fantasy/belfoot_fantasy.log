@@ -2531,3 +2531,98 @@ INFO 2024-12-04 18:51:58,212 autoreload 13904 7692 D:\my_projects\belfoot_fantas
 INFO 2024-12-04 18:51:58,578 autoreload 11804 5760 Watching for file changes with StatReloader
 INFO 2024-12-04 18:53:37,575 autoreload 11804 5760 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
 INFO 2024-12-04 18:53:37,944 autoreload 15136 12488 Watching for file changes with StatReloader
+INFO 2024-12-04 19:25:16,012 autoreload 6512 6840 Watching for file changes with StatReloader
+INFO 2024-12-04 19:26:38,364 autoreload 12348 16192 Watching for file changes with StatReloader
+INFO 2024-12-04 19:26:54,973 autoreload 4980 8816 Watching for file changes with StatReloader
+INFO 2024-12-04 19:27:11,207 autoreload 3244 14532 Watching for file changes with StatReloader
+ERROR 2024-12-04 19:27:27,213 log 3244 16308 Internal Server Error: /swagger-ui/
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: swaggerui/swaggerui.html
+INFO 2024-12-04 19:29:03,733 autoreload 3244 14532 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 19:29:04,117 autoreload 2200 7304 Watching for file changes with StatReloader
+WARNING 2024-12-04 19:29:13,773 log 2200 12488 Unauthorized: /swagger/
+INFO 2024-12-04 19:31:22,304 autoreload 2200 7304 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 19:31:22,683 autoreload 8780 9784 Watching for file changes with StatReloader
+WARNING 2024-12-04 19:31:25,291 log 8780 16132 Unauthorized: /swagger/
+INFO 2024-12-04 19:31:56,030 autoreload 8780 9784 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 19:31:56,402 autoreload 2332 7288 Watching for file changes with StatReloader
+WARNING 2024-12-04 19:31:59,321 log 2332 12688 Unauthorized: /swagger/
+INFO 2024-12-04 19:32:36,962 autoreload 2332 7288 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 19:32:37,338 autoreload 15572 8084 Watching for file changes with StatReloader
+INFO 2024-12-04 19:33:33,196 autoreload 15572 8084 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-12-04 19:33:33,573 autoreload 13468 13316 Watching for file changes with StatReloader
+ERROR 2024-12-04 19:33:36,731 log 13468 12832 Internal Server Error: /swagger/
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\drf_yasg\renderers.py", line 79, in render
+    return render_to_string(self.template, renderer_context, renderer_context['request'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: drf-yasg/swagger-ui.html
+INFO 2024-12-04 19:35:15,746 autoreload 13468 13316 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-12-04 19:35:16,149 autoreload 15948 8828 Watching for file changes with StatReloader
+INFO 2024-12-04 19:39:48,994 autoreload 15948 8828 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:39:49,453 autoreload 12432 15464 Watching for file changes with StatReloader
+INFO 2024-12-04 19:41:34,337 autoreload 12432 15464 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:41:34,780 autoreload 2440 16148 Watching for file changes with StatReloader
+INFO 2024-12-04 19:42:40,928 autoreload 2440 16148 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:42:41,466 autoreload 3432 7008 Watching for file changes with StatReloader
+INFO 2024-12-04 19:43:23,012 autoreload 3432 7008 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:43:23,393 autoreload 15600 8916 Watching for file changes with StatReloader
+INFO 2024-12-04 19:46:24,809 autoreload 15600 8916 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:46:25,238 autoreload 11612 9964 Watching for file changes with StatReloader
+WARNING 2024-12-04 19:47:01,885 log 11612 4468 Bad Request: /users/auth/register
+INFO 2024-12-04 19:49:58,650 autoreload 11612 9964 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:49:59,150 autoreload 16076 13304 Watching for file changes with StatReloader
+INFO 2024-12-04 19:50:59,138 autoreload 16076 13304 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:50:59,552 autoreload 12232 13496 Watching for file changes with StatReloader
+INFO 2024-12-04 19:52:04,790 autoreload 12232 13496 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:52:05,186 autoreload 16304 1884 Watching for file changes with StatReloader
+INFO 2024-12-04 19:53:37,005 autoreload 16304 1884 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:53:37,395 autoreload 9904 1852 Watching for file changes with StatReloader
+INFO 2024-12-04 19:54:59,069 autoreload 9904 1852 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:54:59,494 autoreload 12640 15748 Watching for file changes with StatReloader
+INFO 2024-12-04 19:56:02,723 autoreload 12640 15748 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:56:03,138 autoreload 15820 4076 Watching for file changes with StatReloader
+INFO 2024-12-04 19:56:26,178 autoreload 15820 4076 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:56:26,566 autoreload 15600 3928 Watching for file changes with StatReloader
+INFO 2024-12-04 19:57:33,745 autoreload 15600 3928 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:57:34,127 autoreload 11740 5832 Watching for file changes with StatReloader
+INFO 2024-12-04 19:58:10,474 autoreload 11740 5832 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:58:10,856 autoreload 15680 3036 Watching for file changes with StatReloader
+INFO 2024-12-04 19:58:35,914 autoreload 15680 3036 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:58:36,300 autoreload 13868 8832 Watching for file changes with StatReloader
+INFO 2024-12-04 19:58:40,782 autoreload 13868 8832 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 19:58:41,173 autoreload 14372 12996 Watching for file changes with StatReloader
