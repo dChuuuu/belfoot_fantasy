@@ -2188,3 +2188,346 @@ Traceback (most recent call last):
   File "D:\Python\Lib\socket.py", line 836, in create_connection
     sock.connect(sa)
 TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-12-02 18:57:13,738 autoreload 13152 11816 Watching for file changes with StatReloader
+ERROR 2024-12-02 18:57:57,325 log 13152 11732 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "D:\Python\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера
+INFO 2024-12-02 18:58:00,532 autoreload 13152 11816 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\settings.py changed, reloading.
+INFO 2024-12-02 18:58:00,909 autoreload 11404 2916 Watching for file changes with StatReloader
+ERROR 2024-12-02 18:58:06,574 log 11404 2296 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 180, in post
+    send_mail('Subject is here',
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\__init__.py", line 88, in send_mail
+    return mail.send()
+           ^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 136, in send_messages
+    sent = self._send(message)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\mail\backends\smtp.py", line 155, in _send
+    self.connection.sendmail(
+  File "D:\Python\Lib\smtplib.py", line 901, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'dustychuuu@gmail.com': (454, b'4.7.1 <dustychuuu@gmail.com>: Relay access denied')}
+INFO 2024-12-04 18:13:19,974 autoreload 2632 2748 Watching for file changes with StatReloader
+INFO 2024-12-04 18:16:34,439 autoreload 2632 2748 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:16:34,821 autoreload 2584 6528 Watching for file changes with StatReloader
+INFO 2024-12-04 18:16:48,496 autoreload 2584 6528 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:16:48,855 autoreload 13564 3224 Watching for file changes with StatReloader
+WARNING 2024-12-04 18:16:54,452 log 13564 3652 Bad Request: /users/auth/register
+INFO 2024-12-04 18:18:53,683 autoreload 13564 3224 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:18:54,049 autoreload 13452 11588 Watching for file changes with StatReloader
+INFO 2024-12-04 18:22:23,750 autoreload 13452 11588 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:22:24,140 autoreload 1248 14900 Watching for file changes with StatReloader
+ERROR 2024-12-04 18:22:51,782 log 1248 5320 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 187, in post
+    if serializer.is_valid(raise_exception=True):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 216, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+INFO 2024-12-04 18:25:55,139 autoreload 1248 14900 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:25:55,508 autoreload 964 9416 Watching for file changes with StatReloader
+ERROR 2024-12-04 18:25:59,402 log 964 11668 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 189, in post
+    serializer.save()
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 176, in save
+    assert hasattr(self, '_errors'), (
+AssertionError: You must call `.is_valid()` before calling `.save()`.
+INFO 2024-12-04 18:27:19,267 autoreload 964 9416 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:27:19,622 autoreload 4940 13056 Watching for file changes with StatReloader
+ERROR 2024-12-04 18:27:23,121 log 4940 5580 Internal Server Error: /users/auth/forgot_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 189, in post
+    if serializer.is_valid(raise_exception=True):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\serializers.py", line 216, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+INFO 2024-12-04 18:27:31,484 autoreload 4940 13056 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:27:31,858 autoreload 1584 7932 Watching for file changes with StatReloader
+WARNING 2024-12-04 18:27:35,826 log 1584 6628 Bad Request: /users/auth/forgot_password
+INFO 2024-12-04 18:28:20,527 autoreload 1584 7932 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:28:20,883 autoreload 7452 5920 Watching for file changes with StatReloader
+INFO 2024-12-04 18:28:51,094 autoreload 7452 5920 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:28:51,478 autoreload 13428 14556 Watching for file changes with StatReloader
+INFO 2024-12-04 18:32:50,826 autoreload 13428 14556 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:32:51,180 autoreload 7252 7408 Watching for file changes with StatReloader
+INFO 2024-12-04 18:35:24,431 autoreload 7252 7408 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:35:24,803 autoreload 4868 12232 Watching for file changes with StatReloader
+INFO 2024-12-04 18:36:18,526 autoreload 4868 12232 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:36:19,076 autoreload 10424 8792 Watching for file changes with StatReloader
+INFO 2024-12-04 18:39:09,077 autoreload 10424 8792 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:39:09,461 autoreload 12988 13504 Watching for file changes with StatReloader
+INFO 2024-12-04 18:39:51,889 autoreload 12988 13504 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 18:39:52,256 autoreload 13716 14524 Watching for file changes with StatReloader
+INFO 2024-12-04 18:40:33,670 autoreload 13716 14524 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:40:34,035 autoreload 13480 14604 Watching for file changes with StatReloader
+WARNING 2024-12-04 18:41:07,206 log 13480 6788 Not Found: /users/auth/reset_password
+WARNING 2024-12-04 18:41:15,509 log 13480 6788 Not Found: /users/auth/forgot_password/reset_password
+INFO 2024-12-04 18:41:24,799 autoreload 13480 14604 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 18:41:25,166 autoreload 12440 7576 Watching for file changes with StatReloader
+WARNING 2024-12-04 18:41:27,909 log 12440 9728 Forbidden (CSRF token missing.): /users/auth/forgot_password/reset_password
+WARNING 2024-12-04 18:42:49,944 log 12440 12824 Forbidden (CSRF cookie not set.): /users/auth/forgot_password/reset_password
+WARNING 2024-12-04 18:43:07,367 log 12440 12824 Bad Request: /users/auth/register
+WARNING 2024-12-04 18:43:51,171 log 12440 12824 Forbidden (CSRF cookie not set.): /users/auth/forgot_password/reset_password
+INFO 2024-12-04 18:46:05,929 autoreload 12440 7576 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:46:06,291 autoreload 10760 5164 Watching for file changes with StatReloader
+INFO 2024-12-04 18:46:13,797 autoreload 10760 5164 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:46:14,183 autoreload 10368 4736 Watching for file changes with StatReloader
+INFO 2024-12-04 18:47:07,862 autoreload 10368 4736 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:47:08,223 autoreload 8416 11548 Watching for file changes with StatReloader
+INFO 2024-12-04 18:47:17,584 autoreload 8416 11548 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:47:17,951 autoreload 12676 10132 Watching for file changes with StatReloader
+INFO 2024-12-04 18:47:57,076 autoreload 12676 10132 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 18:47:57,438 autoreload 9556 5164 Watching for file changes with StatReloader
+ERROR 2024-12-04 18:47:59,861 log 9556 10916 Internal Server Error: /users/auth/forgot_password/reset_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: APIView.as_view() takes 1 positional argument but 2 were given
+INFO 2024-12-04 18:48:13,416 autoreload 9556 5164 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 18:48:13,783 autoreload 5636 3416 Watching for file changes with StatReloader
+ERROR 2024-12-04 18:48:15,882 log 5636 5320 Internal Server Error: /users/auth/forgot_password/reset_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: View.__init__() takes 1 positional argument but 2 were given
+INFO 2024-12-04 18:48:26,535 autoreload 5636 3416 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 18:48:26,897 autoreload 12800 12340 Watching for file changes with StatReloader
+INFO 2024-12-04 18:48:29,281 autoreload 12800 12340 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 18:48:29,637 autoreload 15016 8584 Watching for file changes with StatReloader
+ERROR 2024-12-04 18:48:37,950 log 15016 10324 Internal Server Error: /users/auth/forgot_password/reset_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 511, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 423, in finalize_response
+    assert isinstance(response, HttpResponseBase), (
+AssertionError: Expected a `Response`, `HttpResponse` or `StreamingHttpResponse` to be returned from the view, but received a `<class 'NoneType'>`
+INFO 2024-12-04 18:48:52,645 autoreload 15016 8584 D:\my_projects\belfoot_fantasy\belfoot_fantasy\belfoot_fantasy\urls.py changed, reloading.
+INFO 2024-12-04 18:48:53,015 autoreload 10608 1860 Watching for file changes with StatReloader
+ERROR 2024-12-04 18:48:54,592 log 10608 6388 Internal Server Error: /users/auth/forgot_password/reset_password
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 511, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 423, in finalize_response
+    assert isinstance(response, HttpResponseBase), (
+AssertionError: Expected a `Response`, `HttpResponse` or `StreamingHttpResponse` to be returned from the view, but received a `<class 'NoneType'>`
+INFO 2024-12-04 18:49:28,402 autoreload 10608 1860 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:49:28,835 autoreload 13904 7692 Watching for file changes with StatReloader
+INFO 2024-12-04 18:51:58,212 autoreload 13904 7692 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:51:58,578 autoreload 11804 5760 Watching for file changes with StatReloader
+INFO 2024-12-04 18:53:37,575 autoreload 11804 5760 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-04 18:53:37,944 autoreload 15136 12488 Watching for file changes with StatReloader

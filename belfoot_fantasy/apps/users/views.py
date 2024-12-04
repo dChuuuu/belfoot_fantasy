@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
@@ -170,19 +171,44 @@ class SecuredView(APIView):
 @authentication_classes([])
 @permission_classes([])
 class ForgotPassword(APIView):
-    '''Представление для сброса пароля пользователя'''
+    '''Представление для получения otp'''
 
     def post(self, request):
         email = request.data['email']
         email_instance = CustomUser.objects.get(email=email)
         #data = {'email': email_instance['email']}
         serializer = CustomUserSerializer(instance=email_instance)
-        send_mail('Subject is here',
-        '{serializer.data["otp"]}',
+        send_mail('Код для восстановления пароля',
+        f'Ваш код для восстановления пароля - {serializer.data["otp"]}. Не передавайте его никому',
     "root@bf13.by",
-    ['{serializer.data["otp"]}'],
-    fail_silently=False,)
+    [f'{email}'],
+        fail_silently=False,)
 
-        #reset_link = f'users/auth/reset/{user_link}'
+        #otp = str(randint(100000, 999999))
+        #email_instance.otp = otp
+        #email_instance.save()
+        #if serializer.is_valid(raise_exception=True):
+            #serializer.save()
+        return Response(data=email_instance.otp)
 
-        return Response(data=serializer.data)
+
+@authentication_classes([])
+@permission_classes([])
+
+class ResetPassword(APIView):
+    '''Представление для сброса пароля и генерации нового otp'''
+
+    def post(self, request):
+        otp = request.data['otp']
+        email = request.data['email']
+        new_password = request.data['new_password']
+        email_instance = CustomUser.objects.get(email=email)
+        if otp == email_instance.otp:
+            email_instance.password = new_password
+            email_instance.otp = str(randint(100000, 999999))
+            email_instance.save()
+
+            return Response(data=f'{email_instance.password}', status=status.HTTP_200_OK)
+        return Response(data=f'{otp}, {email_instance.otp}')
+
+
