@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.users.views import RegisterUser, TokenAuthUser, SecuredView, LoginUser, LogoutUser, ForgotPassword, ResetPassword
+from apps.users.views import (RegisterUser, TokenAuthUser, SecuredView, LoginUser, LogoutUser, ForgotPassword,
+                              ResetPassword, BanUser)
 from django.views.generic import TemplateView
 from drf_yasg.views import get_schema_view  # new
 from drf_yasg import openapi  # new
@@ -46,5 +47,6 @@ urlpatterns = [
     path('users/auth/secured_view', SecuredView.as_view(), name='test_secured_view'),
     path('users/auth/logout', LogoutUser.as_view(), name='logout_user'),
     path('users/auth/forgot_password', ForgotPassword.as_view(), name='forgot_password'),
-    path('users/auth/forgot_password/reset_password', ResetPassword.as_view(), name='reset_password')
+    path('users/auth/forgot_password/reset_password', ResetPassword.as_view(), name='reset_password'),
+    path('users/auth/ban', BanUser.as_view(), name='ban_user')
 ]

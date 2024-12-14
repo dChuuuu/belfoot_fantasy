@@ -1,7 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.utils.translation import gettext_lazy as _
+
 
 class CustomUserManager(BaseUserManager):
     """
@@ -83,6 +83,9 @@ class CustomUser(AbstractUser):
 
     # одноразовый код для восстановления пароля пользователя
     otp = models.CharField(max_length=6, null=True, blank=True)
+
+    # статус бана
+    banned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username

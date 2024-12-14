@@ -33,6 +33,7 @@ from django.conf import settings
 def token_cookie(user):
     '''Функция принимает пользователя как объект, генерирует рефреш-токен и сохраняет его в пользовательскую БД
        После чего создаётся экземпляр запроса, устанавливаются куки и токены возвращаются в куки'''
+    #//TODO ДОБАВИТЬ СОЛЬ+ПЕРЕЦ
     refresh = RefreshToken.for_user(user)
     user.refresh_token = refresh
     user.save()
@@ -64,6 +65,23 @@ def auth(request):
             return Response('Необходимо заново пройти аутентификацию')
 
 
+def banned_user(request):
+    try:
+        username = request.data['username']
+        user = CustomUser.objects.get(username=username)
+    except:
+        email = request.data['email']
+        user = CustomUser.objects.get(email=email)
+
+    if user.banned:
+        return True
+
+    return False
+
+
+
+    
+
 @authentication_classes([])
 @permission_classes([])
 class RegisterUser(APIView):
@@ -91,12 +109,13 @@ class RegisterUser(APIView):
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
 
-        # Проверка корректности ввода данных для валидации
+        # Проверка корректности ввода данных для валидации //TODO ВАЛИДАТОР ЛОГИНА И ПАРОЛЯ
         try:
             username = request.data['username']
             password = request.data['password']
             email = request.data['email']
             otp = str(randint(100000, 999999))
+
 
         except:
             return Response({"Ошибка": "Некорректные либо неполные данные"}, status=status.HTTP_400_BAD_REQUEST)
@@ -111,7 +130,8 @@ class RegisterUser(APIView):
         # Проверка корректности данных для связей в БД, создание записи пользователя в БД и генерация токена
         if serializer.is_valid():
             user = CustomUser.objects.create(username=username, password=password, email=email, otp=otp)
-            return token_cookie(user)
+            response = token_cookie(user)
+            return response
 
         # Улучшение отображения внешнего вида ошибок
         errors_list = serializer.errors.items()
@@ -127,21 +147,29 @@ class RegisterUser(APIView):
 class TokenAuthUser(APIView):
     '''Аутентификация пользователя через JWT'''
     request_schema_dict = openapi.Schema(
-        title=("Проверка токена. Сюда просто отправляем post-запрос без тела запроса от имени пользователя,"
-               " сервер анализирует куки сам"),
+        title=("Проверка токена. Обязательно имя пользователя"),
         type=openapi.TYPE_OBJECT,
+        properties={
 
+            'username': openapi.Schema(type=openapi.TYPE_STRING,
+                                       description=('Имя пользователя'),
+                                       example='test'),}
     )
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
 
         # Проверка на наличие и валидность access-токена //TODO ЛОГИКА ДАЛЬШЕ
+
+        if banned_user(request):
+            return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
+                            status=status.HTTP_403_FORBIDDEN)
+
         try:
-            JWTAuthentication().authenticate(request)
-            return Response(status=status.HTTP_200_OK)
-        # Исключение на случай его отсутствия. Сначала проверяем наличие refresh-токена и генерируем новую пару.
-        # Если токен невалиден, или отсутствует, редирект на обычную страницу логина //TODO ПРОВЕРКА ВАЛИДНОСТИ КАК? + ФУНКЦИИ
+                JWTAuthentication().authenticate(request)
+
+                return Response(status=status.HTTP_200_OK)
+
         except:
             try:
                 refresh = request.COOKIES['refresh_token']
@@ -150,9 +178,16 @@ class TokenAuthUser(APIView):
                 user = CustomUser.objects.get(id=user_id)
                 if user.refresh_token == refresh:
                     return token_cookie(user)
+                else:
+                    return Response(data=request.COOKIES['refresh_token'], status=status.HTTP_403_FORBIDDEN)
 
             except:
-                    return Response('Необходимо заново пройти аутентификацию')
+                    return Response('Необходимо заново пройти аутентификацию', status=status.HTTP_403_FORBIDDEN)
+
+        # Исключение на случай его отсутствия. Сначала проверяем наличие refresh-токена и генерируем новую пару.
+        # Если токен невалиден, или отсутствует, редирект на обычную страницу логина //TODO ПРОВЕРКА ВАЛИДНОСТИ КАК? + ФУНКЦИИ
+
+
 
 
 @authentication_classes([])
@@ -177,15 +212,24 @@ class LoginUser(APIView):
     )
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
+
     def post(self, request):
+
         data = request.data
         serializer = CustomUserSerializer(data=data)
-        user = CustomUser.objects.get(username=data['username'])
+        try:
+            user = CustomUser.objects.get(username=data['username'])
+            if banned_user(request=request):
+                return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
+                                status=status.HTTP_403_FORBIDDEN)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         if user.password == data['password']:
             return token_cookie(user)
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
 
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 class LogoutUser(APIView):
     '''Представление для логаута пользователя. Аутентификация необходима'''
     request_schema_dict = openapi.Schema(
@@ -241,6 +285,8 @@ class ForgotPassword(APIView):
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
+        if banned_user(request=request):
+            return Response(data={'Статус пользователя': 'Пользователь заблокирован'}, status=status.HTTP_403_FORBIDDEN)
         email = request.data['email']
         email_instance = CustomUser.objects.get(email=email)
         #data = {'email': email_instance['email']}
@@ -287,16 +333,55 @@ class ResetPassword(APIView):
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
+
         otp = request.data['otp']
         email = request.data['email']
         new_password = request.data['new_password']
-        email_instance = CustomUser.objects.get(email=email)
+
+        try:
+            email_instance = CustomUser.objects.get(email=email)
+            if banned_user(request):
+                return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
+                                status=status.HTTP_403_FORBIDDEN)
+
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
         if otp == email_instance.otp:
             email_instance.password = new_password
             email_instance.otp = str(randint(100000, 999999))
             email_instance.save()
 
             return Response(data=f'{email_instance.password}', status=status.HTTP_200_OK)
-        return Response(data=f'{otp}, {email_instance.otp}')
+
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+class BanUser(APIView):
+    '''Представление для блокировки пользователей'''
+    request_schema_dict = openapi.Schema(
+        title=("Бан пользователя по юзернейму"),
+        type=openapi.TYPE_OBJECT,
+        properties={
+
+            'username': openapi.Schema(type=openapi.TYPE_STRING,
+                                  description=('Имя пользователя'),
+                                  example='test')
+
+        }
+    )
+    def post(self, request):
+
+        try:
+            username = request.data['username']
+            user = CustomUser.objects.get(username=username)
+            user.refresh_token = None
+            user.banned = True
+            user.save()
+
+            return Response(status=status.HTTP_200_OK)
+
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 

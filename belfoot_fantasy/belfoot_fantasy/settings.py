@@ -158,13 +158,7 @@ CSRF_TRUSTED_ORIGINS = []   # Доверенные домены, для кото
 FIXTURE_DIRS = []
 
 # Настройки REST
-#REST_FRAMEWORK = {
-    #'DEFAULT_AUTHENTICATION_CLASSES': (
-
-        #'rest_framework_simplejwt.authentication.JWTAuthentication',
-    #)
-
-#}
+REST_FRAMEWORK = {}
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
