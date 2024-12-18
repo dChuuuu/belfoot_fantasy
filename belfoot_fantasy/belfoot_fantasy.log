@@ -1626,3 +1626,6 @@ WARNING 2024-12-18 17:52:53,201 log 218815 139871028688704 Not Found: /
 WARNING 2024-12-18 17:52:55,292 log 219778 139871028688704 Not Found: /
 WARNING 2024-12-18 17:53:03,783 log 219780 139871028688704 Not Found: /
 WARNING 2024-12-18 18:09:53,028 log 219782 139871028688704 Not Found: /restore.php
+INFO 2024-12-18 18:20:55,181 autoreload 12476 15480 Watching for file changes with StatReloader
+INFO 2024-12-18 18:22:11,472 autoreload 2244 2916 Watching for file changes with StatReloader
+WARNING 2024-12-18 18:22:13,502 log 2244 14132 Method Not Allowed: /users/auth/login
