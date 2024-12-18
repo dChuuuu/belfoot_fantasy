@@ -13,6 +13,7 @@ from datetime import timedelta
 from pathlib import Path
 import os
 from . import env
+import mimetypes
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,7 +49,7 @@ except:
     }
 
 # Режим разработчика. Выключить при проде
-DEBUG = True
+DEBUG = False 
 
 # Хосты, которые будет обслуживать фреймворк. //TODO РАССМОТРЕТЬ ВОЗМОЖНОСТЬ ИСПОЛЬЗОВАНИЯ КОНКРЕТНОГО ИМЕНИ ХОСТА
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -74,9 +75,10 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+SECURE_CONTENT_TYPE_NOSNIFF = False
+#mimetypes.add_type("text/css", ".css", True)
 # Хранилище урлов
 ROOT_URLCONF = 'belfoot_fantasy.urls'
 
@@ -143,6 +145,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

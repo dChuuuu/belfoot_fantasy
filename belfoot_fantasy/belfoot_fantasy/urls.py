@@ -40,7 +40,7 @@ schema_view = get_schema_view(
 #//TODO РОУТЕРЫ
 urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('users/admin/', admin.site.urls),
+    #path('users/admin/', admin.site.urls),
     path('users/auth/register', RegisterUser.as_view(), name='register_user'),
     path('users/auth/token_check', TokenAuthUser.as_view(), name='token_check'),
     path('users/auth/login', LoginUser.as_view(), name='login_user'),
