@@ -49,7 +49,7 @@ except:
     }
 
 # Режим разработчика. Выключить при проде
-DEBUG = False 
+DEBUG = True 
 
 # Хосты, которые будет обслуживать фреймворк.
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -208,36 +208,36 @@ SIMPLE_JWT = {
 }
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s '
-                      '%(process)d %(thread)d %(message)s'
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'belfoot_fantasy.log',
-            'formatter': 'verbose',
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
-    },
-    'loggers': {
-        '': {
-            'handlers': ['file', 'console'],
-            'level': 'WARNING',
-            'propagate': True
-        },
-    }
-}
+#LOGGING = {
+#    'version': 1,
+#    'disable_existing_loggers': False,
+#    'formatters': {
+#        'verbose': {
+#            'format': '%(levelname)s %(asctime)s %(module)s '
+#                      '%(process)d %(thread)d %(message)s'
+#        },
+#    },
+#    'handlers': {
+#        'file': {
+#            'level': 'DEBUG',
+#            'class': 'logging.FileHandler',
+#            'filename': 'belfoot_fantasy.log',
+#            'formatter': 'verbose',
+#        },
+#        'console': {
+#            'level': 'INFO',
+#            'class': 'logging.StreamHandler',
+#            'formatter': 'verbose'
+#        }
+#    },
+#    'loggers': {
+#        '': {
+#            'handlers': ['file', 'console'],
+#            'level': 'WARNING',
+#            'propagate': True
+#        },
+#    }
+#}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False
@@ -246,3 +246,5 @@ EMAIL_PORT = 465
 EMAIL_USER = ''
 EMAIL_PASSWORD = ''
 SERVER_EMAIL = 'root@bf13.by'
+
+CSRF_TRUSTED_ORIGINS = ['bf13.by', 'https://bf13.by']
