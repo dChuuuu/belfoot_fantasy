@@ -2,7 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 
-
+from django.utils.translation import gettext_lazy as _
 class CustomUserManager(BaseUserManager):
     """
     Django требует, чтобы кастомные пользователи определяли свой собственный
@@ -17,7 +17,6 @@ class CustomUserManager(BaseUserManager):
 
         if email is None:
             raise TypeError('Users must have an email address.')
-
         user = self.model(username=username, email=self.normalize_email(email))
         user.set_password(password)
         user.save()

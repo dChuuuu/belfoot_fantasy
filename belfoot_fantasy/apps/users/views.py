@@ -14,6 +14,7 @@ from rest_framework_simplejwt.views import token_obtain_pair
 from rest_framework.views import APIView
 from rest_framework import status
 
+from .custom_validators import password_validator
 from .serializers import CustomUserSerializer
 
 from rest_framework.decorators import authentication_classes, permission_classes
@@ -33,7 +34,7 @@ from django.conf import settings
 def token_cookie(user):
     '''Функция принимает пользователя как объект, генерирует рефреш-токен и сохраняет его в пользовательскую БД
        После чего создаётся экземпляр запроса, устанавливаются куки и токены возвращаются в куки'''
-    #//TODO ДОБАВИТЬ СОЛЬ+ПЕРЕЦ
+
     refresh = RefreshToken.for_user(user)
     user.refresh_token = refresh
     user.save()
@@ -44,25 +45,6 @@ def token_cookie(user):
                         path='/', domain=None, secure=False, httponly=True, samesite="Lax")
 
     return response
-
-
-def auth(request):
-    try:
-        JWTAuthentication().authenticate(request)
-        return Response(data=f'ЗДЕСЬ{JWTAuthentication().authenticate(request)}')
-    # Исключение на случай его отсутствия. Сначала проверяем наличие refresh-токена и генерируем новую пару.
-    # Если токен невалиден, или отсутствует, редирект на обычную страницу логина //TODO ПРОВЕРКА ВАЛИДНОСТИ КАК? + ФУНКЦИИ
-    except:
-        try:
-            refresh = request.COOKIES['refresh_token']
-            refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
-            user_id = refresh_decoded['user_id']
-            user = CustomUser.objects.get(id=user_id)
-            if user.refresh_token == refresh:
-                return token_cookie(user)
-
-        except:
-            return Response('Необходимо заново пройти аутентификацию')
 
 
 def banned_user(request):
@@ -77,9 +59,6 @@ def banned_user(request):
         return True
 
     return False
-
-
-
     
 
 @authentication_classes([])
@@ -109,7 +88,6 @@ class RegisterUser(APIView):
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
 
-        # Проверка корректности ввода данных для валидации //TODO ВАЛИДАТОР ЛОГИНА И ПАРОЛЯ
         try:
             username = request.data['username']
             password = request.data['password']
@@ -129,9 +107,12 @@ class RegisterUser(APIView):
 
         # Проверка корректности данных для связей в БД, создание записи пользователя в БД и генерация токена
         if serializer.is_valid():
-            user = CustomUser.objects.create(username=username, password=password, email=email, otp=otp)
-            response = token_cookie(user)
-            return response
+            if password_validator(password) is None:
+                user = CustomUser.objects.create(username=username, password=password, email=email, otp=otp)
+                response = token_cookie(user)
+                return response
+            else:
+                return password_validator(password)
 
         # Улучшение отображения внешнего вида ошибок
         errors_list = serializer.errors.items()
@@ -159,8 +140,6 @@ class TokenAuthUser(APIView):
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
 
-        # Проверка на наличие и валидность access-токена //TODO ЛОГИКА ДАЛЬШЕ
-
         if banned_user(request):
             return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
                             status=status.HTTP_403_FORBIDDEN)
@@ -183,11 +162,6 @@ class TokenAuthUser(APIView):
 
             except:
                     return Response('Необходимо заново пройти аутентификацию', status=status.HTTP_403_FORBIDDEN)
-
-        # Исключение на случай его отсутствия. Сначала проверяем наличие refresh-токена и генерируем новую пару.
-        # Если токен невалиден, или отсутствует, редирект на обычную страницу логина //TODO ПРОВЕРКА ВАЛИДНОСТИ КАК? + ФУНКЦИИ
-
-
 
 
 @authentication_classes([])
@@ -212,7 +186,6 @@ class LoginUser(APIView):
     )
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
-
     def post(self, request):
 
         data = request.data
@@ -255,8 +228,6 @@ class LogoutUser(APIView):
         return response
 
 
-
-
 @permission_classes([IsAuthenticated])
 class SecuredView(APIView):
     '''Тестовое представление для проверки прав доступа(авторизации)!!!ДЛЯ БЭКЕНДА'''
@@ -289,7 +260,6 @@ class ForgotPassword(APIView):
             return Response(data={'Статус пользователя': 'Пользователь заблокирован'}, status=status.HTTP_403_FORBIDDEN)
         email = request.data['email']
         email_instance = CustomUser.objects.get(email=email)
-        #data = {'email': email_instance['email']}
         serializer = CustomUserSerializer(instance=email_instance)
         send_mail('Код для восстановления пароля',
         f'Ваш код для восстановления пароля - {serializer.data["otp"]}. Не передавайте его никому',
@@ -383,5 +353,3 @@ class BanUser(APIView):
 
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
-

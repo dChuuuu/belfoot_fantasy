@@ -1629,3 +1629,389 @@ WARNING 2024-12-18 18:09:53,028 log 219782 139871028688704 Not Found: /restore.p
 INFO 2024-12-18 18:20:55,181 autoreload 12476 15480 Watching for file changes with StatReloader
 INFO 2024-12-18 18:22:11,472 autoreload 2244 2916 Watching for file changes with StatReloader
 WARNING 2024-12-18 18:22:13,502 log 2244 14132 Method Not Allowed: /users/auth/login
+INFO 2024-12-18 20:15:19,348 autoreload 10172 12072 Watching for file changes with StatReloader
+INFO 2024-12-18 20:15:40,455 autoreload 18352 2436 Watching for file changes with StatReloader
+INFO 2024-12-18 20:15:57,161 autoreload 18352 2436 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:15:57,534 autoreload 17692 17452 Watching for file changes with StatReloader
+INFO 2024-12-18 20:16:26,537 autoreload 17692 17452 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:16:26,910 autoreload 16004 5904 Watching for file changes with StatReloader
+INFO 2024-12-18 20:17:36,245 autoreload 17648 18396 Watching for file changes with StatReloader
+ERROR 2024-12-18 20:17:51,090 log 17648 9668 Internal Server Error: /users/auth/register
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 117, in post
+    response = token_cookie(user)
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 47, in token_cookie
+    response.set_cookie(key='access_token', value=f'{cipher_suite.encrypt(refresh.access_token)}', max_age=3600, expires=None,
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\fernet.py", line 52, in encrypt
+    return self.encrypt_at_time(data, int(time.time()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\fernet.py", line 56, in encrypt_at_time
+    return self._encrypt_from_parts(data, current_time, iv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\fernet.py", line 61, in _encrypt_from_parts
+    utils._check_bytes("data", data)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\utils.py", line 33, in _check_bytes
+    raise TypeError(f"{name} must be bytes")
+TypeError: data must be bytes
+INFO 2024-12-18 20:18:45,915 autoreload 17648 18396 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:18:46,291 autoreload 17440 16576 Watching for file changes with StatReloader
+ERROR 2024-12-18 20:18:49,002 log 17440 2204 Internal Server Error: /users/auth/register
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 117, in post
+    response = token_cookie(user)
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 47, in token_cookie
+    response.set_cookie(key='access_token', value=f'{cipher_suite.encrypt(bytes(refresh.access_token))}', max_age=3600, expires=None,
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework_simplejwt\tokens.py", line 77, in __getitem__
+    return self.payload[key]
+           ~~~~~~~~~~~~^^^^^
+KeyError: 0
+INFO 2024-12-18 20:19:18,768 autoreload 17440 16576 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:19:19,164 autoreload 16504 15956 Watching for file changes with StatReloader
+INFO 2024-12-18 20:20:32,732 autoreload 16504 15956 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:20:33,114 autoreload 17708 13352 Watching for file changes with StatReloader
+INFO 2024-12-18 20:20:44,877 autoreload 17708 13352 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:20:45,314 autoreload 16044 7224 Watching for file changes with StatReloader
+ERROR 2024-12-18 20:20:46,239 log 16044 18068 Internal Server Error: /users/auth/register
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 116, in post
+    response = token_cookie(user)
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 46, in token_cookie
+    response.set_cookie(key='access_token', value=f'{cipher_suite.encrypt(refresh.access_token)}', max_age=3600, expires=None,
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\fernet.py", line 52, in encrypt
+    return self.encrypt_at_time(data, int(time.time()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\fernet.py", line 56, in encrypt_at_time
+    return self._encrypt_from_parts(data, current_time, iv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\fernet.py", line 61, in _encrypt_from_parts
+    utils._check_bytes("data", data)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\cryptography\utils.py", line 33, in _check_bytes
+    raise TypeError(f"{name} must be bytes")
+TypeError: data must be bytes
+INFO 2024-12-18 20:21:23,814 autoreload 16044 7224 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:21:24,210 autoreload 15392 17384 Watching for file changes with StatReloader
+ERROR 2024-12-18 20:21:27,568 log 15392 18420 Internal Server Error: /users/auth/register
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 116, in post
+    response = token_cookie(user)
+               ^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 46, in token_cookie
+    response.set_cookie(key='access_token', value=f'{cipher_suite.encrypt(bytes(refresh.access_token))}', max_age=3600, expires=None,
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework_simplejwt\tokens.py", line 77, in __getitem__
+    return self.payload[key]
+           ~~~~~~~~~~~~^^^^^
+KeyError: 0
+INFO 2024-12-18 20:22:10,045 autoreload 15392 17384 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:22:10,428 autoreload 12884 7116 Watching for file changes with StatReloader
+INFO 2024-12-18 20:28:21,083 autoreload 12884 7116 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-18 20:28:21,477 autoreload 10872 11788 Watching for file changes with StatReloader
+WARNING 2024-12-18 20:41:56,166 log 10872 8752 Bad Request: /users/auth/register
+INFO 2024-12-18 20:51:31,239 autoreload 19396 19400 Watching for file changes with StatReloader
+WARNING 2024-12-18 20:51:54,828 log 19396 7068 Forbidden: /users/auth/token_check
+INFO 2024-12-19 19:26:50,482 autoreload 460 12964 Watching for file changes with StatReloader
+WARNING 2024-12-19 19:27:14,885 log 460 8792 Bad Request: /users/auth/register
+WARNING 2024-12-19 19:27:19,285 log 460 8792 Bad Request: /users/auth/register
+INFO 2024-12-20 19:27:27,591 autoreload 13748 10516 Watching for file changes with StatReloader
+WARNING 2024-12-20 19:27:30,844 log 13748 11204 Bad Request: /users/auth/register
+INFO 2024-12-20 19:29:06,085 autoreload 13748 10516 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-20 19:29:06,529 autoreload 8796 5332 Watching for file changes with StatReloader
+WARNING 2024-12-20 19:29:30,912 log 8796 7312 Bad Request: /users/auth/register
+WARNING 2024-12-20 19:30:38,246 log 8796 9128 Bad Request: /users/auth/register
+WARNING 2024-12-20 19:39:00,989 log 8796 2956 Bad Request: /users/auth/register
+INFO 2024-12-20 20:08:28,936 autoreload 8796 5332 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\models.py changed, reloading.
+INFO 2024-12-20 20:08:29,394 autoreload 12656 15140 Watching for file changes with StatReloader
+WARNING 2024-12-20 20:08:56,885 log 12656 13812 Bad Request: /users/auth/register
+WARNING 2024-12-20 20:09:07,876 log 12656 13812 Bad Request: /users/auth/register
+INFO 2024-12-20 20:09:28,623 autoreload 12656 15140 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\models.py changed, reloading.
+INFO 2024-12-20 20:09:29,073 autoreload 9916 8660 Watching for file changes with StatReloader
+WARNING 2024-12-20 20:09:31,426 log 9916 11544 Bad Request: /users/auth/register
+INFO 2024-12-20 20:10:43,774 autoreload 9916 8660 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\models.py changed, reloading.
+INFO 2024-12-20 20:10:44,256 autoreload 11716 13800 Watching for file changes with StatReloader
+WARNING 2024-12-20 20:10:51,469 log 11716 1992 Bad Request: /users/auth/register
+INFO 2024-12-20 20:12:49,341 autoreload 11716 13800 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py changed, reloading.
+INFO 2024-12-20 20:12:49,866 autoreload 14888 2888 Watching for file changes with StatReloader
+WARNING 2024-12-20 20:12:51,107 log 14888 11552 Bad Request: /users/auth/register
+WARNING 2024-12-20 20:12:56,052 log 14888 11552 Forbidden: /users/auth/register
+ERROR 2024-12-20 20:13:02,017 log 14888 11552 Internal Server Error: /users/auth/register
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 110, in post
+    if password_validator(password) is None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\custom_validators.py", line 14, in password_validator
+    if re.search(r'\p{P}', password) is False:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\__init__.py", line 176, in search
+    return _compile(pattern, flags).search(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\__init__.py", line 294, in _compile
+    p = _compiler.compile(pattern, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_compiler.py", line 743, in compile
+    p = _parser.parse(p, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 980, in parse
+    p = _parse_sub(source, state, flags & SRE_FLAG_VERBOSE, 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 455, in _parse_sub
+    itemsappend(_parse(source, state, verbose, nested + 1,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 539, in _parse
+    code = _escape(source, this, state)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 438, in _escape
+    raise source.error("bad escape %s" % escape, len(escape))
+re.error: bad escape \p at position 0
+INFO 2024-12-20 20:13:51,916 autoreload 14888 2888 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\custom_validators.py changed, reloading.
+INFO 2024-12-20 20:13:52,367 autoreload 7568 8572 Watching for file changes with StatReloader
+WARNING 2024-12-20 20:13:54,122 log 7568 11712 Forbidden: /users/auth/register
+ERROR 2024-12-20 20:14:01,173 log 7568 11712 Internal Server Error: /users/auth/register
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 110, in post
+    if password_validator(password) is None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\custom_validators.py", line 14, in password_validator
+    if re.search(r'[\p{P}]', password) is False:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\__init__.py", line 176, in search
+    return _compile(pattern, flags).search(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\__init__.py", line 294, in _compile
+    p = _compiler.compile(pattern, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_compiler.py", line 743, in compile
+    p = _parser.parse(p, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 980, in parse
+    p = _parse_sub(source, state, flags & SRE_FLAG_VERBOSE, 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 455, in _parse_sub
+    itemsappend(_parse(source, state, verbose, nested + 1,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 568, in _parse
+    code1 = _class_escape(source, this)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 361, in _class_escape
+    raise source.error('bad escape %s' % escape, len(escape))
+re.error: bad escape \p at position 1
+ERROR 2024-12-20 20:14:08,715 log 7568 11712 Internal Server Error: /users/auth/register
+Traceback (most recent call last):
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\my_projects\belfoot_fantasy\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\views.py", line 110, in post
+    if password_validator(password) is None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\custom_validators.py", line 14, in password_validator
+    if re.search(r'[\p{P}]', password) is False:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\__init__.py", line 176, in search
+    return _compile(pattern, flags).search(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\__init__.py", line 294, in _compile
+    p = _compiler.compile(pattern, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_compiler.py", line 743, in compile
+    p = _parser.parse(p, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 980, in parse
+    p = _parse_sub(source, state, flags & SRE_FLAG_VERBOSE, 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 455, in _parse_sub
+    itemsappend(_parse(source, state, verbose, nested + 1,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 568, in _parse
+    code1 = _class_escape(source, this)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Lib\re\_parser.py", line 361, in _class_escape
+    raise source.error('bad escape %s' % escape, len(escape))
+re.error: bad escape \p at position 1
+INFO 2024-12-20 20:16:08,594 autoreload 7568 8572 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\custom_validators.py changed, reloading.
+INFO 2024-12-20 20:16:09,081 autoreload 3952 2608 Watching for file changes with StatReloader
+INFO 2024-12-20 20:17:56,372 autoreload 3952 2608 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\custom_validators.py changed, reloading.
+INFO 2024-12-20 20:17:56,837 autoreload 13320 14620 Watching for file changes with StatReloader
+INFO 2024-12-20 20:19:53,309 autoreload 13320 14620 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\custom_validators.py changed, reloading.
+INFO 2024-12-20 20:19:53,789 autoreload 7644 6824 Watching for file changes with StatReloader
+WARNING 2024-12-20 20:19:57,747 log 7644 11204 Bad Request: /users/auth/register
+WARNING 2024-12-20 20:20:05,877 log 7644 11204 Bad Request: /users/auth/register
+INFO 2024-12-20 20:23:07,685 autoreload 7644 6824 D:\my_projects\belfoot_fantasy\belfoot_fantasy\apps\users\models.py changed, reloading.
+INFO 2024-12-20 20:23:08,048 autoreload 13816 13976 Watching for file changes with StatReloader
+INFO 2024-12-20 20:23:16,687 autoreload 14216 1332 Watching for file changes with StatReloader

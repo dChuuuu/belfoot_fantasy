@@ -13,7 +13,7 @@ from datetime import timedelta
 from pathlib import Path
 import os
 from . import env
-import mimetypes
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -51,7 +51,7 @@ except:
 # Режим разработчика. Выключить при проде
 DEBUG = False 
 
-# Хосты, которые будет обслуживать фреймворк. //TODO РАССМОТРЕТЬ ВОЗМОЖНОСТЬ ИСПОЛЬЗОВАНИЯ КОНКРЕТНОГО ИМЕНИ ХОСТА
+# Хосты, которые будет обслуживать фреймворк.
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Здесь хранятся приложения бэкенда. При создании новых добавлять сюда
