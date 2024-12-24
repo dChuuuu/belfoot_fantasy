@@ -64,7 +64,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.users',
     'rest_framework',
-    'drf_yasg'
+    'drf_yasg',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 # Промежуточный софт
@@ -72,13 +74,14 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 SECURE_CONTENT_TYPE_NOSNIFF = False
-#mimetypes.add_type("text/css", ".css", True)
+
 # Хранилище урлов
 ROOT_URLCONF = 'belfoot_fantasy.urls'
 
@@ -150,7 +153,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_HTTPONLY = True # CSRF куки недоступен для JS скрипта
-CSRF_TRUSTED_ORIGINS = []   # Доверенные домены, для которых CSRF не нужен
+CSRF_TRUSTED_ORIGINS = ['https://bf13.by']  # Доверенные домены, для которых CSRF не нужен
 
 # Отключенные юзерагенты различных парсеров
 # DISALLOWED_USER_AGENTS = ['BLEXBot', 'coccocbot-web', 'Baiduspider', 'Cliqzbot', 'SeopultContentAnalyzer',
@@ -164,8 +167,12 @@ FIXTURE_DIRS = []
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
@@ -242,9 +249,9 @@ SIMPLE_JWT = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'bf13.by'
-EMAIL_PORT = 465
+EMAIL_PORT = 587
 EMAIL_USER = ''
 EMAIL_PASSWORD = ''
 SERVER_EMAIL = 'root@bf13.by'
 
-CSRF_TRUSTED_ORIGINS = ['bf13.by', 'https://bf13.by']
+

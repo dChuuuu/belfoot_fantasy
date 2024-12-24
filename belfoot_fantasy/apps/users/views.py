@@ -1,6 +1,6 @@
 from random import randint
 
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
@@ -29,37 +29,23 @@ import jwt
 
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
 
+# def token_cookie(user):
+#     '''Функция принимает пользователя как объект, генерирует рефреш-токен и сохраняет его в пользовательскую БД
+#        После чего создаётся экземпляр запроса, устанавливаются куки и токены возвращаются в куки'''
+#
+#     refresh = RefreshToken.for_user(user)
+#     user.refresh_token = refresh
+#     user.save()
+#     response = Response(status=status.HTTP_200_OK)
+#     response.set_cookie(key='access_token', value=f'{refresh.access_token}', max_age=3600, expires=None,
+#                         path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+#     response.set_cookie(key='refresh_token', value=f'{refresh}', max_age=604800, expires=None,
+#                         path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+#
+#     return response
 
-def token_cookie(user):
-    '''Функция принимает пользователя как объект, генерирует рефреш-токен и сохраняет его в пользовательскую БД
-       После чего создаётся экземпляр запроса, устанавливаются куки и токены возвращаются в куки'''
-
-    refresh = RefreshToken.for_user(user)
-    user.refresh_token = refresh
-    user.save()
-    response = Response(status=status.HTTP_200_OK)
-    response.set_cookie(key='access_token', value=f'{refresh.access_token}', max_age=3600, expires=None,
-                        path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-    response.set_cookie(key='refresh_token', value=f'{refresh}', max_age=604800, expires=None,
-                        path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-
-    return response
-
-
-def banned_user(request):
-    try:
-        username = request.data['username']
-        user = CustomUser.objects.get(username=username)
-    except:
-        email = request.data['email']
-        user = CustomUser.objects.get(email=email)
-
-    if user.banned:
-        return True
-
-    return False
-    
 
 @authentication_classes([])
 @permission_classes([])
@@ -108,9 +94,10 @@ class RegisterUser(APIView):
         # Проверка корректности данных для связей в БД, создание записи пользователя в БД и генерация токена
         if serializer.is_valid():
             if password_validator(password) is None:
+                password = make_password(password)
                 user = CustomUser.objects.create(username=username, password=password, email=email, otp=otp)
-                response = token_cookie(user)
-                return response
+                user.save()
+                return Response(status=status.HTTP_200_OK)
             else:
                 return password_validator(password)
 
@@ -123,45 +110,45 @@ class RegisterUser(APIView):
         return Response({"Ошибка": f"{errors_list_pretty}"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@authentication_classes([])
-@permission_classes([])
-class TokenAuthUser(APIView):
-    '''Аутентификация пользователя через JWT'''
-    request_schema_dict = openapi.Schema(
-        title=("Проверка токена. Обязательно имя пользователя"),
-        type=openapi.TYPE_OBJECT,
-        properties={
-
-            'username': openapi.Schema(type=openapi.TYPE_STRING,
-                                       description=('Имя пользователя'),
-                                       example='test'),}
-    )
-
-    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
-    def post(self, request):
-
-        if banned_user(request):
-            return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
-                            status=status.HTTP_403_FORBIDDEN)
-
-        try:
-                JWTAuthentication().authenticate(request)
-
-                return Response(status=status.HTTP_200_OK)
-
-        except:
-            try:
-                refresh = request.COOKIES['refresh_token']
-                refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
-                user_id = refresh_decoded['user_id']
-                user = CustomUser.objects.get(id=user_id)
-                if user.refresh_token == refresh:
-                    return token_cookie(user)
-                else:
-                    return Response(data=request.COOKIES['refresh_token'], status=status.HTTP_403_FORBIDDEN)
-
-            except:
-                    return Response('Необходимо заново пройти аутентификацию', status=status.HTTP_403_FORBIDDEN)
+# @authentication_classes([])
+# @permission_classes([])
+# class TokenAuthUser(APIView):
+#     '''Аутентификация пользователя через JWT'''
+#     request_schema_dict = openapi.Schema(
+#         title=("Проверка токена. Обязательно имя пользователя"),
+#         type=openapi.TYPE_OBJECT,
+#         properties={
+#
+#             'username': openapi.Schema(type=openapi.TYPE_STRING,
+#                                        description=('Имя пользователя'),
+#                                        example='test'),}
+#     )
+#
+#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
+#     def post(self, request):
+#
+#         if banned_user(request):
+#             return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
+#                             status=status.HTTP_403_FORBIDDEN)
+#
+#         try:
+#                 JWTAuthentication().authenticate(request)
+#
+#                 return Response(status=status.HTTP_200_OK)
+#
+#         except:
+#             try:
+#                 refresh = request.COOKIES['refresh_token']
+#                 refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
+#                 user_id = refresh_decoded['user_id']
+#                 user = CustomUser.objects.get(id=user_id)
+#                 if user.refresh_token == refresh:
+#                     return token_cookie(user)
+#                 else:
+#                     return Response(data=request.COOKIES['refresh_token'], status=status.HTTP_403_FORBIDDEN)
+#
+#             except:
+#                     return Response('Необходимо заново пройти аутентификацию', status=status.HTTP_403_FORBIDDEN)
 
 
 @authentication_classes([])
@@ -190,42 +177,39 @@ class LoginUser(APIView):
 
         data = request.data
         serializer = CustomUserSerializer(data=data)
-        try:
-            user = CustomUser.objects.get(username=data['username'])
-            if banned_user(request=request):
-                return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
-                                status=status.HTTP_403_FORBIDDEN)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        if user.password == data['password']:
-            return token_cookie(user)
-        return Response(status=status.HTTP_403_FORBIDDEN)
+        user = authenticate(request=request, username=data['username'], password=data['password'])
+        if user is not None:
+            login(request, user)
+            return Response({"статус": "успешный логин"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"ошибка": "неверный логин или пароль"}, status=status.HTTP_403_FORBIDDEN)
 
 
-@permission_classes([])
-class LogoutUser(APIView):
-    '''Представление для логаута пользователя. Аутентификация необходима'''
-    request_schema_dict = openapi.Schema(
-        title=("Логаут пользователя. Боди пустое, должны быть куки с токенами"),
-        type=openapi.TYPE_OBJECT,
 
-    )
-
-    @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
-    def post(self, request):
-        refresh = request.COOKIES['refresh_token']
-        refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
-        user_id = refresh_decoded['user_id']
-        user = CustomUser.objects.get(id=user_id)
-        user.refresh_token = None
-        user.save()
-        response = Response(status=status.HTTP_200_OK)
-        response.set_cookie(key='access_token', value=f'{None}', max_age=3600, expires=None,
-                            path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-        response.set_cookie(key='refresh_token', value=f'{None}', max_age=604800, expires=None,
-                            path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-
-        return response
+# @permission_classes([])
+# class LogoutUser(APIView):
+#     '''Представление для логаута пользователя. Аутентификация необходима'''
+#     request_schema_dict = openapi.Schema(
+#         title=("Логаут пользователя. Боди пустое, должны быть куки с токенами"),
+#         type=openapi.TYPE_OBJECT,
+#
+#     )
+#
+#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
+#     def post(self, request):
+#         refresh = request.COOKIES['refresh_token']
+#         refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
+#         user_id = refresh_decoded['user_id']
+#         user = CustomUser.objects.get(id=user_id)
+#         user.refresh_token = None
+#         user.save()
+#         response = Response(status=status.HTTP_200_OK)
+#         response.set_cookie(key='access_token', value=f'{None}', max_age=3600, expires=None,
+#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+#         response.set_cookie(key='refresh_token', value=f'{None}', max_age=604800, expires=None,
+#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+#
+#         return response
 
 
 @permission_classes([IsAuthenticated])
@@ -256,8 +240,6 @@ class ForgotPassword(APIView):
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
-        if banned_user(request=request):
-            return Response(data={'Статус пользователя': 'Пользователь заблокирован'}, status=status.HTTP_403_FORBIDDEN)
         email = request.data['email']
         email_instance = CustomUser.objects.get(email=email)
         serializer = CustomUserSerializer(instance=email_instance)
@@ -277,7 +259,6 @@ class ForgotPassword(APIView):
 
 @authentication_classes([])
 @permission_classes([])
-
 class ResetPassword(APIView):
     '''Представление для сброса пароля и генерации нового otp'''
 
@@ -310,9 +291,6 @@ class ResetPassword(APIView):
 
         try:
             email_instance = CustomUser.objects.get(email=email)
-            if banned_user(request):
-                return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
-                                status=status.HTTP_403_FORBIDDEN)
 
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -327,29 +305,29 @@ class ResetPassword(APIView):
         return Response(status=status.HTTP_403_FORBIDDEN)
 
 
-class BanUser(APIView):
-    '''Представление для блокировки пользователей'''
-    request_schema_dict = openapi.Schema(
-        title=("Бан пользователя по юзернейму"),
-        type=openapi.TYPE_OBJECT,
-        properties={
-
-            'username': openapi.Schema(type=openapi.TYPE_STRING,
-                                  description=('Имя пользователя'),
-                                  example='test')
-
-        }
-    )
-    def post(self, request):
-
-        try:
-            username = request.data['username']
-            user = CustomUser.objects.get(username=username)
-            user.refresh_token = None
-            user.banned = True
-            user.save()
-
-            return Response(status=status.HTTP_200_OK)
-
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+# class BanUser(APIView):
+#     '''Представление для блокировки пользователей'''
+#     request_schema_dict = openapi.Schema(
+#         title=("Бан пользователя по юзернейму"),
+#         type=openapi.TYPE_OBJECT,
+#         properties={
+#
+#             'username': openapi.Schema(type=openapi.TYPE_STRING,
+#                                   description=('Имя пользователя'),
+#                                   example='test')
+#
+#         }
+#     )
+#     def post(self, request):
+#
+#         try:
+#             username = request.data['username']
+#             user = CustomUser.objects.get(username=username)
+#             user.refresh_token = None
+#             user.banned = True
+#             user.save()
+#
+#             return Response(status=status.HTTP_200_OK)
+#
+#         except:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
