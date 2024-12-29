@@ -67,8 +67,22 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'corsheaders'
+    'corsheaders',
+    'social_django'
 ]
+
+#OAuth
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '220674503117-lqqb63n9q816loquk17fhsipf9cr2eo9.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+LOGIN_URL = '/auth/login/google-oauth2/'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Промежуточный софт
 MIDDLEWARE = [
@@ -76,7 +90,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -175,7 +189,7 @@ REST_FRAMEWORK = {
     )
 }
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ['217.21.39.12']
+CORS_ALLOWED_ORIGINS = ['https://217.21.39.12']
 CORS_ALLOW_ALL_ORIGINS = True
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),

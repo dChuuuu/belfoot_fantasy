@@ -14,7 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth import logout
 from django.urls import path, include
 from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassword,
                               ResetPassword)
@@ -55,5 +57,9 @@ urlpatterns = [
     path('users/auth/forgot_password/reset_password', ResetPassword.as_view(), name='reset_password'),
     #path('users/auth/ban', BanUser.as_view(), name='ban_user'),
     path('users/auth/token', TokenObtainPairView.as_view(), name='token_obtain'),
-    path('users/auth/token/refresh', TokenRefreshView.as_view(), name='token_refresh')
+    path('users/auth/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('', include('social_django.urls', namespace='social')),
+    path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL},
+    name='logout'),
+
 ]
