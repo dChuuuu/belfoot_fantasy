@@ -17,9 +17,9 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import logout
-from django.urls import path, include
+from django.urls import path, include, re_path
 from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassword,
-                              ResetPassword)
+                              ResetPassword, OAuth2, OAuth2Complete)
 from django.views.generic import TemplateView
 from drf_yasg.views import get_schema_view  # new
 from drf_yasg import openapi  # new
@@ -58,8 +58,9 @@ urlpatterns = [
     #path('users/auth/ban', BanUser.as_view(), name='ban_user'),
     path('users/auth/token', TokenObtainPairView.as_view(), name='token_obtain'),
     path('users/auth/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
-    path('', include('social_django.urls', namespace='social')),
-    path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL},
-    name='logout'),
-
+    path('users/auth/google-oauth2/login', OAuth2.as_view(), name='google_oauth_login'),
+    re_path(r'users/auth/google-oauth2/complete/?.+', OAuth2Complete.as_view(), name='google_oauth_complete')
+    #path('', include('social_django.urls', namespace='social')),
+    #path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL},
+    #name='logout'),
 ]

@@ -1,12 +1,16 @@
+import json
 from random import randint
 
+import requests
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from fake_useragent import UserAgent
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
@@ -303,6 +307,48 @@ class ResetPassword(APIView):
             return Response(data=f'{email_instance.password}', status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+class OAuth2(APIView):
+
+    def post(self, request):
+        google_auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
+        client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+        redirect_uri = 'https://bf13.by/users/auth/google-oauth2/complete'
+        response_type = 'code'
+        scope = 'email'
+        access_type = 'offline'
+
+
+class OAuth2Complete(APIView):
+
+    def get(self, request):
+        #http://localhost:8000/users/auth/google-oauth2/complete/?code=4%2F0AanRRruy1RTB5e1E2Zsw2_OGGyGveA6lBhkru0tyYU
+
+        google_auth_token_uri = 'https://oauth2.googleapis.com/token'
+        client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+        client_secret = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+        code = request.GET.get('code')
+        grant_type = 'authorization_code'
+
+        #scope = request.GET.get('scope')
+        #authuser = request.GET.get('authuser')
+        prompt = request.GET.get('prompt')
+        redirect_uri = reverse('test_secured_view')
+
+        data = {'code': code,
+                #'scope': scope,
+                #'authuser': authuser,
+                'prompt': prompt,
+                'client_secret': client_secret,
+                'client_id': client_id,
+                'grant_type': grant_type,
+                'redirect_uri': redirect_uri}
+        ua = UserAgent()
+
+        token_response = requests.post(url=google_auth_token_uri, data=data)
+        return Response(token_response)
+
 
 
 # class BanUser(APIView):
