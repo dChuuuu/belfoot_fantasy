@@ -52,7 +52,7 @@ except:
 DEBUG = True 
 
 # Хосты, которые будет обслуживать фреймворк.
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['bf13.by', 'localhost', '127.0.0.1', '217.21.39.12']
 
 # Здесь хранятся приложения бэкенда. При создании новых добавлять сюда
 INSTALLED_APPS = [
@@ -78,23 +78,59 @@ AUTHENTICATION_BACKENDS = (
 )
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '220674503117-lqqb63n9q816loquk17fhsipf9cr2eo9.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-LOGIN_URL = '/auth/login/google-oauth2/'
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
+LOGIN_URL = '/login/google-oauth2/'
+URL_NAMESPACE = 'social'
+#SOCIALACCOUNT_PROVIDERS = {
+#    'google': {
+#        'SCOPE': [            
+#            'email',
+#        ],
+#        'AUTH_PARAMS': {
+#            'access_type': 'online',
+#            'redirect_uri': 'https://bf13.by/complete/google-oauth2'
+#        }
+#    }
+#}
+#LOGIN_REDIRECT_URL = '/complete/google-oauth2/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'https://bf13.by/complete/google-oauth2/'
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
 
+
+#LOGOUT_REDIRECT_URL = '/'
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
+CORS_ALLOWED_ORIGINS = ['https://cors-test.codehappy.dev']
+CORS_TRUSTED_OTIGINS = ['https://cors-test.codehappy.dev']
 # Промежуточный софт
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware'
+    #'corsheaders.middleware.CorsMiddleware'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 SECURE_CONTENT_TYPE_NOSNIFF = False
 
@@ -113,6 +149,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -139,6 +177,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Модель, используемая для аутентификации.
 AUTH_USER_MODEL = 'users.CustomUser'
+USER_MODEL = 'users.CustomUser'
 
 # Настройка урлов для логина, логаута пользователей и редиректа в случае наличия сессии //TODO ЛИЧНЫЙ КАБИНЕТ
 # LOGIN_REDIRECT_URL = '/accounts/profile'
@@ -189,8 +228,8 @@ REST_FRAMEWORK = {
     )
 }
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ['https://217.21.39.12']
-CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOWED_ORIGINS = ['https://217.21.39.12']
+#CORS_ALLOW_ALL_ORIGINS = True
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
