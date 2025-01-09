@@ -99,3 +99,8 @@ class CustomUserGoogle(models.Model):
         })
 
     refresh_token = models.TextField()
+
+
+class Usernames(models.Model):
+    username = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+

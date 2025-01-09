@@ -23,7 +23,7 @@ from .custom_validators import password_validator
 from .serializers import CustomUserSerializer
 
 from rest_framework.decorators import authentication_classes, permission_classes
-from .models import CustomUser, CustomUserGoogle
+from .models import CustomUser, CustomUserGoogle, Usernames
 
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -356,18 +356,33 @@ class OAuth2Complete(APIView):
                 'redirect_uri': redirect_uri}
 
         token_response = requests.post(url=google_auth_token_uri, data=data).json()
-        #refresh_token = token_response['refresh_token']
-        token_headers = token_response['id_token'].split('.')[0]
-        token_headers = token_headers.decode('ascii')
+        access_token = token_response['access_token']
+        userinfo_headers = {'Authorization': 'Bearer ' + access_token}
+        userinfo_response = requests.post(url="https://www.googleapis.com/oauth2/v3/userinfo", headers=userinfo_headers).json()
 
-        id_token = token_response['id_token']
-        #decoded_token_id = jwt.decode(id_token, algorithms='RS256')
-        username = None
-        try:
-            user = CustomUser.objects.get(username=username)
-        except:
-            pass
-        return Response(token_headers)
+        username = userinfo_response['email'].rstrip('@gmail.com')
+        #email = userinfo_response['email']
+        #refresh_token =
+        # try:
+        #     username_check = Usernames.objects.get(username=username)
+        # except:
+        #     email = userinfo_response['email']
+        #     refresh_token = token_response['refresh_token']
+        #     CustomUserGoogle.objects.create(email=email, username=username, refresh_token=refresh_token)
+        # else:
+            #counter = 0
+            # while username == username_check:
+            #     username += str(counter)
+            #     try:
+            #         username_check = Usernames.objects.get(username=username)
+            #     except:
+            #         pass
+            # else:
+            #     email = userinfo_response['email']
+            #     refresh_token = token_response['refresh_token']
+            #     CustomUserGoogle.objects.create(email=email, username=username, refresh_token=refresh_token)
+
+        return Response(username, status=status.HTTP_200_OK)
 
 
 
