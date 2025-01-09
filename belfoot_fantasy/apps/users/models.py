@@ -90,3 +90,12 @@ class CustomUser(AbstractUser):
         return self.username
 
     objects = CustomUserManager()
+
+
+class CustomUserGoogle(models.Model):
+    id = models.BigAutoField(primary_key=True, unique=True)
+    username = models.CharField(max_length=32, unique=True, error_messages={
+            "unique": "A user with that username already exists.",
+        })
+
+    refresh_token = models.TextField()

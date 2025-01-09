@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
+from django.template import loader
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from drf_yasg import openapi
@@ -22,7 +23,7 @@ from .custom_validators import password_validator
 from .serializers import CustomUserSerializer
 
 from rest_framework.decorators import authentication_classes, permission_classes
-from .models import CustomUser
+from .models import CustomUser, CustomUserGoogle
 
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -34,6 +35,8 @@ import jwt
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
+
+import base64
 
 # def token_cookie(user):
 #     '''Функция принимает пользователя как объект, генерирует рефреш-токен и сохраняет его в пользовательскую БД
@@ -220,7 +223,7 @@ class LoginUser(APIView):
 class SecuredView(APIView):
     '''Тестовое представление для проверки прав доступа(авторизации)!!!ДЛЯ БЭКЕНДА'''
 
-    def get(self, request):
+    def post(self, request):
 
         return Response('Успешный запрос')
 
@@ -311,13 +314,19 @@ class ResetPassword(APIView):
 
 class OAuth2(APIView):
 
-    def post(self, request):
+    def get(self, request):
         google_auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
         client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-        redirect_uri = 'https://bf13.by/users/auth/google-oauth2/complete'
+        redirect_uri = 'http://localhost:8000/users/auth/google-oauth2/complete'
         response_type = 'code'
         scope = 'email'
         access_type = 'offline'
+        data = {'client_id': client_id,
+                'redirect_uri': redirect_uri,
+                'response_type': response_type,
+                'scope': scope,
+                'access_type': access_type}
+
 
 
 class OAuth2Complete(APIView):
@@ -329,13 +338,14 @@ class OAuth2Complete(APIView):
         client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
         client_secret = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
         code = request.GET.get('code')
+        #code = '4/0AanRRrtAlLGAoZTlNROGiBgpNOCoJe4eSNApxspnvCTtuoApv34pE9u9H-7az630X1V7Bw'
         grant_type = 'authorization_code'
 
         #scope = request.GET.get('scope')
         #authuser = request.GET.get('authuser')
         prompt = request.GET.get('prompt')
-        redirect_uri = reverse('test_secured_view')
-
+        redirect_uri = 'http://localhost:8000' + reverse('google_oauth_complete')
+        redirect_uri = redirect_uri[0:-1]
         data = {'code': code,
                 #'scope': scope,
                 #'authuser': authuser,
@@ -344,10 +354,20 @@ class OAuth2Complete(APIView):
                 'client_id': client_id,
                 'grant_type': grant_type,
                 'redirect_uri': redirect_uri}
-        ua = UserAgent()
 
-        token_response = requests.post(url=google_auth_token_uri, data=data)
-        return Response(token_response)
+        token_response = requests.post(url=google_auth_token_uri, data=data).json()
+        #refresh_token = token_response['refresh_token']
+        token_headers = token_response['id_token'].split('.')[0]
+        token_headers = token_headers.decode('ascii')
+
+        id_token = token_response['id_token']
+        #decoded_token_id = jwt.decode(id_token, algorithms='RS256')
+        username = None
+        try:
+            user = CustomUser.objects.get(username=username)
+        except:
+            pass
+        return Response(token_headers)
 
 
 
