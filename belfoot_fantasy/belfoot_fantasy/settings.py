@@ -68,6 +68,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount.providers.google'
     'social_django'
 ]
 
@@ -81,20 +84,20 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 LOGIN_URL = '/login/google-oauth2/'
 URL_NAMESPACE = 'social'
-#SOCIALACCOUNT_PROVIDERS = {
-#    'google': {
-#        'SCOPE': [            
-#            'email',
-#        ],
-#        'AUTH_PARAMS': {
-#            'access_type': 'online',
-#            'redirect_uri': 'https://bf13.by/complete/google-oauth2'
-#        }
-#    }
-#}
-#LOGIN_REDIRECT_URL = '/complete/google-oauth2/'
-LOGIN_REDIRECT_URL = '/'
-#SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'https://bf13.by/complete/google-oauth2/'
+SOCIALACCOUNT_PROVIDERS = {
+   'google': {
+       'SCOPE': [
+           'email',
+       ],
+       'AUTH_PARAMS': {
+           'access_type': 'online',
+           'redirect_uri': 'https://bf13.by/complete/google-oauth2'
+       }
+   }
+}
+LOGIN_REDIRECT_URL = '/complete/google-oauth2/'
+#LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'https://bf13.by/complete/google-oauth2/'
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
@@ -130,7 +133,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 SECURE_CONTENT_TYPE_NOSNIFF = False
 
@@ -177,7 +181,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Модель, используемая для аутентификации.
 AUTH_USER_MODEL = 'users.CustomUser'
-USER_MODEL = 'users.CustomUser'
+
 
 # Настройка урлов для логина, логаута пользователей и редиректа в случае наличия сессии //TODO ЛИЧНЫЙ КАБИНЕТ
 # LOGIN_REDIRECT_URL = '/accounts/profile'

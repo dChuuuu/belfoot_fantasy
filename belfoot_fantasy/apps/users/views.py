@@ -1,57 +1,76 @@
-import json
+import requests
+import re
 from random import randint
 
-import requests
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
-
-from django.shortcuts import render, redirect
-from django.template import loader
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
-from fake_useragent import UserAgent
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.response import Response
-
-from rest_framework_simplejwt.views import token_obtain_pair
-from rest_framework.views import APIView
-from rest_framework import status
-
-from .custom_validators import password_validator
-from .serializers import CustomUserSerializer
-
-from rest_framework.decorators import authentication_classes, permission_classes
-from .models import CustomUser, CustomUserGoogle, Usernames
-
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
-from rest_framework_simplejwt.authentication import JWTAuthentication
-
-import re
-
-import jwt
-
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 
-import base64
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 
-# def token_cookie(user):
-#     '''Функция принимает пользователя как объект, генерирует рефреш-токен и сохраняет его в пользовательскую БД
-#        После чего создаётся экземпляр запроса, устанавливаются куки и токены возвращаются в куки'''
-#
-#     refresh = RefreshToken.for_user(user)
-#     user.refresh_token = refresh
-#     user.save()
-#     response = Response(status=status.HTTP_200_OK)
-#     response.set_cookie(key='access_token', value=f'{refresh.access_token}', max_age=3600, expires=None,
-#                         path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-#     response.set_cookie(key='refresh_token', value=f'{refresh}', max_age=604800, expires=None,
-#                         path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-#
-#     return response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.views import APIView
+
+from .custom_validators import password_validator
+from .serializers import CustomUserSerializer
+from .models import CustomUser, CustomUserGoogle
+
+
+def username_generator(username, username_check):
+    # генератор никнеймов в случае дубликата в основной БД с базовой аутентификацией
+    counter = 0
+    while username == username_check:
+        username += str(counter)
+        try:
+            username_check = CustomUser.objects.get(username=username)
+        except:
+            pass
+    return username
+
+
+def create_social_user(token_response, email, username, access_token):
+    # создание социального аккаунта
+    refresh_token = token_response['refresh_token']
+    user = CustomUserGoogle.objects.create(email=email, username=username, refresh_token=refresh_token)
+    data = {'username': user.username,
+            'email': user.email,
+            'refresh_token': user.refresh_token,
+            'access_token': access_token}
+    return data
+
+
+def get_social_user(email, access_token):
+    user = CustomUserGoogle.objects.get(email=email)
+    data = {'username': user.username,
+            'email': user.email,
+            'refresh_token': user.refresh_token,
+            'access_token': access_token}
+    return data
+
+
+def get_google_token(request):
+    google_auth_token_uri = 'https://oauth2.googleapis.com/token'
+    client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+    client_secret = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+    code = request.GET.get('code')
+    grant_type = 'authorization_code'
+    prompt = request.GET.get('prompt')
+    redirect_uri = 'http://localhost:8000' + reverse('google_oauth_complete')
+    redirect_uri = redirect_uri[0:-1]
+    data = {'code': code,
+            'prompt': prompt,
+            'client_secret': client_secret,
+            'client_id': client_id,
+            'grant_type': grant_type,
+            'redirect_uri': redirect_uri}
+    token_response = requests.post(url=google_auth_token_uri, data=data).json()
+    return token_response
 
 
 @authentication_classes([])
@@ -86,8 +105,6 @@ class RegisterUser(APIView):
             password = request.data['password']
             email = request.data['email']
             otp = str(randint(100000, 999999))
-
-
         except:
             return Response({"Ошибка": "Некорректные либо неполные данные"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -116,46 +133,6 @@ class RegisterUser(APIView):
 
         return Response({"Ошибка": f"{errors_list_pretty}"}, status=status.HTTP_400_BAD_REQUEST)
 
-
-# @authentication_classes([])
-# @permission_classes([])
-# class TokenAuthUser(APIView):
-#     '''Аутентификация пользователя через JWT'''
-#     request_schema_dict = openapi.Schema(
-#         title=("Проверка токена. Обязательно имя пользователя"),
-#         type=openapi.TYPE_OBJECT,
-#         properties={
-#
-#             'username': openapi.Schema(type=openapi.TYPE_STRING,
-#                                        description=('Имя пользователя'),
-#                                        example='test'),}
-#     )
-#
-#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
-#     def post(self, request):
-#
-#         if banned_user(request):
-#             return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
-#                             status=status.HTTP_403_FORBIDDEN)
-#
-#         try:
-#                 JWTAuthentication().authenticate(request)
-#
-#                 return Response(status=status.HTTP_200_OK)
-#
-#         except:
-#             try:
-#                 refresh = request.COOKIES['refresh_token']
-#                 refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
-#                 user_id = refresh_decoded['user_id']
-#                 user = CustomUser.objects.get(id=user_id)
-#                 if user.refresh_token == refresh:
-#                     return token_cookie(user)
-#                 else:
-#                     return Response(data=request.COOKIES['refresh_token'], status=status.HTTP_403_FORBIDDEN)
-#
-#             except:
-#                     return Response('Необходимо заново пройти аутентификацию', status=status.HTTP_403_FORBIDDEN)
 
 
 @authentication_classes([])
@@ -190,33 +167,6 @@ class LoginUser(APIView):
             return Response({"статус": "успешный логин"}, status=status.HTTP_200_OK)
         else:
             return Response({"ошибка": "неверный логин или пароль"}, status=status.HTTP_403_FORBIDDEN)
-
-
-
-# @permission_classes([])
-# class LogoutUser(APIView):
-#     '''Представление для логаута пользователя. Аутентификация необходима'''
-#     request_schema_dict = openapi.Schema(
-#         title=("Логаут пользователя. Боди пустое, должны быть куки с токенами"),
-#         type=openapi.TYPE_OBJECT,
-#
-#     )
-#
-#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
-#     def post(self, request):
-#         refresh = request.COOKIES['refresh_token']
-#         refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
-#         user_id = refresh_decoded['user_id']
-#         user = CustomUser.objects.get(id=user_id)
-#         user.refresh_token = None
-#         user.save()
-#         response = Response(status=status.HTTP_200_OK)
-#         response.set_cookie(key='access_token', value=f'{None}', max_age=3600, expires=None,
-#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-#         response.set_cookie(key='refresh_token', value=f'{None}', max_age=604800, expires=None,
-#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-#
-#         return response
 
 
 @permission_classes([IsAuthenticated])
@@ -315,7 +265,7 @@ class ResetPassword(APIView):
 class OAuth2(APIView):
 
     def get(self, request):
-        google_auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
+
         client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
         redirect_uri = 'http://localhost:8000/users/auth/google-oauth2/complete'
         response_type = 'code'
@@ -328,61 +278,81 @@ class OAuth2(APIView):
                 'access_type': access_type}
 
 
-
 class OAuth2Complete(APIView):
 
     def get(self, request):
-        #http://localhost:8000/users/auth/google-oauth2/complete/?code=4%2F0AanRRruy1RTB5e1E2Zsw2_OGGyGveA6lBhkru0tyYU
 
-        google_auth_token_uri = 'https://oauth2.googleapis.com/token'
-        client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-        client_secret = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
-        code = request.GET.get('code')
-        #code = '4/0AanRRrtAlLGAoZTlNROGiBgpNOCoJe4eSNApxspnvCTtuoApv34pE9u9H-7az630X1V7Bw'
-        grant_type = 'authorization_code'
+        token_response = get_google_token(request)
 
-        #scope = request.GET.get('scope')
-        #authuser = request.GET.get('authuser')
-        prompt = request.GET.get('prompt')
-        redirect_uri = 'http://localhost:8000' + reverse('google_oauth_complete')
-        redirect_uri = redirect_uri[0:-1]
-        data = {'code': code,
-                #'scope': scope,
-                #'authuser': authuser,
-                'prompt': prompt,
-                'client_secret': client_secret,
-                'client_id': client_id,
-                'grant_type': grant_type,
-                'redirect_uri': redirect_uri}
-
-        token_response = requests.post(url=google_auth_token_uri, data=data).json()
         access_token = token_response['access_token']
         userinfo_headers = {'Authorization': 'Bearer ' + access_token}
         userinfo_response = requests.post(url="https://www.googleapis.com/oauth2/v3/userinfo", headers=userinfo_headers).json()
-
         username = userinfo_response['email'].rstrip('@gmail.com')
-        #email = userinfo_response['email']
-        #refresh_token =
-        # try:
-        #     username_check = Usernames.objects.get(username=username)
-        # except:
-        #     email = userinfo_response['email']
-        #     refresh_token = token_response['refresh_token']
-        #     CustomUserGoogle.objects.create(email=email, username=username, refresh_token=refresh_token)
-        # else:
-            #counter = 0
-            # while username == username_check:
-            #     username += str(counter)
-            #     try:
-            #         username_check = Usernames.objects.get(username=username)
-            #     except:
-            #         pass
-            # else:
-            #     email = userinfo_response['email']
-            #     refresh_token = token_response['refresh_token']
-            #     CustomUserGoogle.objects.create(email=email, username=username, refresh_token=refresh_token)
+        email = userinfo_response['email']
 
-        return Response(username, status=status.HTTP_200_OK)
+        try:
+            # Проверка на наличие никнейма в базовой БД аутентификации логина пароля во избежание дубликата никнейма
+            username_check = CustomUser.objects.get(username=username)
+        except:
+            try:
+                # Проверка на наличие социального аккаунта в базе и возврат пары токенов в случае обращения
+                data = get_social_user(email, access_token)
+                return Response(data=data, status=status.HTTP_200_OK)
+            except:
+                # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
+                data = create_social_user(token_response, email, username, access_token)
+                return Response(data=data, status=status.HTTP_200_OK)
+        else:
+            # Генерация нового имени пользователя путём добавления автоинкрементной цифры начиная с 0 и запись в БД
+            username = username_generator(username, username_check)
+            data = create_social_user(token_response, email, username, access_token)
+            return Response(data=data, status=status.HTTP_200_OK)
+
+
+
+
+# @authentication_classes([])
+# @permission_classes([])
+# class TokenAuthUser(APIView):
+#     '''Аутентификация пользователя через JWT'''
+#     request_schema_dict = openapi.Schema(
+#         title=("Проверка токена. Обязательно имя пользователя"),
+#         type=openapi.TYPE_OBJECT,
+#         properties={
+#
+#             'username': openapi.Schema(type=openapi.TYPE_STRING,
+#                                        description=('Имя пользователя'),
+#                                        example='test'),}
+#     )
+#
+#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
+#     def post(self, request):
+#
+#         if banned_user(request):
+#             return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
+#                             status=status.HTTP_403_FORBIDDEN)
+#
+#         try:
+#                 JWTAuthentication().authenticate(request)
+#
+#                 return Response(status=status.HTTP_200_OK)
+#
+#         except:
+#             try:
+#                 refresh = request.COOKIES['refresh_token']
+#                 refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
+#                 user_id = refresh_decoded['user_id']
+#                 user = CustomUser.objects.get(id=user_id)
+#                 if user.refresh_token == refresh:
+#                     return token_cookie(user)
+#                 else:
+#                     return Response(data=request.COOKIES['refresh_token'], status=status.HTTP_403_FORBIDDEN)
+#
+#             except:
+#                     return Response('Необходимо заново пройти аутентификацию', status=status.HTTP_403_FORBIDDEN)
+
+
+
 
 
 
@@ -412,3 +382,32 @@ class OAuth2Complete(APIView):
 #
 #         except:
 #             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+
+# @permission_classes([])
+# class LogoutUser(APIView):
+#     '''Представление для логаута пользователя. Аутентификация необходима'''
+#     request_schema_dict = openapi.Schema(
+#         title=("Логаут пользователя. Боди пустое, должны быть куки с токенами"),
+#         type=openapi.TYPE_OBJECT,
+#
+#     )
+#
+#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
+#     def post(self, request):
+#         refresh = request.COOKIES['refresh_token']
+#         refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
+#         user_id = refresh_decoded['user_id']
+#         user = CustomUser.objects.get(id=user_id)
+#         user.refresh_token = None
+#         user.save()
+#         response = Response(status=status.HTTP_200_OK)
+#         response.set_cookie(key='access_token', value=f'{None}', max_age=3600, expires=None,
+#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+#         response.set_cookie(key='refresh_token', value=f'{None}', max_age=604800, expires=None,
+#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
+#
+#         return response

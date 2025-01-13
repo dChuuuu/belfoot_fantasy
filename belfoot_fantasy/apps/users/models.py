@@ -68,6 +68,8 @@ class CustomUser(AbstractUser):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     password = models.CharField(_("password"), max_length=128)'''
 
+
+
     # Отключаем наследуемые поля first_name и last_name из модели AbstractUser
     first_name = None
     last_name = None
@@ -92,15 +94,17 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
 
+
+
 class CustomUserGoogle(models.Model):
-    id = models.BigAutoField(primary_key=True, unique=True)
-    username = models.CharField(max_length=32, unique=True, error_messages={
-            "unique": "A user with that username already exists.",
-        })
+    username = models.CharField(primary_key=True, max_length=32, unique=True, error_messages={
+        "unique": "A user with that username already exists.",
+    })
+
 
     refresh_token = models.TextField()
+    email = models.EmailField(unique=True, default=None)
+    objects = CustomUserManager()
 
 
-class Usernames(models.Model):
-    username = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
