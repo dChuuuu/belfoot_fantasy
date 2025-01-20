@@ -107,4 +107,11 @@ class CustomUserGoogle(models.Model):
     objects = CustomUserManager()
 
 
+class CustomUserTelegram(models.Model):
+    username = models.CharField(primary_key=True, max_length=32, unique=True, error_messages={
+        "unique": "A user with that username already exists.",
+    })
+    objects = CustomUserManager()
+
+
 

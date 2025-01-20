@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
+
+from telegram_webapp_auth.auth import generate_secret_key
+
 from . import env
 
 
@@ -110,6 +113,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
+#Telegram AUTH
+TELEGRAM_BOT_TOKEN = '7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'
+TELEGRAM_SECRET_KEY = generate_secret_key(TELEGRAM_BOT_TOKEN)
 
 #LOGOUT_REDIRECT_URL = '/'
 CORS_ALLOW_HEADERS = (
@@ -121,7 +127,7 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 )
 CORS_ALLOWED_ORIGINS = ['https://cors-test.codehappy.dev']
-CORS_TRUSTED_OTIGINS = ['https://cors-test.codehappy.dev']
+CORS_TRUSTED_ORIGINS = ['https://cors-test.codehappy.dev']
 # Промежуточный софт
 MIDDLEWARE = [
     #'corsheaders.middleware.CorsMiddleware'
@@ -212,7 +218,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_HTTPONLY = True # CSRF куки недоступен для JS скрипта
-CSRF_TRUSTED_ORIGINS = ['https://bf13.by']  # Доверенные домены, для которых CSRF не нужен
+CSRF_TRUSTED_ORIGINS = ['https://bf13.by', 'http://localhost:8000']  # Доверенные домены, для которых CSRF не нужен
 
 # Отключенные юзерагенты различных парсеров
 # DISALLOWED_USER_AGENTS = ['BLEXBot', 'coccocbot-web', 'Baiduspider', 'Cliqzbot', 'SeopultContentAnalyzer',

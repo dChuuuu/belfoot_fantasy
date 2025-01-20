@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
+from django.views.decorators.csrf import csrf_exempt
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -19,7 +20,7 @@ from rest_framework.views import APIView
 
 from .custom_validators import password_validator
 from .serializers import CustomUserSerializer
-from .models import CustomUser, CustomUserGoogle
+from .models import CustomUser, CustomUserGoogle, CustomUserTelegram
 
 
 def username_generator(username, username_check):
@@ -278,6 +279,7 @@ class OAuth2(APIView):
                 'access_type': access_type}
 
 
+
 class OAuth2Complete(APIView):
 
     def get(self, request):
@@ -307,6 +309,13 @@ class OAuth2Complete(APIView):
             username = username_generator(username, username_check)
             data = create_social_user(token_response, email, username, access_token)
             return Response(data=data, status=status.HTTP_200_OK)
+
+
+
+class TelegramAuth(APIView):
+    def post(self, request):
+        data = request.COOKIES
+        return Response(data=data, status=status.HTTP_200_OK)
 
 
 

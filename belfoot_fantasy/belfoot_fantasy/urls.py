@@ -19,7 +19,8 @@ from django.contrib import admin
 from django.contrib.auth import logout
 from django.urls import path, include, re_path
 from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassword,
-                              ResetPassword, OAuth2, OAuth2Complete)
+                              ResetPassword, OAuth2, OAuth2Complete, TelegramAuth)
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from drf_yasg.views import get_schema_view  # new
 from drf_yasg import openapi  # new
@@ -59,7 +60,8 @@ urlpatterns = [
     path('users/auth/token', TokenObtainPairView.as_view(), name='token_obtain'),
     path('users/auth/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('users/auth/google-oauth2/login', OAuth2.as_view(), name='google_oauth_login'),
-    re_path(r'users/auth/google-oauth2/complete/?.+', OAuth2Complete.as_view(), name='google_oauth_complete')
+    re_path(r'users/auth/google-oauth2/complete/?.+', OAuth2Complete.as_view(), name='google_oauth_complete'),
+    path('users/auth/telegram-auth/login', csrf_exempt(TelegramAuth.as_view()), name='telegram_auth')
     #path('', include('social_django.urls', namespace='social')),
     #path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL},
     #name='logout'),
