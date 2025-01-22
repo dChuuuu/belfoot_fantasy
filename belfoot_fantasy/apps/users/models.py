@@ -111,6 +111,12 @@ class CustomUserTelegram(models.Model):
     username = models.CharField(primary_key=True, max_length=32, unique=True, error_messages={
         "unique": "A user with that username already exists.",
     })
+    auth_date = models.CharField(default=None)
+    hash = models.TextField(default=None)
+    first_name = models.CharField(default=None)
+    id = models.CharField(default=None)
+    photo_url = models.TextField(default=None)
+
     objects = CustomUserManager()
 
 

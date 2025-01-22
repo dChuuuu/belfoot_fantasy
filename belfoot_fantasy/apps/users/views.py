@@ -1,3 +1,5 @@
+import hashlib, hmac
+
 import requests
 import re
 from random import randint
@@ -19,7 +21,7 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.views import APIView
 
 from .custom_validators import password_validator
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, CustomUserTelegramSerializer
 from .models import CustomUser, CustomUserGoogle, CustomUserTelegram
 
 
@@ -314,8 +316,26 @@ class OAuth2Complete(APIView):
 
 class TelegramAuth(APIView):
     def post(self, request):
-        data = request.COOKIES
-        return Response(data=data, status=status.HTTP_200_OK)
+        data = request.data
+        data_check_string = f'auth_date={data["auth_date"]}\nfirst_name={data["first_name"]}\nid={data["id"]}\nphoto_url={data["photo_url"]}\nusername={data["username"]}'.encode('utf-8')
+        secret_key = hashlib.sha256('7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'.encode('utf-8')).digest()
+        signing_key = hmac.new(key=secret_key, msg=data_check_string, digestmod=hashlib.sha256).hexdigest()
+        flag = False
+        try:
+            user = CustomUserTelegram.objects.get(username=data['username'])
+            data = {'id': user.id,
+                    'first_name': user.first_name,
+                    'username': user.username,
+                    'photo_url': user.photo_url,
+                    'auth_date': user.auth_date}
+            if signing_key == user.hash:
+                return Response(data=data, status=status.HTTP_200_OK)
+        except:
+            CustomUserTelegram.objects.create(username=data['username'], auth_date=data['auth_date'], hash=data['hash'],
+                                              first_name=data['first_name'], id=data['id'], photo_url=data['photo_url'])
+            return Response(data={"status": "login successful"}, status=status.HTTP_200_OK)
+
+        return Response(data={"status": "login failed due to invalid data"}, status=status.HTTP_403_FORBIDDEN)
 
 
 
