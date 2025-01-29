@@ -19,7 +19,10 @@ from django.contrib import admin
 from django.contrib.auth import logout
 from django.urls import path, include, re_path
 from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassword,
-                              ResetPassword, OAuth2, OAuth2Complete, TelegramAuth)
+                              ResetPassword, OAuth2, OAuth2Complete,
+                              TelegramAuth,)
+#from apps.users.views import TestingLocalModel
+#OAuth2, OAuth2Complete, TelegramAuth)
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from drf_yasg.views import get_schema_view  # new
@@ -50,19 +53,18 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('users/admin/', admin.site.urls),
     path('users/auth/register', RegisterUser.as_view(), name='register_user'),
-    #path('users/auth/token_check', TokenAuthUser.as_view(), name='token_check'),
     path('users/auth/login', LoginUser.as_view(), name='login_user'),
     path('users/auth/secured_view', SecuredView.as_view(), name='test_secured_view'),
     path('users/auth/logout', TokenBlacklistView.as_view(), name='logout_user'),
     path('users/auth/forgot_password', ForgotPassword.as_view(), name='forgot_password'),
     path('users/auth/forgot_password/reset_password', ResetPassword.as_view(), name='reset_password'),
-    #path('users/auth/ban', BanUser.as_view(), name='ban_user'),
     path('users/auth/token', TokenObtainPairView.as_view(), name='token_obtain'),
     path('users/auth/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+
     path('users/auth/google-oauth2/login', OAuth2.as_view(), name='google_oauth_login'),
     re_path(r'users/auth/google-oauth2/complete/?.+', OAuth2Complete.as_view(), name='google_oauth_complete'),
-    path('users/auth/telegram-auth/login', csrf_exempt(TelegramAuth.as_view()), name='telegram_auth')
-    #path('', include('social_django.urls', namespace='social')),
-    #path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL},
-    #name='logout'),
+    path('users/auth/telegram-auth/login', csrf_exempt(TelegramAuth.as_view()), name='telegram_auth'),
+    #path('users/auth/common_auth', AuthRequestHandler.as_view(), name='common_auth')
+    #path('testing/', TestingLocalModel.as_view()),
+    #path('users/auth/token_check', TokenAuthUser.as_view(), name='token_check'),
 ]

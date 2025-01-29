@@ -186,7 +186,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Модель, используемая для аутентификации.
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUserLocalCredentials'
 
 
 # Настройка урлов для логина, логаута пользователей и редиректа в случае наличия сессии //TODO ЛИЧНЫЙ КАБИНЕТ
@@ -313,7 +313,7 @@ SIMPLE_JWT = {
 #}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = False
+EMAIL_USE_TLS = True
 #EMAIL_HOST = 'bf13.by'
 EMAIL_PORT = 587
 EMAIL_USER = ''

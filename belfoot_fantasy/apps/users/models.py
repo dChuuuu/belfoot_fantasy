@@ -1,8 +1,12 @@
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.contenttypes import fields
 
 from django.utils.translation import gettext_lazy as _
+username_validator = UnicodeUsernameValidator()
 class CustomUserManager(BaseUserManager):
     """
     Django требует, чтобы кастомные пользователи определяли свой собственный
@@ -36,7 +40,56 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class CustomUser(AbstractUser):
+class CustomUserLocalCredentials(AbstractUser):
+    email = models.EmailField(_("email address"), blank=True, unique=True)
+    otp = models.CharField(max_length=6, null=True, blank=True)
+    password = models.CharField(_("password"), max_length=128)
+    refresh_token = models.TextField(null=True)
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        unique=True,
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
+        validators=[username_validator],
+        error_messages={
+            "unique": _("A user with that username already exists."),
+        }, default=None
+    )
+    is_active = models.BooleanField(
+        _("active"),
+        default=True,
+        help_text=_(
+            "Designates whether this user should be treated as active. "
+            "Unselect this instead of deleting accounts."
+        ),
+    )
+    USERNAME_FIELD = 'username'
+
+    objects = CustomUserManager()
+
+
+
+
+class CustomUserGoogleCredentials(models.Model):
+    refresh_token = models.TextField()
+    email = models.EmailField(unique=True, default=None)
+    objects = CustomUserManager()
+
+
+
+class CustomUserTelegramCredentials(models.Model):
+
+    auth_date = models.CharField(default=None)
+    hash = models.TextField(default=None)
+    first_name = models.CharField(default=None)
+    user_id = models.CharField(default=None)
+    photo_url = models.TextField(default=None)
+    objects = CustomUserManager()
+
+
+class CustomUser(models.Model):
     '''Модель для обычного пользователя сайта. Наследуется от модели User
        Поля first_name и last_name не используются, поэтому задаётся значение None.
        Поля данных:
@@ -68,56 +121,38 @@ class CustomUser(AbstractUser):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     password = models.CharField(_("password"), max_length=128)'''
 
-
-
     # Отключаем наследуемые поля first_name и last_name из модели AbstractUser
     first_name = None
     last_name = None
-
-
-    # Поля, определяющие имя пользователя и обязательное поле для ввода
+    date_joined = None
+    is_staff = None
+    is_superuser = None
+    last_login = None
+    password = None
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    otp = None
+    refresh_token = None
+    id = models.BigAutoField(primary_key=True, unique=True, default=None)
+    # Поля, определяющие имя пользователя и обязательное поле для ввода
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        unique=True,
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
+        validators=[username_validator],
+        error_messages={
+            "unique": _("A user with that username already exists."),
+        }, default=None
+    )
 
-    # refresh-токен для обновления access-токена. По умолчанию None
-    refresh_token = models.TextField(null=True)
+    auth_provider = models.CharField(max_length=20, choices=[('local', 'Local'), ('google', 'Google'),
+                                                            ('telegram', 'Telegram')], default=None)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = fields.GenericForeignKey('content_type', 'object_id')
+    email = models.EmailField(unique=True, default='none')
 
-    # одноразовый код для восстановления пароля пользователя
-    otp = models.CharField(max_length=6, null=True, blank=True)
-
-    # статус бана
-    banned = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.username
 
     objects = CustomUserManager()
-
-
-
-
-class CustomUserGoogle(models.Model):
-    username = models.CharField(primary_key=True, max_length=32, unique=True, error_messages={
-        "unique": "A user with that username already exists.",
-    })
-
-
-    refresh_token = models.TextField()
-    email = models.EmailField(unique=True, default=None)
-    objects = CustomUserManager()
-
-
-class CustomUserTelegram(models.Model):
-    username = models.CharField(primary_key=True, max_length=32, unique=True, error_messages={
-        "unique": "A user with that username already exists.",
-    })
-    auth_date = models.CharField(default=None)
-    hash = models.TextField(default=None)
-    first_name = models.CharField(default=None)
-    id = models.CharField(default=None)
-    photo_url = models.TextField(default=None)
-
-    objects = CustomUserManager()
-
-
-

@@ -76,7 +76,7 @@ def get_google_token(request):
     code = request.GET.get('code')
     grant_type = 'authorization_code'
     prompt = request.GET.get('prompt')
-    redirect_uri = 'https://bf13.by' + reverse('google_oauth_complete')
+    redirect_uri = 'http://localhost:8000' + reverse('google_oauth_complete')
     redirect_uri = redirect_uri[0:-1]
     data = {'code': code,
             'prompt': prompt,
@@ -309,7 +309,7 @@ class OAuth2(APIView):
     def get(self, request):
 
         client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-        redirect_uri = 'https://bf13.by/users/auth/google-oauth2/complete'
+        redirect_uri = 'http://localhost:8000/users/auth/google-oauth2/complete'
         response_type = 'code'
         scope = 'email'
         access_type = 'offline'
@@ -489,101 +489,110 @@ class TelegramAuth(APIView):
 #
 #         return response
 
-# class TestingLocalModel(APIView):
-#     def post(self, request):
-#         data=request.data
-#         #user_serializer = CustomUserSerializer(data=data)
-#         if data['auth_provider'] == 'local':
-#             credential = CustomUserLocalCredentials.objects.create(email=data['email'],
-#                                                       otp=str(randint(100000, 999999)),
-#                                                       password=data['password'],
-#                                                       refresh_token=data['refresh_token'])
-#             user = CustomUser.objects.create(username=data['username'],
-#                                              auth_provider=data['auth_provider'],
-#                                              content_type=ContentType.objects.get_for_model(CustomUserLocalCredentials),
-#                                              object_id=credential.id)
-#             user.save()
-#
-#         elif data['auth_provider'] == 'google':
-#             credential = CustomUserGoogleCredentials.objects.create(email=data['email'],
-#                                                                    otp=str(randint(100000, 999999)),
-#                                                                    password=data['password'],
-#                                                                    refresh_token=data['refresh_token'])
-#             user = CustomUser.objects.create(username=data['username'],
-#                                              auth_provider=data['auth_provider'],
-#                                              content_type=ContentType.objects.get_for_model(CustomUserGoogleCredentials),
-#                                              object_id=credential.id)
-#             user.save()
-#
-#         else:
-#             credential = CustomUserTelegramCredentials.objects.create(email=data['email'],
-#                                                                    otp=str(randint(100000, 999999)),
-#                                                                    password=data['password'],
-#                                                                    refresh_token=data['refresh_token'])
-#             user = CustomUser.objects.create(username=data['username'],
-#                                              auth_provider=data['auth_provider'],
-#                                              content_type=ContentType.objects.get_for_model(CustomUserTelegramCredentials),
-#                                              object_id=credential.id)
-#             user.save()
+class TestingLocalModel(APIView):
+    def post(self, request):
+        data=request.data
+        #user_serializer = CustomUserSerializer(data=data)
+        if data['auth_provider'] == 'local':
+            credential = CustomUserLocalCredentials.objects.create(email=data['email'],
+                                                      otp=str(randint(100000, 999999)),
+                                                      password=data['password'],
+                                                      refresh_token=data['refresh_token'])
+            user = CustomUser.objects.create(username=data['username'],
+                                             auth_provider=data['auth_provider'],
+                                             content_type=ContentType.objects.get_for_model(CustomUserLocalCredentials),
+                                             object_id=credential.id)
+            user.save()
+
+        elif data['auth_provider'] == 'google':
+            credential = CustomUserGoogleCredentials.objects.create(email=data['email'],
+                                                                   otp=str(randint(100000, 999999)),
+                                                                   password=data['password'],
+                                                                   refresh_token=data['refresh_token'])
+            user = CustomUser.objects.create(username=data['username'],
+                                             auth_provider=data['auth_provider'],
+                                             content_type=ContentType.objects.get_for_model(CustomUserGoogleCredentials),
+                                             object_id=credential.id)
+            user.save()
+
+        else:
+            credential = CustomUserTelegramCredentials.objects.create(email=data['email'],
+                                                                   otp=str(randint(100000, 999999)),
+                                                                   password=data['password'],
+                                                                   refresh_token=data['refresh_token'])
+            user = CustomUser.objects.create(username=data['username'],
+                                             auth_provider=data['auth_provider'],
+                                             content_type=ContentType.objects.get_for_model(CustomUserTelegramCredentials),
+                                             object_id=credential.id)
+            user.save()
 
         # if user_serializer.is_valid(raise_exception=True):
         #     user_serializer.save()
         #return Response(status=status.HTTP_200_OK)
 
 
-# class AuthRequestHandler(APIView):
-#     def post(self, request):
-#         auth_provider = request.data['auth_provider']
-#         if auth_provider == 'local':
-#             data = request.data
-#             user = authenticate(request=request, username=data['username'], password=data['password'])
-#             if user is not None:
-#                 login(request, user)
-#                 user = CustomUser.objects.get(username=data['username'])
-#                 credential = CustomUserLocalCredentials.objects.get(id=user.object_id)
-#                 token = RefreshToken.for_user(credential)
-#                 access_token = token.access_token
-#                 refresh_token = token
-#                 credential.refresh_token = refresh_token
-#                 credential.save()
-#                 del data['password']
-#                 data['access_token'] = str(access_token)
-#                 data['refresh_token'] = str(refresh_token)
-#                 return Response(data=data, status=status.HTTP_200_OK)
-#             else:
-#                 return Response({"ошибка": "неверный логин или пароль"}, status=status.HTTP_403_FORBIDDEN)
-#         elif auth_provider == 'telegram':
-#             data = request.data
-#             data_check_string = f'auth_date={data["auth_date"]}\nfirst_name={data["first_name"]}\nid={data["id"]}\nphoto_url={data["photo_url"]}\nusername={data["username"]}'.encode(
-#                 'utf-8')
-#             secret_key = hashlib.sha256('7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'.encode('utf-8')).digest()
-#             signing_key = hmac.new(key=secret_key, msg=data_check_string, digestmod=hashlib.sha256).hexdigest()
-#
-#             try:
-#                 user = CustomUser.objects.get(username=data['username'])
-#                 credentials = CustomUserTelegramCredentials.objects.get(id=user.object_id)
-#                 data = {'id': credentials.user_id,
-#                         'first_name': credentials.first_name,
-#                         'username': user.username,
-#                         'photo_url': credentials.photo_url,
-#                         'auth_date': credentials.auth_date}
-#                 if signing_key == credentials.hash:
-#                     return Response(data=data, status=status.HTTP_200_OK)
-#             except ObjectDoesNotExist:
-#                 credentials = CustomUserTelegramCredentials.objects.create(auth_date=data['auth_date'],
-#                                                                            hash=data['hash'],
-#                                                                            first_name=data['first_name'],
-#                                                                            photo_url=data['photo_url'],
-#                                                                            user_id=data['id'])
-#                 user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
-#                                                  object_id=credentials.id,
-#                                                  content_type=ContentType.objects.get_for_model(
-#                                                      CustomUserTelegramCredentials))
-#
-#
-#                 return Response(data={"status": "login successful"}, status=status.HTTP_200_OK)
-#
-#             return Response(data={"status": "login failed due to invalid data"}, status=status.HTTP_403_FORBIDDEN)
-#
-#
+class AuthRequestHandler(APIView):
+    def post(self, request):
+        auth_provider = request['auth_provider']
+        if auth_provider == 'local':
+            data = request.data
+            user = authenticate(request=request, username=data['username'], password=data['password'])
+            if user is not None:
+                login(request, user)
+                user = CustomUser.objects.get(username=data['username'])
+                credential = CustomUserLocalCredentials.objects.get(id=user.object_id)
+                token = RefreshToken.for_user(credential)
+                access_token = token.access_token
+                refresh_token = token
+                credential.refresh_token = refresh_token
+                credential.save()
+                del data['password']
+                data['access_token'] = str(access_token)
+                data['refresh_token'] = str(refresh_token)
+                return Response(data=data, status=status.HTTP_200_OK)
+            else:
+                return Response({"ошибка": "неверный логин или пароль"}, status=status.HTTP_403_FORBIDDEN)
+        elif auth_provider == 'telegram':
+            data = request.data
+            data_check_string = f'auth_date={data["auth_date"]}\nfirst_name={data["first_name"]}\nid={data["id"]}\nphoto_url={data["photo_url"]}\nusername={data["username"]}'.encode(
+                'utf-8')
+            secret_key = hashlib.sha256('7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'.encode('utf-8')).digest()
+            signing_key = hmac.new(key=secret_key, msg=data_check_string, digestmod=hashlib.sha256).hexdigest()
+
+            try:
+                user = CustomUser.objects.get(username=data['username'])
+                credentials = CustomUserTelegramCredentials.objects.get(id=user.object_id)
+                data = {'id': credentials.user_id,
+                        'first_name': credentials.first_name,
+                        'username': user.username,
+                        'photo_url': credentials.photo_url,
+                        'auth_date': credentials.auth_date}
+                if signing_key == credentials.hash:
+                    return Response(data=data, status=status.HTTP_200_OK)
+            except ObjectDoesNotExist:
+                credentials = CustomUserTelegramCredentials.objects.create(auth_date=data['auth_date'],
+                                                                           hash=data['hash'],
+                                                                           first_name=data['first_name'],
+                                                                           photo_url=data['photo_url'],
+                                                                           user_id=data['id'])
+                user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
+                                                 object_id=credentials.id,
+                                                 content_type=ContentType.objects.get_for_model(
+                                                     CustomUserTelegramCredentials))
+
+                return Response(data={"status": "login successful"}, status=status.HTTP_200_OK)
+
+            return Response(data={"status": "login failed due to invalid data"}, status=status.HTTP_403_FORBIDDEN)
+
+    def get(self, request):
+        client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+        redirect_uri = 'http://localhost:8000/users/auth/google-oauth2/complete'
+        response_type = 'code'
+        scope = 'email'
+        access_type = 'offline'
+        data = {'client_id': client_id,
+                'redirect_uri': redirect_uri,
+                'response_type': response_type,
+                'scope': scope,
+                'access_type': access_type}
 
