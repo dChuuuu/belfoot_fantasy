@@ -125,8 +125,8 @@ class RegisterUser(APIView):
 
         data = {"username": username,
                 "password": password,
-                "email": email,
-                "otp": otp}
+                "email": email
+                }
 
         serializer = CustomUserSerializer(data=data)
 
