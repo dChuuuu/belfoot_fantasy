@@ -152,7 +152,7 @@ class CustomUser(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = fields.GenericForeignKey('content_type', 'object_id')
-    email = models.EmailField(unique=True, default='null')
+    email = models.EmailField(unique=True, null=True, blank=True)
 
 
     objects = CustomUserManager()
