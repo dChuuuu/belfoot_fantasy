@@ -46,21 +46,37 @@ def create_social_user(token_response, email, username, access_token):
 
     refresh_token = token_response['refresh_token']
     credentials = CustomUserGoogleCredentials.objects.create(email=email, refresh_token=refresh_token)
-    user = CustomUser.objects.create(username=username, auth_provider='google',
-                                     object_id=credentials.id,
-                                     email=email,
-                                     content_type=ContentType.objects.get_for_model(
-                                                     CustomUserGoogleCredentials)
-                                     )
-    data = {'username': user.username,
-            'email': user.email,
-            'refresh_token': credentials.refresh_token,
-            'access_token': access_token}
+    try:
+        user = CustomUser.objects.get(username=username)
+        username = username + str(randint(0, 99999))
+        user = CustomUser.objects.create(username=username, auth_provider='google',
+                                         object_id=credentials.id,
+                                         email=email,
+                                         content_type=ContentType.objects.get_for_model(
+                                             CustomUserGoogleCredentials)
+                                         )
+        data = {'username': user.username,
+                'email': user.email,
+                'refresh_token': credentials.refresh_token,
+                'access_token': access_token}
+
+    except:
+        user = CustomUser.objects.create(username=username, auth_provider='google',
+                                         object_id=credentials.id,
+                                         email=email,
+                                         content_type=ContentType.objects.get_for_model(
+                                                         CustomUserGoogleCredentials)
+                                         )
+        data = {'username': user.username,
+                'email': user.email,
+                'refresh_token': credentials.refresh_token,
+                'access_token': access_token}
+    return data
     return data
 
 
 def get_social_user(username, email, access_token):
-    user = CustomUser.objects.get(username=username)
+    user = CustomUser.objects.get(email=email)
     credential = CustomUserGoogleCredentials.objects.get(id=user.object_id)
     data = {'username': user.username,
             'email': credential.email,
@@ -202,8 +218,8 @@ class LoginUser(APIView):
             access_token = token.access_token
             refresh_token = token
             credential.refresh_token = refresh_token
-            credential.save()
-            del data['password']
+            credential.save()            
+            del data['password']            
             data['access_token'] = str(access_token)
             data['refresh_token'] = str(refresh_token)
             return Response(data=data, status=status.HTTP_200_OK)
@@ -339,8 +355,9 @@ class OAuth2Complete(APIView):
 
         #except:
         try:                # Проверка на наличие социального аккаунта в базе и возврат пары токенов в случае обращения
-            data = get_social_user(username, email, access_token)
-            return Response(data=data, status=status.HTTP_200_OK)
+          data = get_social_user(username, email, access_token)
+          return Response(data=data, status=status.HTTP_200_OK)
+        
         except:
                 # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
             data = create_social_user(token_response, email, username, access_token)
@@ -376,7 +393,11 @@ class TelegramAuth(APIView):
                                                                        first_name=data['first_name'],
                                                                        photo_url=data['photo_url'],
                                                                        user_id=data['id'])
-            user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
+            try:
+              user = CustomUser.objects.get(username=username)
+              return Response(data={'статус': 'имя пользователя уже занято. попробуйте другой метод входа'}, status=status.HTTP_401_UNAUTHORIZED)
+            except:
+              user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
                                              object_id=credentials.id,
                                              content_type=ContentType.objects.get_for_model(
                                                      CustomUserTelegramCredentials))

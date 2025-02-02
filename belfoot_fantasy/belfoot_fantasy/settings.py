@@ -313,7 +313,7 @@ SIMPLE_JWT = {
 #}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = False
 #EMAIL_HOST = 'bf13.by'
 EMAIL_PORT = 587
 EMAIL_USER = ''
