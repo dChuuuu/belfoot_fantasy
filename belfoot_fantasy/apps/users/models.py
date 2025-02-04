@@ -153,6 +153,6 @@ class CustomUser(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = fields.GenericForeignKey('content_type', 'object_id')
     email = models.EmailField(unique=True, null=True, blank=True)
-
+    picture = models.TextField(null=True, blank=True)
 
     objects = CustomUserManager()

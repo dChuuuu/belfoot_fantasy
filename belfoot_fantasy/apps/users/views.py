@@ -46,16 +46,31 @@ def create_social_user(token_response, email, username, access_token):
 
     refresh_token = token_response['refresh_token']
     credentials = CustomUserGoogleCredentials.objects.create(email=email, refresh_token=refresh_token)
-    user = CustomUser.objects.create(username=username, auth_provider='google',
-                                     object_id=credentials.id,
-                                     email=email,
-                                     content_type=ContentType.objects.get_for_model(
-                                                     CustomUserGoogleCredentials)
-                                     )
-    data = {'username': user.username,
-            'email': user.email,
-            'refresh_token': credentials.refresh_token,
-            'access_token': access_token}
+    try:
+        user = CustomUser.objects.get(username=username)
+        username = username + str(randint(0, 99999))
+        user = CustomUser.objects.create(username=username, auth_provider='google',
+                                         object_id=credentials.id,
+                                         email=email,
+                                         content_type=ContentType.objects.get_for_model(
+                                             CustomUserGoogleCredentials)
+                                         )
+        data = {'username': user.username,
+                'email': user.email,
+                'refresh_token': credentials.refresh_token,
+                'access_token': access_token}
+
+    except:
+        user = CustomUser.objects.create(username=username, auth_provider='google',
+                                         object_id=credentials.id,
+                                         email=email,
+                                         content_type=ContentType.objects.get_for_model(
+                                                         CustomUserGoogleCredentials)
+                                         )
+        data = {'username': user.username,
+                'email': user.email,
+                'refresh_token': credentials.refresh_token,
+                'access_token': access_token}
     return data
 
 
@@ -218,6 +233,7 @@ class SecuredView(APIView):
     def get(self, request):
 
         return Response('Успешный запрос')
+
 
 
 @authentication_classes([])
