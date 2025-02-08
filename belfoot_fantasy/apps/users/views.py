@@ -165,6 +165,7 @@ class RegisterUser(APIView):
                                                  content_type=ContentType.objects.get_for_model(
                                                      CustomUserLocalCredentials),
                                                  object_id=credential.id,
+                                                 email=email,
                                                  otp=str(randint(100000, 999999)))
                 user.save()
                 data['access_token'] = str(access_token)
