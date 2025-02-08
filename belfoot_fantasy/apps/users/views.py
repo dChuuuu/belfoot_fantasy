@@ -59,7 +59,8 @@ def create_social_user(token_response, email, username, access_token):
         data = {'username': user.username,
                 'email': user.email,
                 'refresh_token': credentials.refresh_token,
-                'access_token': access_token}
+                'access_token': access_token,
+                'user_id': user.object_id}
 
     except:
         user = CustomUser.objects.create(username=username, auth_provider='google',
@@ -81,7 +82,8 @@ def get_social_user(username, email, access_token):
     data = {'username': user.username,
             'email': credential.email,
             'refresh_token': credential.refresh_token,
-            'access_token': access_token}
+            'access_token': access_token,
+            'user_id': user.object_id}
     return data
 
 
