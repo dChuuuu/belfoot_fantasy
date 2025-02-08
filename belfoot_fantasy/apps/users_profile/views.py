@@ -25,7 +25,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.views import APIView
@@ -105,7 +105,7 @@ class ChangeEmail(APIView):
                           "root@bf13.by",
                           [f'{email}'],
                           fail_silently=False, )
-                return Response(f'Письмо с кодом отправлено на почту{email}', status=status.HTTP_200_OK)
+                return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
 
             return Response('Невозможно совершить для данного auth_provider', status=status.HTTP_400_BAD_REQUEST)
 
@@ -136,7 +136,7 @@ class ChangeEmailConfirmation(APIView):
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 
 
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 class DeleteAccount(APIView):
     def post(self, request):
         credentials_dict = {'local': CustomUserLocalCredentials,
@@ -150,12 +150,12 @@ class DeleteAccount(APIView):
             credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
             if auth_provider == 'local' or auth_provider == 'google':
                 email = credentials.email
-                send_mail('Код для восстановления пароля',
-                          f'Ваш код для изменения почты - {user.otp}. Не передавайте его никому',
+                send_mail('Код для удаления аккаунта',
+                          f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
                           "root@bf13.by",
                           [f'{email}'],
                           fail_silently=False, )
-                return Response(f'Письмо с кодом отправлено на почту{email}', status=status.HTTP_200_OK)
+                return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
             elif auth_provider == 'telegram':
                 user_id = user.username
                 #telegram_bot.send_message(otp=user.otp, username=user_id)
