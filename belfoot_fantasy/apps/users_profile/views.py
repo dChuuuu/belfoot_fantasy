@@ -99,9 +99,9 @@ class ChangeEmail(APIView):
         if user:
             if user.auth_provider == 'local':
                 email = user.email
-                credentials = CustomUserLocalCredentials.objects.get(email=email)
+
                 send_mail('Код для восстановления пароля',
-                          f'Ваш код для изменения почты - {credentials.otp}. Не передавайте его никому',
+                          f'Ваш код для изменения почты - {user.otp}. Не передавайте его никому',
                           "root@bf13.by",
                           [f'{email}'],
                           fail_silently=False, )
