@@ -148,21 +148,6 @@ class DeleteAccount(APIView):
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         auth_provider = request.data['auth_provider']
         if user:
-<<<<<<< HEAD
-            credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
-            if auth_provider == 'local' or auth_provider == 'google':
-                email = credentials.email
-                send_mail('Код для удаления аккаунта',
-                          f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
-                          "root@bf13.by",
-                          [f'{email}'],
-                          fail_silently=False, )
-                return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
-            elif auth_provider == 'telegram':
-                user_id = user.username
-                #telegram_bot.send_message(otp=user.otp, username=user_id)
-                return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
-=======
             try:
                 credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
                 if auth_provider == 'local':
@@ -186,7 +171,7 @@ class DeleteAccount(APIView):
                               [f'{email}'],
                               fail_silently=False, )
                     return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
->>>>>>> 041c051742c0c6e6ac3c9fe71a03f27db1f74d1e
+
 
                 return Response('Указан некорректный провайдер аутентификации', status=status.HTTP_400_BAD_REQUEST)
             except:
