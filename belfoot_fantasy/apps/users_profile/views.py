@@ -37,7 +37,7 @@ from apps.users.serializers import CustomUserSerializer
 #     CustomUserLocalCredentials, CustomUserTelegramCredentials
 from apps.users.models import (CustomUser, CustomUserGoogleCredentials, CustomUserLocalCredentials,
                                                CustomUserTelegramCredentials)
-#from apps.users.telegram_auth import main as telegram_bot
+from apps.users.telegram_auth import main as telegram_bot
 from rest_framework_simplejwt.models import TokenUser
 
 @permission_classes([IsAuthenticated])
@@ -148,7 +148,7 @@ class DeleteAccount(APIView):
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         auth_provider = request.data['auth_provider']
         if user:
-            try:
+            #try:
                 credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
                 if auth_provider == 'local':
                     JWTAuthentication(request)
@@ -174,9 +174,9 @@ class DeleteAccount(APIView):
 
 
                 return Response('Указан некорректный провайдер аутентификации', status=status.HTTP_400_BAD_REQUEST)
-            except:
+            #except:
 
-                return Response('Отказано в доступе', status=status.HTTP_403_FORBIDDEN)
+                #return Response('Отказано в доступе', status=status.HTTP_403_FORBIDDEN)
 
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 
