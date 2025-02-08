@@ -168,7 +168,8 @@ class DeleteAccount(APIView):
                         'text': f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому'
                     }
                     response = requests.post(url, json=payload)
-                    return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
+                    #return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
+                    return response.json()
 
                 elif auth_provider == 'google':
                     email = credentials.email
