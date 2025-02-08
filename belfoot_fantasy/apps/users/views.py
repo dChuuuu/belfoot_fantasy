@@ -47,7 +47,7 @@ def create_social_user(token_response, email, username, access_token):
     refresh_token = token_response['refresh_token']
     credentials = CustomUserGoogleCredentials.objects.create(email=email, refresh_token=refresh_token)
     try:
-        user = CustomUser.objects.get(username=username)
+        CustomUser.objects.get(username=username)
         username = username + str(randint(0, 99999))
         user = CustomUser.objects.create(username=username, auth_provider='google',
                                          object_id=credentials.id,
@@ -67,7 +67,8 @@ def create_social_user(token_response, email, username, access_token):
                                          object_id=credentials.id,
                                          email=email,
                                          content_type=ContentType.objects.get_for_model(
-                                                         CustomUserGoogleCredentials)
+                                                         CustomUserGoogleCredentials),
+                                         otp=str(randint(100000, 999999))
                                          )
         data = {'username': user.username,
                 'email': user.email,
