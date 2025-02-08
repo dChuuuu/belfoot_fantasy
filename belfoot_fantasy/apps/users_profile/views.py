@@ -137,7 +137,7 @@ class ChangeEmailConfirmation(APIView):
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 
 
-@permission_classes([AllowAny])
+@permission_classes([])
 class DeleteAccount(APIView):
     def post(self, request):
         credentials_dict = {'local': CustomUserLocalCredentials,
