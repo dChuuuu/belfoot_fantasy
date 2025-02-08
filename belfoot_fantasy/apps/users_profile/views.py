@@ -195,8 +195,17 @@ class DeleteAccountConfirmation(APIView):
                 credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
                 user.delete()
                 credentials.delete()
+                if auth_provider == 'google':
+                    access_token = request.data['access_token']
+                    url = f"https://oauth2.googleapis.com/revoke?token={access_token}"
+                    response = requests.post(url)
+                    if response.status_code != 200:
+                        return Response('Невозможно удалить пользователя. Неверный токен', status
+                            =status.HTTP_403_FORBIDDEN)
+
                 return Response('Пользователь удалён', status=status.HTTP_200_OK)
             return Response('Указан неверный код', status=status.HTTP_403_FORBIDDEN)
 
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
+
 
