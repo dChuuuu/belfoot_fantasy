@@ -180,7 +180,7 @@ class DeleteAccount(APIView):
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 
 
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 class DeleteAccountConfirmation(APIView):
     def post(self, request):
         credentials_dict = {'local': CustomUserLocalCredentials,
