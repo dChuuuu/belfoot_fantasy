@@ -37,7 +37,7 @@ from apps.users.serializers import CustomUserSerializer
 #     CustomUserLocalCredentials, CustomUserTelegramCredentials
 from apps.users.models import (CustomUser, CustomUserGoogleCredentials, CustomUserLocalCredentials,
                                                CustomUserTelegramCredentials)
-from apps.users.telegram_auth import main as telegram_bot
+#from apps.users.telegram_auth import main as telegram_bot
 from rest_framework_simplejwt.models import TokenUser
 
 @permission_classes([IsAuthenticated])
@@ -161,8 +161,15 @@ class DeleteAccount(APIView):
                     return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
                 elif auth_provider == 'telegram':
                     user_id = user.username
-                    telegram_bot.send_message(otp=user.otp, username=user_id)
+                    token = '7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'
+                    url = f"https://api.telegram.org/bot{token}/sendMessage"
+                    payload = {
+                        'chat_id': '@' + user_id,
+                        'text': f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому'
+                    }
+                    response = requests.post(url, json=payload)
                     return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
+
                 elif auth_provider == 'google':
                     email = credentials.email
                     send_mail('Код для удаления аккаунта',
