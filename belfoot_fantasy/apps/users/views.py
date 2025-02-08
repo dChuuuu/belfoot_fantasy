@@ -402,8 +402,8 @@ class TelegramAuth(APIView):
                                              content_type=ContentType.objects.get_for_model(
                                                      CustomUserTelegramCredentials),
                                              otp=str(randint(100000, 999999)))
-
-            return Response(data={"status": "login successful"}, status=status.HTTP_200_OK)
+            data['user_id'] = user.object_id
+            return Response(data=data, status=status.HTTP_200_OK)
 
         return Response(data={"status": "login failed due to invalid data"}, status=status.HTTP_403_FORBIDDEN)
 
