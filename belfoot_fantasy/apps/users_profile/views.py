@@ -36,7 +36,7 @@ from apps.users.serializers import CustomUserSerializer
 #     CustomUserLocalCredentials, CustomUserTelegramCredentials
 from apps.users.models import (CustomUser, CustomUserGoogleCredentials, CustomUserLocalCredentials,
                                                CustomUserTelegramCredentials)
-from apps.users.telegram_auth import main as telegram_bot
+#from apps.users.telegram_auth import main as telegram_bot
 from rest_framework_simplejwt.models import TokenUser
 
 @permission_classes([IsAuthenticated])
@@ -156,7 +156,7 @@ class DeleteAccount(APIView):
                 return Response(f'Письмо с кодом отправлено на почту{email}', status=status.HTTP_200_OK)
             elif auth_provider == 'telegram':
                 user_id = user.username
-                telegram_bot.send_message(otp=user.otp, username=user_id)
+                #telegram_bot.send_message(otp=user.otp, username=user_id)
                 return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
 
             return Response('Указан некорректный провайдер аутентификации', status=status.HTTP_400_BAD_REQUEST)

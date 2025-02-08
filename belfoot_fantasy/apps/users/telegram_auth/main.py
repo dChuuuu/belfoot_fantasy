@@ -46,7 +46,7 @@ async def echo_handler(message: Message) -> None:
 
 
 async def send_otp(otp, username):
-    await Message.send_message(chat_id='@' + username, text=f'{otp}')
+    Message.send_message(chat_id='@' + username, text=f'{otp}')
 
 
 async def main() -> None:
