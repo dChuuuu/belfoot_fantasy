@@ -123,10 +123,10 @@ class ChangeEmailConfirmation(APIView):
         new_email = request.data['new_email']
         if user:
             user_credentials = CustomUserLocalCredentials.objects.get(id=user.object_id)
-            if otp == user_credentials.otp:
+            if otp == user.otp:
                 user.email = new_email
                 user_credentials.email = new_email
-                user_credentials.otp = str(randint(100000, 999999))
+                user.otp = str(randint(100000, 999999))
                 user.save()
                 user_credentials.save()
                 return Response('Успешно', status=status.HTTP_200_OK)
