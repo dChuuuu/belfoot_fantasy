@@ -30,6 +30,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken, Token
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from apps.users.serializers import CustomUserSerializer
 # from apps.users.models import CustomUser, CustomUserGoogleCredentials, \
@@ -147,21 +148,34 @@ class DeleteAccount(APIView):
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         auth_provider = request.data['auth_provider']
         if user:
-            credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
-            if auth_provider == 'local' or auth_provider == 'google':
-                email = credentials.email
-                send_mail('Код для удаления аккаунта',
-                          f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
-                          "root@bf13.by",
-                          [f'{email}'],
-                          fail_silently=False, )
-                return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
-            elif auth_provider == 'telegram':
-                user_id = user.username
-                telegram_bot.send_message(otp=user.otp, username=user_id)
-                return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
+            try:
+                credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
+                if auth_provider == 'local':
+                    JWTAuthentication(request)
+                    email = credentials.email
+                    send_mail('Код для удаления аккаунта',
+                              f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
+                              "root@bf13.by",
+                              [f'{email}'],
+                              fail_silently=False, )
+                    return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
+                elif auth_provider == 'telegram':
+                    user_id = user.username
+                    telegram_bot.send_message(otp=user.otp, username=user_id)
+                    return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
+                elif auth_provider == 'google':
+                    email = credentials.email
+                    send_mail('Код для удаления аккаунта',
+                              f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
+                              "root@bf13.by",
+                              [f'{email}'],
+                              fail_silently=False, )
+                    return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
 
-            return Response('Указан некорректный провайдер аутентификации', status=status.HTTP_400_BAD_REQUEST)
+                return Response('Указан некорректный провайдер аутентификации', status=status.HTTP_400_BAD_REQUEST)
+            except:
+
+                return Response('Отказано в доступе', status=status.HTTP_403_FORBIDDEN)
 
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 
