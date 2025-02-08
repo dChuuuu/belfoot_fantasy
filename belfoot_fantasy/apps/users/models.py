@@ -6,6 +6,9 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.contenttypes import fields
 
 from django.utils.translation import gettext_lazy as _
+from rest_framework import status
+from rest_framework.response import Response
+
 username_validator = UnicodeUsernameValidator()
 class CustomUserManager(BaseUserManager):
     """
@@ -37,12 +40,23 @@ class CustomUserManager(BaseUserManager):
         user.is_staff = True
         user.save()
 
-        return user
+    def get_object_or_false(self, object_id=None, username=None):
+        try:
+            if object_id:
+                user = CustomUser.objects.get(object_id=object_id)
+                return user
+            if username:
+                user = CustomUser.objects.get(username=username)
+                return user
+        except:
+            return False
+
+
 
 
 class CustomUserLocalCredentials(AbstractUser):
     email = models.EmailField(_("email address"), blank=True, unique=True)
-    otp = models.CharField(max_length=6, null=True, blank=True)
+
     password = models.CharField(_("password"), max_length=128)
     refresh_token = models.TextField(null=True)
     username = models.CharField(
@@ -130,7 +144,7 @@ class CustomUser(models.Model):
     last_login = None
     password = None
     USERNAME_FIELD = 'username'
-    otp = None
+
     refresh_token = None
     id = models.BigAutoField(primary_key=True, unique=True, default=None)
     # Поля, определяющие имя пользователя и обязательное поле для ввода
@@ -154,5 +168,6 @@ class CustomUser(models.Model):
     content_object = fields.GenericForeignKey('content_type', 'object_id')
     email = models.EmailField(unique=True, null=True, blank=True)
     picture = models.TextField(null=True, blank=True)
+    otp = models.CharField(max_length=6, null=True, blank=True)
 
     objects = CustomUserManager()

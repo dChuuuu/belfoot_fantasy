@@ -53,7 +53,8 @@ def create_social_user(token_response, email, username, access_token):
                                          object_id=credentials.id,
                                          email=email,
                                          content_type=ContentType.objects.get_for_model(
-                                             CustomUserGoogleCredentials)
+                                             CustomUserGoogleCredentials),
+                                         otp=str(randint(100000, 999999))
                                          )
         data = {'username': user.username,
                 'email': user.email,
@@ -134,7 +135,7 @@ class RegisterUser(APIView):
             username = request.data['username']
             password = request.data['password']
             email = request.data['email']
-            otp = str(randint(100000, 999999))
+
         except:
             return Response({"Ошибка": "Некорректные либо неполные данные"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -151,7 +152,6 @@ class RegisterUser(APIView):
                 password = make_password(password)
 
                 credential = CustomUserLocalCredentials.objects.create(email=data['email'],
-                                                                        otp=str(randint(100000, 999999)),
                                                                         password=password,
                                                                         refresh_token=None,
                                                                        username=data['username'])
@@ -164,7 +164,8 @@ class RegisterUser(APIView):
                                                  auth_provider='local',
                                                  content_type=ContentType.objects.get_for_model(
                                                      CustomUserLocalCredentials),
-                                                 object_id=credential.id)
+                                                 object_id=credential.id,
+                                                 otp=str(randint(100000, 999999)))
                 user.save()
                 data['access_token'] = str(access_token)
                 data['refresh_token'] = str(refresh_token)
@@ -395,7 +396,8 @@ class TelegramAuth(APIView):
             user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
                                              object_id=credentials.id,
                                              content_type=ContentType.objects.get_for_model(
-                                                     CustomUserTelegramCredentials))
+                                                     CustomUserTelegramCredentials),
+                                             otp=str(randint(100000, 999999)))
 
             return Response(data={"status": "login successful"}, status=status.HTTP_200_OK)
 

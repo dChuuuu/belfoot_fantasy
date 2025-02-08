@@ -45,6 +45,10 @@ async def echo_handler(message: Message) -> None:
         await message.answer("Nice try!")
 
 
+async def send_otp(otp, username):
+    await Message.send_message(chat_id='@' + username, text=f'{otp}')
+
+
 async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))

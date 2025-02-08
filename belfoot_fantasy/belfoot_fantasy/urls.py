@@ -21,6 +21,7 @@ from django.urls import path, include, re_path
 from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassword,
                               ResetPassword, OAuth2, OAuth2Complete,
                               TelegramAuth,)
+from apps.users_profile.views import ProfilePicture
 #from apps.users.views import TestingLocalModel
 #OAuth2, OAuth2Complete, TelegramAuth)
 from django.views.decorators.csrf import csrf_exempt
@@ -64,6 +65,7 @@ urlpatterns = [
     path('users/auth/google-oauth2/login', OAuth2.as_view(), name='google_oauth_login'),
     re_path(r'users/auth/google-oauth2/complete/?.+', OAuth2Complete.as_view(), name='google_oauth_complete'),
     path('users/auth/telegram-auth/login', csrf_exempt(TelegramAuth.as_view()), name='telegram_auth'),
+    path('users/profile/picture', ProfilePicture.as_view(), name='change_picture')
     #path('users/auth/common_auth', AuthRequestHandler.as_view(), name='common_auth')
     #path('testing/', TestingLocalModel.as_view()),
     #path('users/auth/token_check', TokenAuthUser.as_view(), name='token_check'),
