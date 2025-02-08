@@ -61,9 +61,10 @@ class ProfilePicture(APIView):
     def get(self, request):
         user_id = request.GET.get('user_id')
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
-        data = {'user_id': user.object_id,
-                'picture': user.picture}
+
         if user:
+            data = {'user_id': user.object_id,
+                    'picture': user.picture}
             return Response(data=data)
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 

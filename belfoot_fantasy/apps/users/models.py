@@ -169,5 +169,4 @@ class CustomUser(models.Model):
     email = models.EmailField(unique=True, null=True, blank=True)
     picture = models.TextField(null=True, blank=True)
     otp = models.CharField(max_length=6, null=True, blank=True)
-
     objects = CustomUserManager()
