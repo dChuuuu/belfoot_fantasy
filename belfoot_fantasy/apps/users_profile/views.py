@@ -80,11 +80,11 @@ class ChangeUsername(APIView):
         if user:
             username_check = CustomUser.objects.get_object_or_false(username=new_username)
             if username_check:
-                user.username = new_username
-                user.save()
-                data = {'username': user.username}
-                return Response(data=data, status=status.HTTP_200_OK)
-            return Response('Имя пользователя уже занято. Попробуйте другое', status=status.HTTP_200_OK)
+                return Response('Имя пользователя уже занято. Попробуйте другое', status=status.HTTP_200_OK)
+            user.username = new_username
+            user.save()
+            data = {'username': user.username}
+            return Response(data=data, status=status.HTTP_200_OK)
 
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 
