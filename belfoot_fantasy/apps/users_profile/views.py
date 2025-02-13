@@ -101,7 +101,7 @@ class ChangeEmail(APIView):
             if user.auth_provider == 'local':
                 email = user.email
 
-                send_mail('Код для восстановления пароля',
+                send_mail('Код для изменения почты',
                           f'Ваш код для изменения почты - {user.otp}. Не передавайте его никому',
                           "root@bf13.by",
                           [f'{email}'],
@@ -217,3 +217,17 @@ class DeleteAccountConfirmation(APIView):
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 
 
+@permission_classes([])
+class GetUserInfo(APIView):
+    def get(self, request):
+        user_id = request.GET.get('user_id')
+        auth_provider = request.data['auth_provider']
+        user = CustomUser.objects.get_object_or_false(object_id=user_id)
+        credentials = CustomUser.objects.get_object_or_false(id=user.object_id)
+        if user and user.auth_provider == auth_provider:
+            user_serializer = CustomUserSerializer(user)
+
+            return Response(user_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response('Пользователя не существует либо неверный auth_provider',
+                            status=status.HTTP_404_NOT_FOUND)

@@ -22,7 +22,7 @@ from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassw
                               ResetPassword, OAuth2, OAuth2Complete,
                               TelegramAuth,)
 from apps.users_profile.views import (ProfilePicture, ChangeUsername, ChangeEmail, ChangeEmailConfirmation,
-                                      DeleteAccount, DeleteAccountConfirmation)
+                                      DeleteAccount, DeleteAccountConfirmation, GetUserInfo)
 #from apps.users.views import TestingLocalModel
 #OAuth2, OAuth2Complete, TelegramAuth)
 from django.views.decorators.csrf import csrf_exempt
@@ -71,7 +71,8 @@ urlpatterns = [
     path('users/profile/change_email', ChangeEmail.as_view(), name='change_email'),
     path('users/profile/change_email/confirm', ChangeEmailConfirmation.as_view(), name='change_email_confirmation'),
     path('users/profile/delete_account', DeleteAccount.as_view(), name='delete_account'),
-    path('users/profile/delete_account/confirm', DeleteAccountConfirmation.as_view(), name='delete_account_confirmation')
+    path('users/profile/delete_account/confirm', DeleteAccountConfirmation.as_view(), name='delete_account_confirmation'),
+    path('users/profile/info', GetUserInfo.as_view(), name='get_user_info')
     #path('users/auth/common_auth', AuthRequestHandler.as_view(), name='common_auth')
     #path('testing/', TestingLocalModel.as_view()),
     #path('users/auth/token_check', TokenAuthUser.as_view(), name='token_check'),
