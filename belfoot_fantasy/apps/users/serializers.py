@@ -5,7 +5,7 @@ from rest_framework import serializers
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUserLocalCredentials
-        fields = '__all__'
+        fields = ['email', 'username']
 
 # class CustomUserTelegramSerializer(serializers.ModelSerializer):
 #     class Meta:
