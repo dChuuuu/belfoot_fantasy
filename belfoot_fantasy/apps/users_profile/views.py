@@ -224,14 +224,12 @@ class DeleteAccountConfirmation(APIView):
 class GetUserInfo(APIView):
     def get(self, request):
         user_id = request.GET.get('user_id')
-        auth_provider = request.data['auth_provider']
+
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
 
         if user:
-            if user.auth_provider == auth_provider:
-                credentials = CustomUser.objects.get_object_or_false(username=user.username)
-                user_serializer = UserSerializer(user)
-                return Response(user_serializer.data, status=status.HTTP_200_OK)
+            user_serializer = UserSerializer(user)
+            return Response(user_serializer.data, status=status.HTTP_200_OK)
 
         else:
             return Response('Пользователя не существует либо неверный auth_provider',
