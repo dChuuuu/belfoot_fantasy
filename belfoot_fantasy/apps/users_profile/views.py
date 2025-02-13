@@ -160,16 +160,19 @@ class DeleteAccount(APIView):
                               fail_silently=False, )
                     return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
                 elif auth_provider == 'telegram':
-                    user_id = user.username
+                    user_id = credentials.user_id
                     token = '7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'
                     url = f"https://api.telegram.org/bot{token}/sendMessage"
                     payload = {
-                        'chat_id': '404851643',
+
+                        'chat_id': user_id,
                         'text': f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому'
                     }
-                    response = requests.post(url, json=payload)
-                    #return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
-                    return Response(data=response.json())
+                    requests.post(url, json=payload)
+                    return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
+
+
+
                 elif auth_provider == 'google':
                     email = credentials.email
                     send_mail('Код для удаления аккаунта',
