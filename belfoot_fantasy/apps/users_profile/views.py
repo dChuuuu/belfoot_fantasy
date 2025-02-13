@@ -224,10 +224,11 @@ class GetUserInfo(APIView):
         auth_provider = request.data['auth_provider']
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         credentials = CustomUser.objects.get_object_or_false(id=user.object_id)
-        if user and user.auth_provider == auth_provider:
-            user_serializer = CustomUserSerializer(user)
+        if user:
+            if user.auth_provider == auth_provider:
+                user_serializer = CustomUserSerializer(user)
+                return Response(user_serializer.data, status=status.HTTP_200_OK)
 
-            return Response(user_serializer.data, status=status.HTTP_200_OK)
         else:
             return Response('Пользователя не существует либо неверный auth_provider',
                             status=status.HTTP_404_NOT_FOUND)
