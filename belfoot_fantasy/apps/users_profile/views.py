@@ -229,7 +229,7 @@ class GetUserInfo(APIView):
 
         if user:
             if user.auth_provider == auth_provider:
-                credentials = CustomUser.objects.get_object_or_false(id=user.object_id)
+                credentials = CustomUser.objects.get_object_or_false(username=user.username)
                 user_serializer = CustomUserSerializer(user)
                 return Response(user_serializer.data, status=status.HTTP_200_OK)
 
