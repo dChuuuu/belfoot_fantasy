@@ -32,7 +32,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken, Token
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from apps.users.serializers import CustomUserSerializer
+from apps.users.serializers import CustomUserSerializer, UserSerializer
 # from apps.users.models import CustomUser, CustomUserGoogleCredentials, \
 #     CustomUserLocalCredentials, CustomUserTelegramCredentials
 from apps.users.models import (CustomUser, CustomUserGoogleCredentials, CustomUserLocalCredentials,
@@ -227,7 +227,7 @@ class GetUserInfo(APIView):
         if user:
             if user.auth_provider == auth_provider:
                 credentials = CustomUser.objects.get_object_or_false(username=user.username)
-                user_serializer = CustomUserSerializer(user)
+                user_serializer = UserSerializer(user)
                 return Response(user_serializer.data, status=status.HTTP_200_OK)
 
         else:

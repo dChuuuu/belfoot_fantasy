@@ -7,6 +7,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUserLocalCredentials
         fields = ['email', 'username']
 
+class UserSerializer(serializers.ModelSerializer):
+    class meta:
+        model = CustomUser
+        fields = '__all__'
+
 # class CustomUserTelegramSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = CustomUserTelegram
