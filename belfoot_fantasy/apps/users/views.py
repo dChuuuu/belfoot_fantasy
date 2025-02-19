@@ -153,10 +153,9 @@ class RegisterUser(APIView):
         if serializer.is_valid():
             if password_validator(password) is None:
                 password = make_password(password)
-
                 credential = CustomUserLocalCredentials.objects.create(email=data['email'],
-                                                                        password=password,
-                                                                        refresh_token=None,
+                                                                       password=password,
+                                                                       refresh_token=None,
                                                                        username=data['username'])
                 token = RefreshToken.for_user(credential)
                 access_token = token.access_token
@@ -216,17 +215,20 @@ class LoginUser(APIView):
         user = authenticate(request=request, username=data['username'], password=data['password'])
         if user is not None:
             login(request, user)
-            user = CustomUser.objects.get(username=data['username'])
-            credential = CustomUserLocalCredentials.objects.get(id=user.object_id)
-            token = RefreshToken.for_user(credential)
-            access_token = token.access_token
-            refresh_token = token
-            credential.refresh_token = refresh_token
-            credential.save()
-            del data['password']
-            data['access_token'] = str(access_token)
-            data['refresh_token'] = str(refresh_token)
-            return Response(data=data, status=status.HTTP_200_OK)
+            user = CustomUser.objects.get_object_or_false(username=data['username'])
+            if user:
+                credential = CustomUserLocalCredentials.objects.get(id=user.object_id)
+                token = RefreshToken.for_user(credential)
+                access_token = token.access_token
+                refresh_token = token
+                credential.refresh_token = refresh_token
+                credential.save()
+                del data['password']
+                data['access_token'] = str(access_token)
+                data['refresh_token'] = str(refresh_token)
+                return Response(data=data, status=status.HTTP_200_OK)
+            else:
+                return Response('Пользователь не найден', status=status.HTTP_404_NOT_FOUND)
         else:
             return Response({"ошибка": "неверный логин или пароль"}, status=status.HTTP_403_FORBIDDEN)
 
@@ -260,20 +262,21 @@ class ForgotPassword(APIView):
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
-        email = request.data['email']
+
+        try:
+            email = request.data['email']
+
+        except:
+            return Response('Отсутствует необходимое поле в теле запроса', status=status.HTTP_400_BAD_REQUEST)
+
         email_instance = CustomUserLocalCredentials.objects.get(email=email)
         serializer = CustomUserSerializer(instance=email_instance)
         send_mail('Код для восстановления пароля',
-        f'Ваш код для восстановления пароля - {serializer.data["otp"]}. Не передавайте его никому',
-    "root@bf13.by",
-    [f'{email}'],
-        fail_silently=False,)
+                  f'Ваш код для восстановления пароля - {serializer.data["otp"]}. Не передавайте его никому',
+                  "root@bf13.by",
+                  [f'{email}'],
+                  fail_silently=False, )
 
-        #otp = str(randint(100000, 999999))
-        #email_instance.otp = otp
-        #email_instance.save()
-        #if serializer.is_valid(raise_exception=True):
-            #serializer.save()
         return Response(data=email_instance.otp)
 
 
@@ -354,23 +357,14 @@ class OAuth2Complete(APIView):
         username = userinfo_response['email'].rstrip('@gmail.com')
         email = userinfo_response['email']
 
-        #try:
-            # Проверка на наличие никнейма в базовой БД аутентификации логина пароля во избежание дубликата никнейма
-            #username_check = CustomUser.objects.get(email=email)
-
-        #except:
         try:                # Проверка на наличие социального аккаунта в базе и возврат пары токенов в случае обращения
             data = get_social_user(username, email, access_token)
             return Response(data=data, status=status.HTTP_200_OK)
         except:
-                # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
+            # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
             data = create_social_user(token_response, email, username, access_token)
             return Response(data=data, status=status.HTTP_200_OK)
-        # else:
-        #     # Генерация нового имени пользователя путём добавления автоинкрементной цифры начиная с 0 и запись в БД
-        #     username = username_generator(username, username_check)
-        #     data = create_social_user(token_response, email, username, access_token)
-        #     return Response(data=data, status=status.HTTP_200_OK)
+
 
 
 

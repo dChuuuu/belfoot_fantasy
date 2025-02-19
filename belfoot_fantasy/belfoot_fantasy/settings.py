@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.users',
     'apps.users_profile',
+    'apps.databases',
     'rest_framework',
     'drf_yasg',
     'rest_framework_simplejwt',

@@ -54,7 +54,7 @@ class ProfilePicture(APIView):
             user.picture = picture
             user.save()
             data = {'user_id': user_id,
-                'picture': picture}
+                    'picture': picture}
             return Response(data=data, status=status.HTTP_200_OK)
 
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
@@ -71,7 +71,6 @@ class ProfilePicture(APIView):
 
 @permission_classes([IsAuthenticated])
 class ChangeUsername(APIView):
-    #//TODO ПРОТЕСТИРОВАТЬ
     def post(self, request):
         access_token = request.headers['Authorization'].lstrip('Bearer')
         new_username = request.data['username']
@@ -159,6 +158,7 @@ class DeleteAccount(APIView):
                               [f'{email}'],
                               fail_silently=False, )
                     return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
+
                 elif auth_provider == 'telegram':
                     user_id = credentials.user_id
                     token = '7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'
@@ -222,9 +222,9 @@ class DeleteAccountConfirmation(APIView):
 
 @permission_classes([])
 class GetUserInfo(APIView):
+
     def get(self, request):
         user_id = request.GET.get('user_id')
-
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
 
         if user:
