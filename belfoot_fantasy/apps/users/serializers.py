@@ -5,7 +5,7 @@ from rest_framework import serializers
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUserLocalCredentials
-        fields = ['email', 'username']
+        fields = ['email', 'username', 'refresh_token', 'id']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

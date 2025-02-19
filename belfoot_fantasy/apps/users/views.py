@@ -77,7 +77,7 @@ def create_social_user(token_response, email, username, access_token):
     return data
 
 
-def get_social_user(username, email, access_token):
+def get_social_user(username, access_token):
     user = CustomUser.objects.get(username=username)
     credential = CustomUserGoogleCredentials.objects.get(id=user.object_id)
     data = {'username': user.username,
@@ -105,6 +105,20 @@ def get_google_token(request):
             'redirect_uri': redirect_uri}
     token_response = requests.post(url=google_auth_token_uri, data=data).json()
     return token_response
+
+
+class LocalUser:
+
+    def obtain_token_pair(self, credential):
+        token = RefreshToken.for_user(credential)
+        access_token = token.access_token
+        refresh_token = token
+        credential.refresh_token = token  # Ссылка на зависимую таблицу с кредами для локального auth
+        credential.save()
+        return {'access_token': access_token,
+                'refresh_token': refresh_token}
+
+
 
 
 @authentication_classes([])
@@ -135,34 +149,32 @@ class RegisterUser(APIView):
     def post(self, request):
 
         try:
+            # Проверка на наличие нужных данных в теле запроса
             username = request.data['username']
             password = request.data['password']
             email = request.data['email']
 
         except:
-            return Response({"Ошибка": "Некорректные либо неполные данные"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Ошибка": "Некорректные либо неполные данные(username, password, email)"}, status=status.HTTP_400_BAD_REQUEST)
 
-        data = {"username": username,
-                "password": password,
-                "email": email
-                }
+        # Формирование словаря с данными пользователя
 
-        serializer = CustomUserSerializer(data=data)
 
+        serializer = CustomUserSerializer(data=request.data)
+        serializer_credentials = CustomUser
         # Проверка корректности данных для связей в БД, создание записи пользователя в БД и генерация токена
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
+            # Кастомный валидатор для проверки пароля
             if password_validator(password) is None:
                 password = make_password(password)
-                credential = CustomUserLocalCredentials.objects.create(email=data['email'],
+                credential = CustomUserLocalCredentials.objects.create(email=serializer.data['email'],
                                                                        password=password,
                                                                        refresh_token=None,
-                                                                       username=data['username'])
-                token = RefreshToken.for_user(credential)
-                access_token = token.access_token
-                refresh_token = token
-                credential.refresh_token = refresh_token
-                credential.save()
-                user = CustomUser.objects.create(username=data['username'],
+                                                                       username=serializer.data['username'])
+
+                credential_token = LocalUser().obtain_token_pair(credential)
+
+                user = CustomUser.objects.create(username=serializer.data['username'],
                                                  auth_provider='local',
                                                  content_type=ContentType.objects.get_for_model(
                                                      CustomUserLocalCredentials),
@@ -170,9 +182,9 @@ class RegisterUser(APIView):
                                                  email=email,
                                                  otp=str(randint(100000, 999999)))
                 user.save()
-                data['access_token'] = str(access_token)
-                data['refresh_token'] = str(refresh_token)
-                return Response(data=data, status=status.HTTP_200_OK)
+                #serializer.data['access_token'] = str(credential_token['access_token'])
+                #serializer.data['refresh_token'] = str(credential_token['refresh_token'])
+                return Response(data=serializer.data, status=status.HTTP_200_OK)
             else:
                 return password_validator(password)
 

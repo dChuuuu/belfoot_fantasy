@@ -53,7 +53,6 @@ class CustomUserManager(BaseUserManager):
 
 
 
-
 class CustomUserLocalCredentials(AbstractUser):
     email = models.EmailField(_("email address"), blank=True, unique=True)
 
