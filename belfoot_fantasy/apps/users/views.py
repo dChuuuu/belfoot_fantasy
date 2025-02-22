@@ -311,7 +311,7 @@ class ForgotPassword(APIView):
                   [f'{email}'],
                   fail_silently=False, )
 
-        return Response(data=email_instance.otp)
+        return Response('Код восстановления отправлен на почту', status=status.HTTP_200_OK)
 
 
 @authentication_classes([])
