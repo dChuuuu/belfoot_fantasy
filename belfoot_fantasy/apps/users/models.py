@@ -42,13 +42,16 @@ class CustomUserManager(BaseUserManager):
         user.is_staff = True
         user.save()
 
-    def get_object_or_false(self, object_id=None, username=None):
+    def get_object_or_false(self, object_id=None, username=None, email=None):
         try:
             if object_id:
                 user = CustomUser.objects.get(object_id=object_id)
                 return user
             if username:
                 user = CustomUser.objects.get(username=username)
+                return user
+            if email:
+                user = CustomUser.objects.get(email=email)
                 return user
         except:
             raise Http404
@@ -166,5 +169,5 @@ class CustomUser(models.Model):
     content_object = fields.GenericForeignKey('content_type', 'object_id')
     email = models.EmailField(unique=True, null=True, blank=True)
     picture = models.TextField(null=True, blank=True)
-    otp = models.CharField(max_length=6, null=True, blank=True)
+    otp = models.TextField(null=True, blank=True)
     objects = CustomUserManager()

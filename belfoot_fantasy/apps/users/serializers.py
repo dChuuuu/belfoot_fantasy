@@ -10,7 +10,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'auth_provider', 'object_id', 'email', 'picture']
+        fields = ['username', 'auth_provider', 'object_id', 'email', 'picture', 'otp']
 
 # class CustomUserTelegramSerializer(serializers.ModelSerializer):
 #     class Meta:

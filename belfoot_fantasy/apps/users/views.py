@@ -181,14 +181,16 @@ class RegisterUser(APIView):
                 refresh_token = token
                 credential.refresh_token = refresh_token  # Ссылка на зависимую таблицу с кредами для локального auth
                 credential.save()
-                #//TODO sha256 OTP
+                #//TODO base64 OTP
+                otp = str(randint(100000, 999999)).encode()
+                otp_base64 = base64.b64encode(otp)
                 user = CustomUser.objects.create(username=username,
                                                  auth_provider='local',
                                                  content_type=ContentType.objects.get_for_model(
                                                      CustomUserLocalCredentials),
                                                  object_id=credential.id,
                                                  email=email,
-                                                 otp=str(randint(100000, 999999)))
+                                                 otp=otp_base64)
                 user.save()
 
                 response = serializer.data
@@ -280,7 +282,7 @@ class SecuredView(APIView):
 @authentication_classes([])
 @permission_classes([])
 class ForgotPassword(APIView):
-    '''Представление для получения otp'''
+    '''Представление для получения otp на почту юзера'''
     request_schema_dict = openapi.Schema(
         title=("Получение одноразового кода для сброса пароля на почту юзера. На фронте после этого надо будет делать редирект"
                "на страницу для ввода кода"),
@@ -296,17 +298,15 @@ class ForgotPassword(APIView):
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
+        # Проверка полноты данных предоставленных в запросе и возврат кредов
+        input_data = LocalUser(request=request).input_data_check()
+        email = input_data.email
 
-        try:
-            email = request.data['email']
-
-        except:
-            return Response('Отсутствует необходимое поле в теле запроса', status=status.HTTP_400_BAD_REQUEST)
-
-        email_instance = CustomUserLocalCredentials.objects.get(email=email)
-        serializer = CustomUserSerializer(instance=email_instance)
+        email_instance = CustomUser.objects.get_object_or_false(email=email)
+        serializer = UserSerializer(instance=email_instance)
+        decrypted_otp = base64.b64decode(serializer.data['otp'] + '///')
         send_mail('Код для восстановления пароля',
-                  f'Ваш код для восстановления пароля - {serializer.data["otp"]}. Не передавайте его никому',
+                  f'Ваш код для восстановления пароля - {decrypted_otp}. Не передавайте его никому',
                   "root@bf13.by",
                   [f'{email}'],
                   fail_silently=False, )
@@ -341,20 +341,18 @@ class ResetPassword(APIView):
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
-
-        otp = request.data['otp']
-        email = request.data['email']
-        new_password = request.data['new_password']
-
         try:
-            email_instance = CustomUser.objects.get(email=email)
+            otp = request.data['otp']
+            email = request.data['email']
+            new_password = request.data['new_password']
+        except KeyError:
+            raise CustomUserException400('Неполные данные в теле запроса(otp, email, new_password')
 
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        email_instance = CustomUser.objects.get_user_or_false(email=email)
 
         if otp == email_instance.otp:
             email_instance.password = new_password
-            email_instance.otp = str(randint(100000, 999999))
+            email_instance.otp = str(randint(100000, 999999))   # Новый OTP не сгенерируется пока старый не использован. //TODO ИСПРАВИТЬ
             email_instance.save()
 
             return Response(data=f'{email_instance.password}', status=status.HTTP_200_OK)
@@ -363,9 +361,9 @@ class ResetPassword(APIView):
 
 
 class OAuth2(APIView):
-
+    '''entrypoint для google-oauth2'''
     def get(self, request):
-
+        # Формирование кредов для отправки запроса на сервера google
         client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
         redirect_uri = 'https://bf13.by/users/auth/google-oauth2/complete'
         response_type = 'code'
@@ -380,19 +378,19 @@ class OAuth2(APIView):
 
 
 class OAuth2Complete(APIView):
-
+    '''complete-endpoint для google-oauth2'''
     def get(self, request):
-
+        # Получение гугловских токенов доступа
         token_response = get_google_token(request)
-
         access_token = token_response['access_token']
+        # Формирование запроса гуглу для получения userinfo
         userinfo_headers = {'Authorization': 'Bearer ' + access_token}
         userinfo_response = requests.post(url="https://www.googleapis.com/oauth2/v3/userinfo", headers=userinfo_headers).json()
+        # Получение никнейма юзера //TODO ПРОВЕРКА НИКНЕЙМА НА УНИКАЛЬНОСТЬ
         username = userinfo_response['email'].rstrip('@gmail.com')
         email = userinfo_response['email']
-
+        # //TODO SELECT ПО EMAIL
         try:
-            #//TODO GET EQ USERNAME
             # Проверка на наличие социального аккаунта в базе и возврат пары токенов в случае обращения
             data = get_social_user(username, access_token)
             return Response(data=data, status=status.HTTP_200_OK)
@@ -405,13 +403,20 @@ class OAuth2Complete(APIView):
 
 
 class TelegramAuth(APIView):
+    '''Эндпоинт для аутентификации по данным телеграма'''
     def post(self, request):
         data = request.data
-        data_check_string = f'auth_date={data["auth_date"]}\nfirst_name={data["first_name"]}\nid={data["id"]}\nphoto_url={data["photo_url"]}\nusername={data["username"]}'.encode('utf-8')
+        try:
+            data_check_string = f'auth_date={data["auth_date"]}\nfirst_name={data["first_name"]}\nid={data["id"]}\nphoto_url={data["photo_url"]}\nusername={data["username"]}'.encode('utf-8')
+        except KeyError:
+            raise CustomUserException400('Неполные данные в теле запроса(auth_date, first_name, id, photo_url, username')
+
+        # Хеширование секретного ключа + создание цифровой подписи на основании данных из запроса(в алфавитном порядке)
         secret_key = hashlib.sha256('7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'.encode('utf-8')).digest()
         signing_key = hmac.new(key=secret_key, msg=data_check_string, digestmod=hashlib.sha256).hexdigest()
 
         try:
+            # Если пользователь есть в бд, то вернуть ему креды
             user = CustomUser.objects.get(username=data['username'])
             credentials = CustomUserTelegramCredentials.objects.get(id=user.object_id)
             data = {'id': credentials.user_id,
@@ -419,9 +424,13 @@ class TelegramAuth(APIView):
                     'username': user.username,
                     'photo_url': credentials.photo_url,
                     'auth_date': credentials.auth_date}
+
+            # Проверка цифровой подписи на соответствие хэшу из БД
             if signing_key == credentials.hash:
                 return Response(data=data, status=status.HTTP_200_OK)
+
         except ObjectDoesNotExist:
+            # Если пользователя нет в БД, то создать запись
             credentials = CustomUserTelegramCredentials.objects.create(auth_date=data['auth_date'],
                                                                        hash=data['hash'],
                                                                        first_name=data['first_name'],
