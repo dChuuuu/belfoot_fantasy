@@ -304,7 +304,7 @@ class ForgotPassword(APIView):
 
         email_instance = CustomUser.objects.get_object_or_false(email=email)
         serializer = UserSerializer(instance=email_instance)
-        decrypted_otp = base64.b64decode(serializer.data['otp'] + '///')
+        decrypted_otp = base64.b64decode(serializer.data['otp'] + '///').decode()
         send_mail('Код для восстановления пароля',
                   f'Ваш код для восстановления пароля - {decrypted_otp}. Не передавайте его никому',
                   "root@bf13.by",
