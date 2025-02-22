@@ -182,15 +182,15 @@ class RegisterUser(APIView):
                 credential.refresh_token = refresh_token  # Ссылка на зависимую таблицу с кредами для локального auth
                 credential.save()
                 #//TODO base64 OTP
-                otp = str(randint(100000, 999999)).encode()
-                otp_base64 = base64.b64encode(otp)
+                otp = str(randint(100000, 999999))
+
                 user = CustomUser.objects.create(username=username,
                                                  auth_provider='local',
                                                  content_type=ContentType.objects.get_for_model(
                                                      CustomUserLocalCredentials),
                                                  object_id=credential.id,
                                                  email=email,
-                                                 otp=otp_base64)
+                                                 otp=otp)
                 user.save()
 
                 response = serializer.data
@@ -304,9 +304,9 @@ class ForgotPassword(APIView):
 
         email_instance = CustomUser.objects.get_object_or_false(email=email)
         serializer = UserSerializer(instance=email_instance)
-        decrypted_otp = base64.b64decode(serializer.data['otp'] + '///').decode()
+
         send_mail('Код для восстановления пароля',
-                  f'Ваш код для восстановления пароля - {decrypted_otp}. Не передавайте его никому',
+                  f'Ваш код для восстановления пароля - {serializer.data["otp"]}. Не передавайте его никому',
                   "root@bf13.by",
                   [f'{email}'],
                   fail_silently=False, )
