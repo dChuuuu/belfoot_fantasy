@@ -1,17 +1,17 @@
+import base64
 import hashlib, hmac
 
 import requests
-import re
+
 from random import randint
 
-from django.contrib.auth import authenticate, login
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
+
 from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
-from django.views.decorators.csrf import csrf_exempt
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -24,10 +24,11 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .custom_validators import password_validator
-from .serializers import CustomUserSerializer #CustomUserTelegramSerializer
+from .serializers import CustomUserSerializer, UserSerializer
 from .models import CustomUser, CustomUserGoogleCredentials, \
-    CustomUserLocalCredentials, CustomUserTelegramCredentials  # CustomUserTelegram #CustomUserGoogle,
+    CustomUserLocalCredentials, CustomUserTelegramCredentials
 
+from .custom_exceptions import CustomUserException400
 
 def username_generator(username, username_check):
     # генератор никнеймов в случае дубликата в основной БД с базовой аутентификацией
@@ -108,17 +109,25 @@ def get_google_token(request):
 
 
 class LocalUser:
+    def __init__(self, request=None, password=None, username=None, email=None):
+        self.request = request
+        self.username = username
+        self.password = password
+        self.email = email
 
-    def obtain_token_pair(self, credential):
-        token = RefreshToken.for_user(credential)
-        access_token = token.access_token
-        refresh_token = token
-        credential.refresh_token = token  # Ссылка на зависимую таблицу с кредами для локального auth
-        credential.save()
-        return {'access_token': access_token,
-                'refresh_token': refresh_token}
+    def __call__(self):
+        return self.request
 
-
+    def input_data_check(self):
+        try:
+            # Проверка на наличие нужных данных в теле запроса
+            self.username = self.request.data['username']
+            self.password = self.request.data['password']
+            self.email = self.request.data['email']
+            #return {'username': self.username, 'password': self.password, 'email': self.email}
+            return self
+        except KeyError:
+            raise CustomUserException400
 
 
 @authentication_classes([])
@@ -147,34 +156,33 @@ class RegisterUser(APIView):
     )
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
-
-        try:
-            # Проверка на наличие нужных данных в теле запроса
-            username = request.data['username']
-            password = request.data['password']
-            email = request.data['email']
-
-        except:
-            return Response({"Ошибка": "Некорректные либо неполные данные(username, password, email)"}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Формирование словаря с данными пользователя
-
+        # Проверка полноты данных предоставленных в запросе и возврат кредов
+        input_data = LocalUser(request=request).input_data_check()
+        password = input_data.password
+        email = input_data.email
+        username = input_data.username
 
         serializer = CustomUserSerializer(data=request.data)
-        serializer_credentials = CustomUser
+
         # Проверка корректности данных для связей в БД, создание записи пользователя в БД и генерация токена
         if serializer.is_valid(raise_exception=True):
             # Кастомный валидатор для проверки пароля
+
             if password_validator(password) is None:
-                password = make_password(password)
-                credential = CustomUserLocalCredentials.objects.create(email=serializer.data['email'],
+                password = make_password(password)  # sha256 шифровка пароля
+                credential = CustomUserLocalCredentials.objects.create(email=email,
                                                                        password=password,
                                                                        refresh_token=None,
-                                                                       username=serializer.data['username'])
+                                                                       username=username)
 
-                credential_token = LocalUser().obtain_token_pair(credential)
-
-                user = CustomUser.objects.create(username=serializer.data['username'],
+                serializer = CustomUserSerializer(credential)
+                token = RefreshToken.for_user(credential)   # Выписываем пару токенов
+                access_token = token.access_token
+                refresh_token = token
+                credential.refresh_token = refresh_token  # Ссылка на зависимую таблицу с кредами для локального auth
+                credential.save()
+                #//TODO sha256 OTP
+                user = CustomUser.objects.create(username=username,
                                                  auth_provider='local',
                                                  content_type=ContentType.objects.get_for_model(
                                                      CustomUserLocalCredentials),
@@ -182,21 +190,15 @@ class RegisterUser(APIView):
                                                  email=email,
                                                  otp=str(randint(100000, 999999)))
                 user.save()
-                #serializer.data['access_token'] = str(credential_token['access_token'])
-                #serializer.data['refresh_token'] = str(credential_token['refresh_token'])
-                return Response(data=serializer.data, status=status.HTTP_200_OK)
-            else:
-                return password_validator(password)
 
-        # Улучшение отображения внешнего вида ошибок
-        errors_list = serializer.errors.items()
-        errors_list_pretty = {}
-        for field, case in errors_list:
-            errors_list_pretty[field] = re.search(r"('( ?[а-яА-Я]+)+)", case.__str__()).group(1)
-
-        return Response({"Ошибка": f"{errors_list_pretty}"}, status=status.HTTP_400_BAD_REQUEST)
+                response = serializer.data
+                response['access_token'] = str(access_token)    # Расширение запроса access-токеном т.к. он не хранится в БД
+                return Response(data=response, status=status.HTTP_200_OK)
 
 
+            return password_validator(password) # Возврат ошибки по паролю
+
+        return Response("Ошибка сериализатора", status=status.HTTP_400_BAD_REQUEST)
 
 
 @authentication_classes([])
@@ -222,27 +224,47 @@ class LoginUser(APIView):
 
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
+        # Проверка полноты данных предоставленных в запросе и возврат кредов
+        input_data = LocalUser(request=request).input_data_check()
+        username = input_data.username
+        password = input_data.password
 
-        data = request.data
-        user = authenticate(request=request, username=data['username'], password=data['password'])
-        if user is not None:
-            login(request, user)
-            user = CustomUser.objects.get_object_or_false(username=data['username'])
-            if user:
-                credential = CustomUserLocalCredentials.objects.get(id=user.object_id)
-                token = RefreshToken.for_user(credential)
-                access_token = token.access_token
-                refresh_token = token
-                credential.refresh_token = refresh_token
-                credential.save()
-                del data['password']
-                data['access_token'] = str(access_token)
-                data['refresh_token'] = str(refresh_token)
-                return Response(data=data, status=status.HTTP_200_OK)
-            else:
-                return Response('Пользователь не найден', status=status.HTTP_404_NOT_FOUND)
-        else:
-            return Response({"ошибка": "неверный логин или пароль"}, status=status.HTTP_403_FORBIDDEN)
+        # Сериализаторы, которые пойдут под merge в конце для полноты предоставленных данных
+        serializer = CustomUserSerializer(data=request.data)
+        serializer.is_valid()
+        user = CustomUser.objects.get_object_or_false(username=username)
+        common_serializer_data = request.data
+        common_serializer_data['object_id'] = user.object_id
+        common_serializer_data['picture'] = user.picture
+        common_serializer = UserSerializer(data=common_serializer_data)
+        common_serializer.is_valid()
+
+        # Шифрование пароля из запроса и получение шифрованного sha256 пароля из бд для проверки соответствия пароля
+        credential = CustomUserLocalCredentials.objects.get(id=user.object_id)
+        encrypted_password = credential.password.split('$') # Разбиение пароля по сегментам
+        iterations = int(encrypted_password[1]) # 87000
+        salt = encrypted_password[2].encode()
+        secure_password = base64.b64encode(hashlib.pbkdf2_hmac('sha256', password.encode(), salt,
+                                                               iterations, None)).decode("ascii").strip()
+
+        # В случае успешной проверки пароля возвращаем юзеру его креды+токены
+        if secure_password == encrypted_password[-1]:
+            # Генерация новой пары токенов
+            token = RefreshToken.for_user(credential)
+            access_token = token.access_token
+            refresh_token = token
+            # Сохранение в БД refresh-tokenа
+            credential.refresh_token = refresh_token
+            credential.save()
+            # Создание словаря response для кредов и общей информации о пользователе и мерж двух словарей
+            response = serializer.data
+            response['access_token'] = str(access_token)
+            response['refresh_token'] = str(refresh_token)
+            response.update(common_serializer.data)
+            return Response(data=response, status=status.HTTP_200_OK)
+
+        return Response('Неверный пароль', status=status.HTTP_403_FORBIDDEN)
+
 
 
 @permission_classes([IsAuthenticated])
@@ -369,8 +391,10 @@ class OAuth2Complete(APIView):
         username = userinfo_response['email'].rstrip('@gmail.com')
         email = userinfo_response['email']
 
-        try:                # Проверка на наличие социального аккаунта в базе и возврат пары токенов в случае обращения
-            data = get_social_user(username, email, access_token)
+        try:
+            #//TODO GET EQ USERNAME
+            # Проверка на наличие социального аккаунта в базе и возврат пары токенов в случае обращения
+            data = get_social_user(username, access_token)
             return Response(data=data, status=status.HTTP_200_OK)
         except:
             # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
@@ -412,206 +436,3 @@ class TelegramAuth(APIView):
             return Response(data=data, status=status.HTTP_200_OK)
 
         return Response(data={"status": "login failed due to invalid data"}, status=status.HTTP_403_FORBIDDEN)
-
-
-
-
-# @authentication_classes([])
-# @permission_classes([])
-# class TokenAuthUser(APIView):
-#     '''Аутентификация пользователя через JWT'''
-#     request_schema_dict = openapi.Schema(
-#         title=("Проверка токена. Обязательно имя пользователя"),
-#         type=openapi.TYPE_OBJECT,
-#         properties={
-#
-#             'username': openapi.Schema(type=openapi.TYPE_STRING,
-#                                        description=('Имя пользователя'),
-#                                        example='test'),}
-#     )
-#
-#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
-#     def post(self, request):
-#
-#         if banned_user(request):
-#             return Response(data={'Статус пользователя': 'Пользователь заблокирован'},
-#                             status=status.HTTP_403_FORBIDDEN)
-#
-#         try:
-#                 JWTAuthentication().authenticate(request)
-#
-#                 return Response(status=status.HTTP_200_OK)
-#
-#         except:
-#             try:
-#                 refresh = request.COOKIES['refresh_token']
-#                 refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
-#                 user_id = refresh_decoded['user_id']
-#                 user = CustomUser.objects.get(id=user_id)
-#                 if user.refresh_token == refresh:
-#                     return token_cookie(user)
-#                 else:
-#                     return Response(data=request.COOKIES['refresh_token'], status=status.HTTP_403_FORBIDDEN)
-#
-#             except:
-#                     return Response('Необходимо заново пройти аутентификацию', status=status.HTTP_403_FORBIDDEN)
-
-
-
-
-
-
-# class BanUser(APIView):
-#     '''Представление для блокировки пользователей'''
-#     request_schema_dict = openapi.Schema(
-#         title=("Бан пользователя по юзернейму"),
-#         type=openapi.TYPE_OBJECT,
-#         properties={
-#
-#             'username': openapi.Schema(type=openapi.TYPE_STRING,
-#                                   description=('Имя пользователя'),
-#                                   example='test')
-#
-#         }
-#     )
-#     def post(self, request):
-#
-#         try:
-#             username = request.data['username']
-#             user = CustomUser.objects.get(username=username)
-#             user.refresh_token = None
-#             user.banned = True
-#             user.save()
-#
-#             return Response(status=status.HTTP_200_OK)
-#
-#         except:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-
-
-
-# @permission_classes([])
-# class LogoutUser(APIView):
-#     '''Представление для логаута пользователя. Аутентификация необходима'''
-#     request_schema_dict = openapi.Schema(
-#         title=("Логаут пользователя. Боди пустое, должны быть куки с токенами"),
-#         type=openapi.TYPE_OBJECT,
-#
-#     )
-#
-#     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
-#     def post(self, request):
-#         refresh = request.COOKIES['refresh_token']
-#         refresh_decoded = jwt.decode(refresh, settings.SECRET_KEY, ['HS256'])
-#         user_id = refresh_decoded['user_id']
-#         user = CustomUser.objects.get(id=user_id)
-#         user.refresh_token = None
-#         user.save()
-#         response = Response(status=status.HTTP_200_OK)
-#         response.set_cookie(key='access_token', value=f'{None}', max_age=3600, expires=None,
-#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-#         response.set_cookie(key='refresh_token', value=f'{None}', max_age=604800, expires=None,
-#                             path='/', domain=None, secure=False, httponly=True, samesite="Lax")
-#
-#         return response
-
-# class TestingLocalModel(APIView):
-#     def post(self, request):
-#         data=request.data
-#         #user_serializer = CustomUserSerializer(data=data)
-#         if data['auth_provider'] == 'local':
-#             credential = CustomUserLocalCredentials.objects.create(email=data['email'],
-#                                                       otp=str(randint(100000, 999999)),
-#                                                       password=data['password'],
-#                                                       refresh_token=data['refresh_token'])
-#             user = CustomUser.objects.create(username=data['username'],
-#                                              auth_provider=data['auth_provider'],
-#                                              content_type=ContentType.objects.get_for_model(CustomUserLocalCredentials),
-#                                              object_id=credential.id)
-#             user.save()
-#
-#         elif data['auth_provider'] == 'google':
-#             credential = CustomUserGoogleCredentials.objects.create(email=data['email'],
-#                                                                    otp=str(randint(100000, 999999)),
-#                                                                    password=data['password'],
-#                                                                    refresh_token=data['refresh_token'])
-#             user = CustomUser.objects.create(username=data['username'],
-#                                              auth_provider=data['auth_provider'],
-#                                              content_type=ContentType.objects.get_for_model(CustomUserGoogleCredentials),
-#                                              object_id=credential.id)
-#             user.save()
-#
-#         else:
-#             credential = CustomUserTelegramCredentials.objects.create(email=data['email'],
-#                                                                    otp=str(randint(100000, 999999)),
-#                                                                    password=data['password'],
-#                                                                    refresh_token=data['refresh_token'])
-#             user = CustomUser.objects.create(username=data['username'],
-#                                              auth_provider=data['auth_provider'],
-#                                              content_type=ContentType.objects.get_for_model(CustomUserTelegramCredentials),
-#                                              object_id=credential.id)
-#             user.save()
-
-        # if user_serializer.is_valid(raise_exception=True):
-        #     user_serializer.save()
-        #return Response(status=status.HTTP_200_OK)
-
-
-# class AuthRequestHandler(APIView):
-#     def post(self, request):
-#         auth_provider = request.data['auth_provider']
-#         if auth_provider == 'local':
-#             data = request.data
-#             user = authenticate(request=request, username=data['username'], password=data['password'])
-#             if user is not None:
-#                 login(request, user)
-#                 user = CustomUser.objects.get(username=data['username'])
-#                 credential = CustomUserLocalCredentials.objects.get(id=user.object_id)
-#                 token = RefreshToken.for_user(credential)
-#                 access_token = token.access_token
-#                 refresh_token = token
-#                 credential.refresh_token = refresh_token
-#                 credential.save()
-#                 del data['password']
-#                 data['access_token'] = str(access_token)
-#                 data['refresh_token'] = str(refresh_token)
-#                 return Response(data=data, status=status.HTTP_200_OK)
-#             else:
-#                 return Response({"ошибка": "неверный логин или пароль"}, status=status.HTTP_403_FORBIDDEN)
-#         elif auth_provider == 'telegram':
-#             data = request.data
-#             data_check_string = f'auth_date={data["auth_date"]}\nfirst_name={data["first_name"]}\nid={data["id"]}\nphoto_url={data["photo_url"]}\nusername={data["username"]}'.encode(
-#                 'utf-8')
-#             secret_key = hashlib.sha256('7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'.encode('utf-8')).digest()
-#             signing_key = hmac.new(key=secret_key, msg=data_check_string, digestmod=hashlib.sha256).hexdigest()
-#
-#             try:
-#                 user = CustomUser.objects.get(username=data['username'])
-#                 credentials = CustomUserTelegramCredentials.objects.get(id=user.object_id)
-#                 data = {'id': credentials.user_id,
-#                         'first_name': credentials.first_name,
-#                         'username': user.username,
-#                         'photo_url': credentials.photo_url,
-#                         'auth_date': credentials.auth_date}
-#                 if signing_key == credentials.hash:
-#                     return Response(data=data, status=status.HTTP_200_OK)
-#             except ObjectDoesNotExist:
-#                 credentials = CustomUserTelegramCredentials.objects.create(auth_date=data['auth_date'],
-#                                                                            hash=data['hash'],
-#                                                                            first_name=data['first_name'],
-#                                                                            photo_url=data['photo_url'],
-#                                                                            user_id=data['id'])
-#                 user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
-#                                                  object_id=credentials.id,
-#                                                  content_type=ContentType.objects.get_for_model(
-#                                                      CustomUserTelegramCredentials))
-#
-#
-#                 return Response(data={"status": "login successful"}, status=status.HTTP_200_OK)
-#
-#             return Response(data={"status": "login failed due to invalid data"}, status=status.HTTP_403_FORBIDDEN)
-#
-#
-

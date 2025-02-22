@@ -4,10 +4,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.contenttypes import fields
+from django.http import Http404
 
 from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.response import Response
+
 
 username_validator = UnicodeUsernameValidator()
 class CustomUserManager(BaseUserManager):
@@ -49,8 +51,7 @@ class CustomUserManager(BaseUserManager):
                 user = CustomUser.objects.get(username=username)
                 return user
         except:
-            return False
-
+            raise Http404
 
 
 class CustomUserLocalCredentials(AbstractUser):
@@ -81,8 +82,6 @@ class CustomUserLocalCredentials(AbstractUser):
     USERNAME_FIELD = 'username'
 
     objects = CustomUserManager()
-
-
 
 
 class CustomUserGoogleCredentials(models.Model):
