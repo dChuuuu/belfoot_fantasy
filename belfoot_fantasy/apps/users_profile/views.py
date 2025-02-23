@@ -4,6 +4,7 @@ from io import BytesIO
 
 from PIL import Image
 import jwt
+from django.http import Http404
 from django.shortcuts import render
 
 import hashlib, hmac
@@ -40,40 +41,51 @@ from apps.users.models import (CustomUser, CustomUserGoogleCredentials, CustomUs
 #from apps.users.telegram_auth import main as telegram_bot
 from rest_framework_simplejwt.models import TokenUser
 
+from ..custom_methods import LocalUser
+from ..custom_exceptions import CustomUserException400
+
+
 @permission_classes([IsAuthenticated])
 class ProfilePicture(APIView):
+    '''Представление для получения аватарки пользователя по id в access-token'''
     def post(self, request):
-
+        # Получение айдишника из access_token для того, чтобы по нему сохранить изображение
+        input_data = LocalUser(request=request).input_data_picture()
         access_token = request.headers['Authorization'].lstrip('Bearer')
-        picture = request.data['picture']
+        picture = input_data.picture
         user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
                                         algorithms=['HS256'], options={'verify_signature': False})['user_id']
-
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
-        if user:
-            user.picture = picture
-            user.save()
-            data = {'user_id': user_id,
-                    'picture': picture}
-            return Response(data=data, status=status.HTTP_200_OK)
+        # Сохранение изображения в БД
+        user.picture = picture
+        user.save()
+        data = {'user_id': user_id,
+                'picture': picture}
 
-        return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
+        return Response(data=data, status=status.HTTP_200_OK)
 
     def get(self, request):
-        user_id = request.GET.get('user_id')
+        # Проверка на полноту запроса
+        try:
+            user_id = request.GET.get('user_id')
+        except AttributeError:
+            return Response('query user_id в строке запроса не должно быть пустым',
+                            status=status.HTTP_400_BAD_REQUEST)
+        # Получение изображения на основании query параметра в запросе uri
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
+        data = {'user_id': user.object_id,
+                'picture': user.picture}
 
-        if user:
-            data = {'user_id': user.object_id,
-                    'picture': user.picture}
-            return Response(data=data)
-        return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
+        return Response(data=data)
+
 
 @permission_classes([IsAuthenticated])
 class ChangeUsername(APIView):
+    '''Представление для смены имени пользователя по id из access-token'''
     def post(self, request):
         access_token = request.headers['Authorization'].lstrip('Bearer')
-        new_username = request.data['username']
+        input_data = LocalUser(request=request).input_data_username()
+        new_username = input_data.username
         user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
                                         algorithms=['HS256'], options={'verify_signature': False})['user_id']
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
@@ -91,146 +103,153 @@ class ChangeUsername(APIView):
 
 @permission_classes([IsAuthenticated])
 class ChangeEmail(APIView):
+    '''Представление для смены почты по id из access-token'''
     def post(self, request):
         access_token = request.headers['Authorization'].lstrip('Bearer')
         user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
                              algorithms=['HS256'], options={'verify_signature': False})['user_id']
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
-        if user:
-            if user.auth_provider == 'local':
-                email = user.email
 
-                send_mail('Код для изменения почты',
+        if user.auth_provider == 'local':
+            email = user.email
+            send_mail('Код для изменения почты',
                           f'Ваш код для изменения почты - {user.otp}. Не передавайте его никому',
+                          "root@bf13.by",
+                          [f'{email}'],
+                          fail_silently=False, )
+            return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
+
+        return Response('Невозможно совершить для данного auth_provider', status=status.HTTP_400_BAD_REQUEST)
+
+
+@permission_classes([IsAuthenticated])
+class ChangeEmailConfirmation(APIView):
+    '''Подтверждение смены почты для юзера'''
+    def post(self, request):
+        access_token = request.headers['Authorization'].lstrip('Bearer')
+        user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
+                             algorithms=['HS256'], options={'verify_signature': False})['user_id']
+        user = CustomUser.objects.get_object_or_false(object_id=user_id)
+
+        try:
+            otp = request.data['otp']
+            new_email = request.data['new_email']
+        except KeyError:
+            raise CustomUserException400('Данные otp и new_email в теле запроса пустые')
+
+        try:
+            user_credentials = CustomUserLocalCredentials.objects.get(id=user.object_id)
+        except ObjectDoesNotExist:
+            raise Http404
+
+        if otp == user.otp:
+            user.email = new_email
+            user_credentials.email = new_email
+            user.otp = str(randint(100000, 999999))
+            user.save()
+            user_credentials.save()
+            return Response('Успешно', status=status.HTTP_200_OK)
+
+        return Response('Неверный код', status=status.HTTP_403_FORBIDDEN)
+
+
+
+
+@permission_classes([])
+class DeleteAccount(APIView):
+    '''Представление для удаления аккаунта пользователя'''
+    def post(self, request):
+        credentials_dict = {'local': CustomUserLocalCredentials,
+                            'google': CustomUserGoogleCredentials,
+                            'telegram': CustomUserTelegramCredentials}
+
+        try:
+            user_id = request.data['user_id']
+            user = CustomUser.objects.get_object_or_false(object_id=user_id)
+            auth_provider = request.data['auth_provider']
+        except KeyError:
+            raise CustomUserException400('Поля user_id, auth_provider в теле запроса пустые')
+
+        try:
+            credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
+            if auth_provider == 'local':
+                JWTAuthentication(request)
+                email = credentials.email
+                send_mail('Код для удаления аккаунта',
+                          f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
                           "root@bf13.by",
                           [f'{email}'],
                           fail_silently=False, )
                 return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
 
-            return Response('Невозможно совершить для данного auth_provider', status=status.HTTP_400_BAD_REQUEST)
-
-        return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
-
-
-@permission_classes([IsAuthenticated])
-class ChangeEmailConfirmation(APIView):
-    def post(self, request):
-        access_token = request.headers['Authorization'].lstrip('Bearer')
-        user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
-                             algorithms=['HS256'], options={'verify_signature': False})['user_id']
-        user = CustomUser.objects.get_object_or_false(object_id=user_id)
-        otp = request.data['otp']
-        new_email = request.data['new_email']
-        if user:
-            user_credentials = CustomUserLocalCredentials.objects.get(id=user.object_id)
-            if otp == user.otp:
-                user.email = new_email
-                user_credentials.email = new_email
-                user.otp = str(randint(100000, 999999))
-                user.save()
-                user_credentials.save()
-                return Response('Успешно', status=status.HTTP_200_OK)
-
-            return Response('Неверный код', status=status.HTTP_403_FORBIDDEN)
-
-        return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
+            elif auth_provider == 'telegram':
+                user_id = credentials.user_id
+                token = '7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'
+                url = f"https://api.telegram.org/bot{token}/sendMessage"
+                payload = {
+                    'chat_id': user_id,
+                    'text': f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому'
+                }
+                requests.post(url, json=payload)
+                return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
 
 
-@permission_classes([])
-class DeleteAccount(APIView):
-    def post(self, request):
-        credentials_dict = {'local': CustomUserLocalCredentials,
-                            'google': CustomUserGoogleCredentials,
-                            'telegram': CustomUserTelegramCredentials}
+            elif auth_provider == 'google':
+                email = credentials.email
+                send_mail('Код для удаления аккаунта',
+                          f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
+                          "root@bf13.by",
+                          [f'{email}'],
+                          fail_silently=False, )
+                return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
 
-        user_id = request.data['user_id']
-        user = CustomUser.objects.get_object_or_false(object_id=user_id)
-        auth_provider = request.data['auth_provider']
-        if user:
-            #try:
-                credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
-                if auth_provider == 'local':
-                    JWTAuthentication(request)
-                    email = credentials.email
-                    send_mail('Код для удаления аккаунта',
-                              f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
-                              "root@bf13.by",
-                              [f'{email}'],
-                              fail_silently=False, )
-                    return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
+            return Response('Указан некорректный провайдер аутентификации', status=status.HTTP_400_BAD_REQUEST)
 
-                elif auth_provider == 'telegram':
-                    user_id = credentials.user_id
-                    token = '7754925216:AAGC16jCqaPOxHMo-jkCI6sPt_PPPWt08Lc'
-                    url = f"https://api.telegram.org/bot{token}/sendMessage"
-                    payload = {
-
-                        'chat_id': user_id,
-                        'text': f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому'
-                    }
-                    requests.post(url, json=payload)
-                    return Response(f'сообщение с кодом отправлено в ваш телеграм', status=status.HTTP_200_OK)
-
-
-
-                elif auth_provider == 'google':
-                    email = credentials.email
-                    send_mail('Код для удаления аккаунта',
-                              f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
-                              "root@bf13.by",
-                              [f'{email}'],
-                              fail_silently=False, )
-                    return Response(f'Письмо с кодом отправлено на почту {email}', status=status.HTTP_200_OK)
-
-
-                return Response('Указан некорректный провайдер аутентификации', status=status.HTTP_400_BAD_REQUEST)
-            #except:
-
-                #return Response('Отказано в доступе', status=status.HTTP_403_FORBIDDEN)
-
-        return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response('Отказано в доступе', status=status.HTTP_403_FORBIDDEN)
 
 
 @permission_classes([])
 class DeleteAccountConfirmation(APIView):
+    '''Представление для удаления аккаунта'''
     def post(self, request):
         credentials_dict = {'local': CustomUserLocalCredentials,
                             'google': CustomUserGoogleCredentials,
                             'telegram': CustomUserTelegramCredentials}
-        user_id = request.data['user_id']
-        otp = request.data['otp']
-        auth_provider = request.data['auth_provider']
+        try:
+            user_id = request.data['user_id']
+            otp = request.data['otp']
+            auth_provider = request.data['auth_provider']
+        except KeyError:
+            raise CustomUserException400('Поля user_id, otp, auth_provider в теле запроса не должны быть пустыми')
+
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
-        if user:
-            if otp == user.otp:
-                credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
-                user.delete()
-                credentials.delete()
-                if auth_provider == 'google':
-                    access_token = request.data['access_token']
-                    url = f"https://oauth2.googleapis.com/revoke?token={access_token}"
-                    response = requests.post(url)
-                    if response.status_code != 200:
-                        return Response('Невозможно удалить пользователя. Неверный токен', status
-                            =status.HTTP_403_FORBIDDEN)
+        if otp == user.otp:
+            credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
+            user.delete()
+            credentials.delete()
+            if auth_provider == 'google':
+                access_token = request.data['access_token']
+                url = f"https://oauth2.googleapis.com/revoke?token={access_token}"
+                response = requests.post(url)
+                if response.status_code != 200:
+                    return Response('Невозможно удалить пользователя. Неверный токен', status
+                        =status.HTTP_403_FORBIDDEN)
 
-                return Response('Пользователь удалён', status=status.HTTP_200_OK)
-            return Response('Указан неверный код', status=status.HTTP_403_FORBIDDEN)
+            return Response('Пользователь удалён', status=status.HTTP_200_OK)
+        return Response('Указан неверный код', status=status.HTTP_403_FORBIDDEN)
 
-        return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
+
+
 
 
 @permission_classes([])
 class GetUserInfo(APIView):
-
     def get(self, request):
-        user_id = request.GET.get('user_id')
+        try:
+            user_id = request.GET.get('user_id')
+        except AttributeError:
+            raise CustomUserException400('Значение user_id в query запроса отсутствует')
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
-
-        if user:
-            user_serializer = UserSerializer(user)
-            return Response(user_serializer.data, status=status.HTTP_200_OK)
-
-        else:
-            return Response('Пользователя не существует либо неверный auth_provider',
-                            status=status.HTTP_404_NOT_FOUND)
+        user_serializer = UserSerializer(user)
+        return Response(user_serializer.data, status=status.HTTP_200_OK)

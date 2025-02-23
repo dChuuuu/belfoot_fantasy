@@ -17,7 +17,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.views import APIView
@@ -28,18 +28,8 @@ from .serializers import CustomUserSerializer, UserSerializer
 from .models import CustomUser, CustomUserGoogleCredentials, \
     CustomUserLocalCredentials, CustomUserTelegramCredentials
 
-from .custom_exceptions import CustomUserException400
-
-def username_generator(username, username_check):
-    # генератор никнеймов в случае дубликата в основной БД с базовой аутентификацией
-    counter = 0
-    while username == username_check:
-        username += str(counter)
-        try:
-            username_check = CustomUser.objects.get(username=username)
-        except:
-            pass
-    return username
+from ..custom_exceptions import CustomUserException400
+from ..custom_methods import LocalUser
 
 
 def create_social_user(token_response, email, username, access_token):
@@ -78,8 +68,8 @@ def create_social_user(token_response, email, username, access_token):
     return data
 
 
-def get_social_user(username, access_token):
-    user = CustomUser.objects.get(username=username)
+def get_social_user(email, access_token):
+    user = CustomUser.objects.get(email=email)
     credential = CustomUserGoogleCredentials.objects.get(id=user.object_id)
     data = {'username': user.username,
             'email': credential.email,
@@ -108,26 +98,19 @@ def get_google_token(request):
     return token_response
 
 
-class LocalUser:
-    def __init__(self, request=None, password=None, username=None, email=None):
-        self.request = request
-        self.username = username
-        self.password = password
-        self.email = email
+def create_username(username):
 
-    def __call__(self):
-        return self.request
+    try:
+        username_db = CustomUser.objects.get(username=username)
+        counter = 0
+        while username == username_db:
+            username += str(counter)
+            counter += 1
+        return username
+    except ObjectDoesNotExist:
+        return username
 
-    def input_data_check(self):
-        try:
-            # Проверка на наличие нужных данных в теле запроса
-            self.username = self.request.data['username']
-            self.password = self.request.data['password']
-            self.email = self.request.data['email']
-            #return {'username': self.username, 'password': self.password, 'email': self.email}
-            return self
-        except KeyError:
-            raise CustomUserException400
+
 
 
 @authentication_classes([])
@@ -181,7 +164,6 @@ class RegisterUser(APIView):
                 refresh_token = token
                 credential.refresh_token = refresh_token  # Ссылка на зависимую таблицу с кредами для локального auth
                 credential.save()
-                #//TODO base64 OTP
                 otp = str(randint(100000, 999999))
 
                 user = CustomUser.objects.create(username=username,
@@ -352,7 +334,7 @@ class ResetPassword(APIView):
 
         if otp == email_instance.otp:
             email_instance.password = new_password
-            email_instance.otp = str(randint(100000, 999999))   # Новый OTP не сгенерируется пока старый не использован. //TODO ИСПРАВИТЬ
+            email_instance.otp = str(randint(100000, 999999))
             email_instance.save()
 
             return Response(data=f'{email_instance.password}', status=status.HTTP_200_OK)
@@ -386,16 +368,16 @@ class OAuth2Complete(APIView):
         # Формирование запроса гуглу для получения userinfo
         userinfo_headers = {'Authorization': 'Bearer ' + access_token}
         userinfo_response = requests.post(url="https://www.googleapis.com/oauth2/v3/userinfo", headers=userinfo_headers).json()
-        # Получение никнейма юзера //TODO ПРОВЕРКА НИКНЕЙМА НА УНИКАЛЬНОСТЬ
+        # Получение никнейма юзера
         username = userinfo_response['email'].rstrip('@gmail.com')
         email = userinfo_response['email']
-        # //TODO SELECT ПО EMAIL
         try:
             # Проверка на наличие социального аккаунта в базе и возврат пары токенов в случае обращения
-            data = get_social_user(username, access_token)
+            data = get_social_user(email, access_token)
             return Response(data=data, status=status.HTTP_200_OK)
         except:
             # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
+            username = create_username(username=username)
             data = create_social_user(token_response, email, username, access_token)
             return Response(data=data, status=status.HTTP_200_OK)
 
