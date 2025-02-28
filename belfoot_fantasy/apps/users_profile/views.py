@@ -209,8 +209,6 @@ class DeleteAccount(APIView):
             return Response('Отказано в доступе', status=status.HTTP_403_FORBIDDEN)
 
 
-
-
 @permission_classes([])
 class DeleteAccountConfirmation(APIView):
     '''Представление для удаления аккаунта'''
