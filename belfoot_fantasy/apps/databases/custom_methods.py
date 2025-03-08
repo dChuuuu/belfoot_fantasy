@@ -29,8 +29,10 @@ def collect_data(request, table_name=None):
 
             return matches_data
 
-        except KeyError:
-            raise IncompleteDataException400([KeyError.__str__(matches_data)])
+
+        except KeyError as e:
+
+            raise IncompleteDataException400(e)
 
     elif table_name == 'players':
 
@@ -45,7 +47,9 @@ def collect_data(request, table_name=None):
 
             return players_data
 
-        except KeyError:
-            raise IncompleteDataException400([KeyError.__str__(players_data)])
+
+        except KeyError as e:
+
+            raise IncompleteDataException400(e)
 
     raise WrongTableException400

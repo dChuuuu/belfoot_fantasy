@@ -26,7 +26,6 @@ class CRUDTurns(APIView):
         turns_serializer = TurnsSerializer(instance=turn)
         return Response(turns_serializer.data, status=status.HTTP_200_OK)
 
-
     def patch(self, request):
         try:
             id = request.GET.get('id')
@@ -38,12 +37,10 @@ class CRUDTurns(APIView):
             rows.append(request.GET.get(column))
 
         turn = Turns.objects.get(id=id)
-        #turns_serializer = TurnsSerializer(instance=turn)
         Turns.objects.update(id, columns, rows)
         turns_serializer = TurnsSerializer(instance=turn)
         return Response(data={'data': turns_serializer.data,
                               'rows, columns': f'{rows}, {columns}'}, status=status.HTTP_200_OK)
-
 
     def delete(self, request):
         try:
@@ -53,44 +50,46 @@ class CRUDTurns(APIView):
         Turns.objects.delete(id)
         return Response('Объект удалён', status=status.HTTP_200_OK)
 
+
 class CRUDMatches(APIView):
     def post(self, request):
         data = collect_data(request, table_name='matches')
-        turns_serializer = TurnsSerializer(data=data)
-        if turns_serializer.is_valid(raise_exception=True):
-            Turns.objects.create(data=data)
-            return Response(turns_serializer.data, status=status.HTTP_200_OK)
+        matches_serializer = MatchesSerializer(data=data)
+        if matches_serializer.is_valid(raise_exception=True):
+            Matches.objects.create_match(data=data)
+            return Response(matches_serializer.data, status=status.HTTP_200_OK)
         return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         match = Matches.objects.get(id=id)
         matches_serializer = MatchesSerializer(instance=match)
-        if matches_serializer.is_valid(raise_exception=True):
-            return Response(matches_serializer.data, status=status.HTTP_200_OK)
-        return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
+        return Response(matches_serializer.data, status=status.HTTP_200_OK)
+
 
     def patch(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         columns = request.GET.keys()
-        rows = request.GET.values()
+        rows = []
+        for column in columns:
+            rows.append(request.GET.get(column))
+
         match = Matches.objects.get(id=id)
-        matches_serializer = TurnsSerializer(instance=match)
-        if matches_serializer.is_valid(raise_exception=True):
-            match.objects.update(id, columns, rows)
-            turns_serializer = TurnsSerializer(instance=match)
-            return Response(turns_serializer.data, status=status.HTTP_200_OK)
-        return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
+
+        Matches.objects.update(id, columns, rows)
+        matches_serializer = MatchesSerializer(instance=match)
+        return Response(matches_serializer.data, status=status.HTTP_200_OK)
+
 
     def delete(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         Matches.objects.delete(id)

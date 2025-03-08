@@ -90,7 +90,7 @@ class Players(models.Model):
     number = models.TextField()
     url = models.TextField()
     position = models.CharField(max_length=32)
-    birthday = models.DateField()
+    birthday = models.CharField()
     country = models.CharField(max_length=32)
 
     objects = PlayersManager()

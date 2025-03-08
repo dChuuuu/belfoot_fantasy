@@ -56,7 +56,9 @@ schema_view = get_schema_view(
 #//TODO РОУТЕРЫ
 urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
     path('users/admin/', admin.site.urls),
+
     path('users/auth/register', RegisterUser.as_view(), name='register_user'),
     path('users/auth/login', LoginUser.as_view(), name='login_user'),
     path('users/auth/secured_view', SecuredView.as_view(), name='test_secured_view'),
@@ -65,10 +67,10 @@ urlpatterns = [
     path('users/auth/forgot_password/reset_password', ResetPassword.as_view(), name='reset_password'),
     path('users/auth/token', TokenObtainPairView.as_view(), name='token_obtain'),
     path('users/auth/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
-
     path('users/auth/google-oauth2/login', OAuth2.as_view(), name='google_oauth_login'),
     re_path(r'users/auth/google-oauth2/complete/?.+', OAuth2Complete.as_view(), name='google_oauth_complete'),
     path('users/auth/telegram-auth/login', csrf_exempt(TelegramAuth.as_view()), name='telegram_auth'),
+
     path('users/profile/picture', ProfilePicture.as_view(), name='change_picture'),
     path('users/profile/change_username', ChangeUsername.as_view(), name='change_username'),
     path('users/profile/change_email', ChangeEmail.as_view(), name='change_email'),
