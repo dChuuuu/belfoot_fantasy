@@ -12,10 +12,11 @@ def collect_data(request, table_name=None):
                           'categories': request.data['categories'],
                           'type': request.data['type']}
 
+
             return turns_data
 
-        except KeyError:
-            raise IncompleteDataException400([KeyError.__str__(turns_data)])
+        except KeyError as e:
+            raise IncompleteDataException400(e)
 
     elif table_name == 'matches':
 

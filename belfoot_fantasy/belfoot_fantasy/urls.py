@@ -23,6 +23,9 @@ from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassw
                               TelegramAuth,)
 from apps.users_profile.views import (ProfilePicture, ChangeUsername, ChangeEmail, ChangeEmailConfirmation,
                                       DeleteAccount, DeleteAccountConfirmation, GetUserInfo)
+
+from apps.databases.views import (CRUDTurns, CRUDPlayers, CRUDMatches)
+
 #from apps.users.views import TestingLocalModel
 #OAuth2, OAuth2Complete, TelegramAuth)
 from django.views.decorators.csrf import csrf_exempt
@@ -72,7 +75,12 @@ urlpatterns = [
     path('users/profile/change_email/confirm', ChangeEmailConfirmation.as_view(), name='change_email_confirmation'),
     path('users/profile/delete_account', DeleteAccount.as_view(), name='delete_account'),
     path('users/profile/delete_account/confirm', DeleteAccountConfirmation.as_view(), name='delete_account_confirmation'),
-    path('users/profile/info', GetUserInfo.as_view(), name='get_user_info')
+    path('users/profile/info', GetUserInfo.as_view(), name='get_user_info'),
+
+    path('fantasy/db/turns', CRUDTurns.as_view(), name='crud_turns'),
+    path('fantasy/db/players', CRUDPlayers.as_view(), name='crud_players'),
+    path('fantasy/db/matches', CRUDMatches.as_view(), name='crud_matches')
+
     #path('users/auth/common_auth', AuthRequestHandler.as_view(), name='common_auth')
     #path('testing/', TestingLocalModel.as_view()),
     #path('users/auth/token_check', TokenAuthUser.as_view(), name='token_check'),

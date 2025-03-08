@@ -6,7 +6,7 @@ from django.http import Http404
 class Manager(models.Manager):
     def get(self, id):
         try:
-            turn = self.get(id=id)
+            turn = models.Manager.get(self, id=id)
             return turn
         except ObjectDoesNotExist:
             raise Http404
@@ -15,14 +15,15 @@ class Manager(models.Manager):
         try:
             turn = self.get(id=id)
             for column, row in zip(columns, rows):
-                turn.column = row
-            turn.save()
+                setattr(turn, column, row)
+                turn.save()
         except ObjectDoesNotExist:
             raise Http404
 
     def delete(self, id):
         try:
-            self.delete(id=id)
+            turn = models.Manager.get(self, id=id)
+            turn.delete()
         except ObjectDoesNotExist:
             raise Http404
 
@@ -36,7 +37,6 @@ class PlayersManager(Manager):
                     position=data['position'],
                     birthday=data['birthday'],
                     country=data['country'])
-        self.save()
 
 
 class TurnsManager(Manager):
@@ -46,8 +46,8 @@ class TurnsManager(Manager):
                     logo=data['url'],
                     name=data['name'],
                     description=data['description'],
-                    categories=data['categories'])
-        self.save()
+                    categories=data['categories'],
+                    type = data['type'])
 
 
 class MatchesManager(Manager):
@@ -56,7 +56,7 @@ class MatchesManager(Manager):
                     datetime=data['datetime'],
                     date_unix=data['date_unix'],
                     score=data['score'])
-        self.save()
+
 
 
 class Turns(models.Model):

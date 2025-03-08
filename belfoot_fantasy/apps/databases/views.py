@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .custom_methods import collect_data
 from .custom_exceptions import IncompleteIdQueryException400
-from serializers import MatchesSerializer, TurnsSerializer, PlayersSerializer
+from .serializers import MatchesSerializer, TurnsSerializer, PlayersSerializer
 from .models import Turns, Matches, Players
 
 
@@ -19,33 +19,35 @@ class CRUDTurns(APIView):
 
     def get(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         turn = Turns.objects.get(id=id)
         turns_serializer = TurnsSerializer(instance=turn)
-        if turns_serializer.is_valid(raise_exception=True):
-            return Response(turns_serializer.data, status=status.HTTP_200_OK)
-        return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
+        return Response(turns_serializer.data, status=status.HTTP_200_OK)
+
 
     def patch(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         columns = request.GET.keys()
-        rows = request.GET.values()
+        rows = []
+        for column in columns:
+            rows.append(request.GET.get(column))
+
         turn = Turns.objects.get(id=id)
+        #turns_serializer = TurnsSerializer(instance=turn)
+        Turns.objects.update(id, columns, rows)
         turns_serializer = TurnsSerializer(instance=turn)
-        if turns_serializer.is_valid(raise_exception=True):
-            turn.objects.update(id, columns, rows)
-            turns_serializer = TurnsSerializer(instance=turn)
-            return Response(turns_serializer.data, status=status.HTTP_200_OK)
-        return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
+        return Response(data={'data': turns_serializer.data,
+                              'rows, columns': f'{rows}, {columns}'}, status=status.HTTP_200_OK)
+
 
     def delete(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         Turns.objects.delete(id)
