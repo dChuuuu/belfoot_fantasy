@@ -41,7 +41,6 @@ class CRUDTurns(APIView):
         turns_serializer = TurnsSerializer(instance=turn)
         return Response(data={'data': turns_serializer.data,
                               'rows, columns': f'{rows}, {columns}'}, status=status.HTTP_200_OK)
-
     def delete(self, request):
         try:
             id = request.GET.get('id')
@@ -69,7 +68,6 @@ class CRUDMatches(APIView):
         matches_serializer = MatchesSerializer(instance=match)
         return Response(matches_serializer.data, status=status.HTTP_200_OK)
 
-
     def patch(self, request):
         try:
             id = request.GET.get('id')
@@ -86,7 +84,6 @@ class CRUDMatches(APIView):
         matches_serializer = MatchesSerializer(instance=match)
         return Response(matches_serializer.data, status=status.HTTP_200_OK)
 
-
     def delete(self, request):
         try:
             id = request.GET.get('id')
@@ -101,39 +98,35 @@ class CRUDPlayers(APIView):
         data = collect_data(request, table_name='players')
         players_serializer = PlayersSerializer(data=data)
         if players_serializer.is_valid(raise_exception=True):
-            Players.objects.create(data=data)
+            Players.objects.create_player(data=data)
             return Response(players_serializer.data, status=status.HTTP_200_OK)
         return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         player = Players.objects.get(id=id)
         players_serializer = PlayersSerializer(instance=player)
-        if players_serializer.is_valid(raise_exception=True):
-            return Response(players_serializer.data, status=status.HTTP_200_OK)
-        return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
+        return Response(players_serializer.data, status=status.HTTP_200_OK)
 
     def patch(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         columns = request.GET.keys()
         rows = request.GET.values()
         player = Players.objects.get(id=id)
-        players_serializer = TurnsSerializer(instance=player)
-        if players_serializer.is_valid(raise_exception=True):
-            player.objects.update(id, columns, rows)
-            players_serializer = TurnsSerializer(instance=player)
-            return Response(players_serializer.data, status=status.HTTP_200_OK)
-        return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
+
+        Players.objects.update(id, columns, rows)
+        players_serializer = PlayersSerializer(instance=player)
+        return Response(players_serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request):
         try:
-            id = request.GET.get(id)
+            id = request.GET.get('id')
         except KeyError:
             raise IncompleteIdQueryException400
         Players.objects.delete(id)
