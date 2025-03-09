@@ -13,8 +13,10 @@ class CRUDTurns(APIView):
         data = collect_data(request, table_name='turns')
         turns_serializer = TurnsSerializer(data=data)
         if turns_serializer.is_valid(raise_exception=True):
-            Turns.objects.create_turn(data=data)
-            return Response(turns_serializer.data, status=status.HTTP_200_OK)
+            turn = Turns.objects.create_turn(data=data)
+            data = turns_serializer.data
+            data['id'] = turn.id
+            return Response(data, status=status.HTTP_200_OK)
         return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
@@ -36,11 +38,11 @@ class CRUDTurns(APIView):
         for column in columns:
             rows.append(request.GET.get(column))
 
-        turn = Turns.objects.get(id=id)
         Turns.objects.update(id, columns, rows)
+        turn = Turns.objects.get(id=id)
         turns_serializer = TurnsSerializer(instance=turn)
-        return Response(data={'data': turns_serializer.data,
-                              'rows, columns': f'{rows}, {columns}'}, status=status.HTTP_200_OK)
+        return Response(data=turns_serializer.data, status=status.HTTP_200_OK)
+
     def delete(self, request):
         try:
             id = request.GET.get('id')
@@ -55,8 +57,10 @@ class CRUDMatches(APIView):
         data = collect_data(request, table_name='matches')
         matches_serializer = MatchesSerializer(data=data)
         if matches_serializer.is_valid(raise_exception=True):
-            Matches.objects.create_match(data=data)
-            return Response(matches_serializer.data, status=status.HTTP_200_OK)
+            match = Matches.objects.create_match(data=data)
+            data = matches_serializer.data
+            data['id'] = match.id
+            return Response(data, status=status.HTTP_200_OK)
         return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
@@ -78,9 +82,10 @@ class CRUDMatches(APIView):
         for column in columns:
             rows.append(request.GET.get(column))
 
-        match = Matches.objects.get(id=id)
+
 
         Matches.objects.update(id, columns, rows)
+        match = Matches.objects.get(id=id)
         matches_serializer = MatchesSerializer(instance=match)
         return Response(matches_serializer.data, status=status.HTTP_200_OK)
 
@@ -98,7 +103,9 @@ class CRUDPlayers(APIView):
         data = collect_data(request, table_name='players')
         players_serializer = PlayersSerializer(data=data)
         if players_serializer.is_valid(raise_exception=True):
-            Players.objects.create_player(data=data)
+            player = Players.objects.create_player(data=data)
+            data = players_serializer.data
+            data['id'] = player.id
             return Response(players_serializer.data, status=status.HTTP_200_OK)
         return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
 
@@ -118,9 +125,9 @@ class CRUDPlayers(APIView):
             raise IncompleteIdQueryException400
         columns = request.GET.keys()
         rows = request.GET.values()
-        player = Players.objects.get(id=id)
 
         Players.objects.update(id, columns, rows)
+        player = Players.objects.get(id=id)
         players_serializer = PlayersSerializer(instance=player)
         return Response(players_serializer.data, status=status.HTTP_200_OK)
 

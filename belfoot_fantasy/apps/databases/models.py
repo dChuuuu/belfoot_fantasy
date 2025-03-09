@@ -30,7 +30,7 @@ class Manager(models.Manager):
 
 class PlayersManager(Manager):
     def create_player(self, data):
-        self.create(name=data['name'],
+        return self.create(name=data['name'],
                     icon=data['icon'],
                     number=data['number'],
                     url=data['url'],
@@ -41,7 +41,7 @@ class PlayersManager(Manager):
 
 class TurnsManager(Manager):
     def create_turn(self, data):
-        self.create(season=data['season'],
+        return self.create(season=data['season'],
                     url=data['url'],
                     logo=data['url'],
                     name=data['name'],
@@ -50,9 +50,10 @@ class TurnsManager(Manager):
                     type = data['type'])
 
 
+
 class MatchesManager(Manager):
     def create_match(self, data):
-        self.create(status=data['status'],
+        return self.create(status=data['status'],
                     datetime=data['datetime'],
                     date_unix=data['date_unix'],
                     score=data['score'])
