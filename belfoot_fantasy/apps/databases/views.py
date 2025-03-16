@@ -106,7 +106,7 @@ class CRUDPlayers(APIView):
             player = Players.objects.create_player(data=data)
             data = players_serializer.data
             data['id'] = player.id
-            return Response(players_serializer.data, status=status.HTTP_200_OK)
+            return Response(data, status=status.HTTP_200_OK)
         return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
