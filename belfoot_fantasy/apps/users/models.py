@@ -47,14 +47,15 @@ class CustomUserManager(BaseUserManager):
             if object_id:
                 user = CustomUser.objects.get(object_id=object_id)
                 return user
-            if username:
+            elif username:
                 user = CustomUser.objects.get(username=username)
                 return user
-            if email:
+            elif email:
                 user = CustomUser.objects.get(email=email)
                 return user
         except:
-            raise Http404
+             raise Http404
+
 
 
 class CustomUserLocalCredentials(AbstractUser):

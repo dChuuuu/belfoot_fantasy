@@ -90,14 +90,16 @@ class ChangeUsername(APIView):
                                         algorithms=['HS256'], options={'verify_signature': False})['user_id']
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         if user:
-            username_check = CustomUser.objects.get_object_or_false(username=new_username)
-            if username_check:
-                return Response('Имя пользователя уже занято. Попробуйте другое', status=status.HTTP_200_OK)
+            try:
+                CustomUser.objects.get_object_or_false(username=new_username)
+            except:
+                user.username = new_username
+                user.save()
+                data = {'username': user.username}
+                return Response(data=data, status=status.HTTP_200_OK)
+            else:
+                return Response('Имя пользователя уже занято. Попробуйте другое', status=status.HTTP_400_BAD_REQUEST)
 
-            user.username = new_username
-            user.save()
-            data = {'username': user.username}
-            return Response(data=data, status=status.HTTP_200_OK)
 
         return Response('Пользователя не существует', status=status.HTTP_404_NOT_FOUND)
 

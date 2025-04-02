@@ -108,6 +108,3 @@ class TestAuth:
                                format='json')
 
         assert response.status_code == 200
-
-
-
