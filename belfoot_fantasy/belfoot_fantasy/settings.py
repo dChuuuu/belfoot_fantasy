@@ -21,35 +21,22 @@ from . import env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Попытка импорта среды переменных. В случае неуспеха будет использована тестовая БД. //TODO ВОЗМОЖНОСТЬ ЗАПИСИ ПЕРЕМЕННЫХ ЧЕРЕЗ CI/CD
-try:
-    env.set_env()
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    DATABASES = {
-        'default': {
-            'ATOMIC_REQUESTS': True,
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('NAME'),
-            'USER': os.getenv('USER'),
-            'PASSWORD': os.getenv('PASSWORD'),
-            'HOST': os.getenv('HOST'),
-            'PORT': os.getenv('PORT')
-            }
 
+env.set_env()
+SECRET_KEY = os.getenv('SECRET_KEY')
+DATABASES = {
+    'default': {
+        'ATOMIC_REQUESTS': True,
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT')
         }
 
-except:
-    SECRET_KEY = 'SOME_SECRET_KEY'
-    DATABASES = {
-        'default': {
-            'ATOMIC_REQUESTS': True,
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'test_belfoot_fantasy_db',
-            'USER': 'belfoot_root_1_test',
-            'PASSWORD': "test",
-            'HOST': '127.0.0.1',
-            'PORT': '5432'
-        }
     }
+
 
 # Режим разработчика. Выключить при проде
 DEBUG = True 
