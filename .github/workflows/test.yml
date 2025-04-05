@@ -8,6 +8,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: 'belfoot_fantasy_1_db'
+          POSTGRES_USER: 'belfoot_root_1'
+          POSTGRES_PASSWORD: "AhGhjIUHihiHH131HJHjhs*aDadx/Gcvmn#@%!#"
+        ports:
+          - 5432:5432
 
     steps:
     - name: Checkout code
@@ -47,6 +57,13 @@ jobs:
         echo "  os.environ['HOST'] = '127.0.0.1'" >> env.py
         echo "  os.environ['PORT'] = '5432'" >> env.py
         
+    - name: Make Migrations
+      run: |
+          cd belfoot_fantasy
+          python manage.py makemigrations
+          python manage.py migrate
+          cd ..
+
     - name: Run Tests
       run: |
         source venv/bin/activate        
