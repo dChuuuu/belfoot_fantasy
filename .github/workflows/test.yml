@@ -39,6 +39,6 @@ jobs:
     - name: Run Tests
       run: |
         cd belfoot_fantasy/apps/databases
-        pytest --rootdir=/home/runner/work/belfoot_fantasy/belfoot_fantasy/ tests.py
+        pytest --rootdir=/home/runner/work/belfoot_fantasy/ tests.py
 
 
