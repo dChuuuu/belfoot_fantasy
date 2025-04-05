@@ -40,7 +40,8 @@ jobs:
         echo "  os.environ['PORT'] = '5432'" >> env.py
         
     - name: Run Tests
-      run: |        
+      run: |
+        source venv/bin/activate
         python -m pytest belfoot_fantasy/apps/databases/tests.py
 
 
