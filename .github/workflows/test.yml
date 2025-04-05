@@ -41,7 +41,7 @@ jobs:
         
     - name: Run Tests
       run: |
-        cd belfoot_fantasy/apps/databases
-        pytest -v tests.py
+        
+        pytest -v belfoot_fantasy/apps/databases/tests.py
 
 
