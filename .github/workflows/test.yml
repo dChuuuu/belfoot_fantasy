@@ -8,6 +8,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: 'belfoot_fantasy_1_db'
+          POSTGRES_USER: 'belfoot_root_1'
+          POSTGRES_PASSWORD: "AhGhjIUHihiHH131HJHjhs*aDadx/Gcvmn#@%!#"
+        ports:
+          - 5432:5432
 
     steps:
     - name: Checkout code
@@ -21,8 +31,19 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        python -m venv venv
+        source venv/bin/activate
+        ls        
         pip install -r requirements.txt
-
+    - name: Creating packages
+      run: |
+        cd ..
+        touch __init__.py
+        cd ..
+        touch __init__.py
+        cd ..
+        touch __init__.py
+        cd /home/runner/work/belfoot_fantasy/
     - name: Create virtual environment
       run: |
         cd belfoot_fantasy/belfoot_fantasy
@@ -36,9 +57,17 @@ jobs:
         echo "  os.environ['HOST'] = '127.0.0.1'" >> env.py
         echo "  os.environ['PORT'] = '5432'" >> env.py
         
+    - name: Make Migrations
+      run: |
+          source venv/bin/activate
+          cd belfoot_fantasy
+          python manage.py makemigrations
+          python manage.py migrate
+          cd ..
+
     - name: Run Tests
       run: |
-        cd belfoot_fantasy/apps/databases
-        pytest -v tests.py
+        source venv/bin/activate        
+        python -m pytest belfoot_fantasy/apps/databases/tests.py
 
 
