@@ -59,6 +59,7 @@ jobs:
         
     - name: Make Migrations
       run: |
+          source venv/bin/activate
           cd belfoot_fantasy
           python manage.py makemigrations
           python manage.py migrate
