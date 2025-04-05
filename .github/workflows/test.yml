@@ -29,7 +29,7 @@ jobs:
         
     - name: Run Tests
       run: |
-        cd belfoot_fantasy
+        cd belfoot_fantasy/apps
         ls
 
 
