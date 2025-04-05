@@ -69,5 +69,7 @@ jobs:
       run: |
         source venv/bin/activate        
         python -m pytest belfoot_fantasy/apps/databases/tests.py
+        python -m pytest belfoot_fantasy/apps/users/tests.py
+        python -m pytest belfoot_fantasy/apps/users_profile/tests.py
 
 
