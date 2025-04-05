@@ -29,7 +29,6 @@ jobs:
         
     - name: Run Tests
       run: |
-        cd belfoot_fantasy/apps/users
-        pytest tests.py
+        pytest 
 
 
