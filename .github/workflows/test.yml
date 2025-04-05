@@ -23,6 +23,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Create virtual environment
+      run: |
+        touch belfoot_fantasy/belfoot_fantasy/env.py
+        
     - name: Run Tests
       run: |
         cd belfoot_fantasy/apps/users
