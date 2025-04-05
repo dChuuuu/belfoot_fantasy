@@ -29,6 +29,6 @@ jobs:
         
     - name: Run Tests
       run: |
-        pytest 
+        pytest *
 
 
