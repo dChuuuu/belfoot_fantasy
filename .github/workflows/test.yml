@@ -42,6 +42,6 @@ jobs:
     - name: Run Tests
       run: |
         source venv/bin/activate
-        python -m pytest belfoot_fantasy/apps/databases/tests.py
+        python -m pytest apps/databases/tests.py
 
 
