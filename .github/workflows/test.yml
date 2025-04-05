@@ -25,7 +25,15 @@ jobs:
         source venv/bin/activate
         ls        
         pip install -r requirements.txt
-
+    - name: Creating packages
+      run: |
+        cd ..
+        touch __init__.py
+        cd ..
+        touch __init__.py
+        cd ..
+        touch __init__.py
+        cd /home/runner/work/belfoot_fantasy/
     - name: Create virtual environment
       run: |
         cd belfoot_fantasy/belfoot_fantasy
