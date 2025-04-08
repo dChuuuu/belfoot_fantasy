@@ -36,7 +36,9 @@ class PlayersManager(Manager):
                     url=data['url'],
                     position=data['position'],
                     birthday=data['birthday'],
-                    country=data['country'])
+                    country=data['country'],
+                    cost=data['cost'],
+                    command=data['command'])
 
 
 class TurnsManager(Manager):
@@ -95,4 +97,5 @@ class Players(models.Model):
     country = models.CharField(max_length=32)
     command = models.CharField(max_length=32)
     cost = models.PositiveIntegerField()
+
     objects = PlayersManager()
