@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.users_profile',
     'apps.databases',
-    'apps.game'
+    'apps.game',
     'rest_framework',
     'drf_yasg',
     'rest_framework_simplejwt',
