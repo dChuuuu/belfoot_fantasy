@@ -94,5 +94,5 @@ class Players(models.Model):
     birthday = models.CharField()
     country = models.CharField(max_length=32)
     command = models.CharField(max_length=32)
-
+    cost = models.PositiveIntegerField()
     objects = PlayersManager()
