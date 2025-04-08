@@ -170,4 +170,6 @@ class CustomUser(models.Model):
     email = models.EmailField(unique=True, null=True, blank=True)
     picture = models.TextField(null=True, blank=True)
     otp = models.TextField(null=True, blank=True)
+    command_id = models.PositiveIntegerField()
+    command_object = fields.GenericForeignKey('content_type', 'command_id')
     objects = CustomUserManager()
