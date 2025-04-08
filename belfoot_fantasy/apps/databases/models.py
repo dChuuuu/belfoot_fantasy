@@ -93,5 +93,6 @@ class Players(models.Model):
     position = models.CharField(max_length=32)
     birthday = models.CharField()
     country = models.CharField(max_length=32)
+    command = models.CharField(max_length=32)
 
     objects = PlayersManager()
