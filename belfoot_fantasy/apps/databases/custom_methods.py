@@ -43,7 +43,9 @@ def collect_data(request, table_name=None):
                             'url': request.data['url'],
                             'position': request.data['position'],
                             'birthday': request.data['birthday'],
-                            'country': request.data['country']}
+                            'country': request.data['country'],
+                            'command': request.data['command'],
+                            'cost': request.data['cost']}
 
             return players_data
 
