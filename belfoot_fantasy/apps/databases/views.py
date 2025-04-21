@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -110,13 +111,18 @@ class CRUDPlayers(APIView):
         return Response('Ошибка в запросе', status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
-        try:
-            id = request.GET.get('id')
-        except KeyError:
-            raise IncompleteIdQueryException400
+        id = request.GET.get('id')
+
+        if id is None:
+            player = Players.objects.all()
+            players_serializer = PlayersSerializer(data=player, many=True)
+            players_serializer.is_valid()
+            return Response(players_serializer.data, status=status.HTTP_200_OK)
+
         player = Players.objects.get(id=id)
         players_serializer = PlayersSerializer(instance=player)
         return Response(players_serializer.data, status=status.HTTP_200_OK)
+
 
     def patch(self, request):
         try:
@@ -138,3 +144,4 @@ class CRUDPlayers(APIView):
             raise IncompleteIdQueryException400
         Players.objects.delete(id)
         return Response('Объект удалён', status=status.HTTP_200_OK)
+

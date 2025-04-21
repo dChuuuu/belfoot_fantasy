@@ -31,3 +31,20 @@ class IncufficientCoins400(APIException):
     status_code = 400
 
     default_detail = {'message': 'Недостаточно монет'}
+
+
+class WrongPlayerID400(APIException):
+    status_code = 400
+
+    default_detail = {'message': 'Игрока нет в наличии у пользователя'}
+
+
+class PlayerError400(APIException):
+    status_code = 400
+
+    default_detail = {'message': 'Ошибка игрока(возможно нет в команде)'}
+
+class UnfilledInOutData400(APIException):
+    status_code = 400
+
+    default_detail = {'message': 'Не предоставлены данные in: [], out: [] в теле запроса'}

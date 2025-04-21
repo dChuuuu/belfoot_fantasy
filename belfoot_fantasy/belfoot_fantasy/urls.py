@@ -26,7 +26,7 @@ from apps.users_profile.views import (ProfilePicture, ChangeUsername, ChangeEmai
 
 from apps.databases.views import (CRUDTurns, CRUDPlayers, CRUDMatches)
 
-from apps.game.views import PlayersCommandsCRUD
+from apps.game.views import PlayersCommandsCRUD, BuyPlayers
 
 #from apps.users.views import TestingLocalModel
 #OAuth2, OAuth2Complete, TelegramAuth)
@@ -40,6 +40,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenBlacklistView
 )
+
 
 
 schema_view = get_schema_view(
@@ -85,7 +86,8 @@ urlpatterns = [
     path('fantasy/db/players', CRUDPlayers.as_view(), name='crud_players'),
     path('fantasy/db/matches', CRUDMatches.as_view(), name='crud_matches'),
 
-    path('fantasy/game/command', PlayersCommandsCRUD.as_view(), name='crud_players_commands')
+    path('fantasy/game/command', PlayersCommandsCRUD.as_view(), name='crud_players_commands'),
+    path('fantasy/game/shop', BuyPlayers.as_view(), name='buy_player')
 
     #path('users/auth/common_auth', AuthRequestHandler.as_view(), name='common_auth')
     #path('testing/', TestingLocalModel.as_view()),

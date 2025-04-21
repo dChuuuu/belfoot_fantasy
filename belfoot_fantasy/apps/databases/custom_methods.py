@@ -41,7 +41,7 @@ def collect_data(request, table_name=None):
                             'icon': request.data['icon'],
                             'number': request.data['number'],
                             'url': request.data['url'],
-                            'position': request.data['position'],
+                            'position': request.data['position'].lower(),
                             'birthday': request.data['birthday'],
                             'country': request.data['country'],
                             'command': request.data['command'],

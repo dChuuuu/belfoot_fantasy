@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.contenttypes import fields
@@ -174,4 +175,5 @@ class CustomUser(models.Model):
     otp = models.TextField(null=True, blank=True)
     coins = models.PositiveIntegerField(default=0)
     command = models.ForeignKey(UsersCommands, on_delete=models.CASCADE, null=True, blank=True)
+    players = ArrayField(models.CharField(), blank=True, default=list)
     objects = CustomUserManager()
