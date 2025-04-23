@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0015_alter_user_email'),
+
         ('contenttypes', '0002_remove_content_type_name'),
         ('game', '0001_initial'),
     ]
