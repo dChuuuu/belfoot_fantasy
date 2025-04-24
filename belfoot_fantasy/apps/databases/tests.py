@@ -55,7 +55,9 @@ def players_data():
             'url': 'example.com',
             'position': 'attack',
             'birthday': '18.02.1997',
-            'country': 'Russia'}
+            'country': 'Russia',
+            'command': 'ДИНАМО',
+            'cost': '1'}
     return data
 
 @pytest.fixture
@@ -70,6 +72,7 @@ class TestTurns:
         # Проверка запроса с полными данными
         response = client.post(turns_url, turn_data)
         assert response.status_code == 200
+
         # Проверка запроса с неполными данными
         del turn_data['season']
         response=client.post(turns_url, turn_data)
