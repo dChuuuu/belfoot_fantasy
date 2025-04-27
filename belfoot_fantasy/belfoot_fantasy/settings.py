@@ -39,7 +39,7 @@ DATABASES = {
 
 
 # Режим разработчика. Выключить при проде
-DEBUG = True 
+DEBUG = True
 
 # Хосты, которые будет обслуживать фреймворк.
 ALLOWED_HOSTS = ['bf13.by', 'localhost', '127.0.0.1', '217.21.39.12']
@@ -61,9 +61,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
-    #'allauth',
-    #'allauth.account',
-    'allauth.socialaccount.providers.google',
     'social_django'
 ]
 
