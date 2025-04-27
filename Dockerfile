@@ -14,7 +14,7 @@ RUN cd belfoot_fantasy \
     && echo "import os" > env.py \
     && echo "def set_env():" >> env.py \
     && echo "    os.environ['SECRET_KEY'] = 'django-insecure-+&!)jq^(5f64m+=$yg9c79v_b)wa2=#\$8&16v7e58op_5wwrmb'" >> env.py \
-    && echo "    os.environ['NAME'] = 'belfoot_fantasy_2_db'" >> env.py \
+    && echo "    os.environ['NAME'] = 'belfoot_fantasy_3_db'" >> env.py \
     && echo "    os.environ['USER'] = 'belfoot_root_1'" >> env.py \
     && echo "    os.environ['PASSWORD'] = 'AhGhjIUHihiHH131HJHjhs*aDadx/Gcvmn#@%'" >> env.py \
 
