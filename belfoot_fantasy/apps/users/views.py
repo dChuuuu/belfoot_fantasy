@@ -173,11 +173,10 @@ class RegisterUser(APIView):
                                                                        refresh_token=None,
                                                                        username=username)
 
-                serializer = CustomUserSerializer(credential)
-                token = RefreshToken.for_user(credential)   # Выписываем пару токенов
-                access_token = token.access_token
-                refresh_token = token
-                credential.refresh_token = refresh_token  # Ссылка на зависимую таблицу с кредами для локального auth
+
+                   # Выписываем пару токенов
+
+                  # Ссылка на зависимую таблицу с кредами для локального auth
                 credential.save()
                 otp = str(randint(100000, 999999))
 
@@ -188,12 +187,17 @@ class RegisterUser(APIView):
                                                  object_id=credential.id,
                                                  email=email,
                                                  otp=otp)
+                serializer = UserSerializer(user)
+                token = RefreshToken.for_user(user)
+                access_token = token.access_token
+                refresh_token = token
+                user.refresh_token = str(refresh_token)
                 user.save()
 
                 response = serializer.data
                 response['access_token'] = str(access_token)    # Расширение запроса access-токеном т.к. он не хранится в БД
                 response['object_id'] = user.id
-                del response['id']
+
                 return Response(data=response, status=status.HTTP_200_OK)
 
 
@@ -231,7 +235,7 @@ class LoginUser(APIView):
         password = input_data.password
 
         # Сериализаторы, которые пойдут под merge в конце для полноты предоставленных данных
-        serializer = CustomUserSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         serializer.is_valid()
         user = CustomUser.objects.get_object_or_false(username=username)
         common_serializer_data = request.data
@@ -251,12 +255,13 @@ class LoginUser(APIView):
         # В случае успешной проверки пароля возвращаем юзеру его креды+токены
         if secure_password == encrypted_password[-1]:
             # Генерация новой пары токенов
-            token = RefreshToken.for_user(credential)
+            token = RefreshToken.for_user(user)
             access_token = token.access_token
             refresh_token = token
             # Сохранение в БД refresh-tokenа
-            credential.refresh_token = refresh_token
-            credential.save()
+            user.refresh_token = refresh_token
+
+            user.save()
             # Создание словаря response для кредов и общей информации о пользователе и мерж двух словарей
             response = serializer.data
             response['access_token'] = str(access_token)

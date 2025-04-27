@@ -61,7 +61,7 @@ class CustomUserManager(BaseUserManager):
 
 
 
-class CustomUserLocalCredentials(AbstractUser):
+class CustomUserLocalCredentials(models.Model):
     email = models.EmailField(_("email address"), blank=True, unique=True)
 
     password = models.CharField(_("password"), max_length=150)
@@ -109,7 +109,7 @@ class CustomUserTelegramCredentials(models.Model):
     objects = CustomUserManager()
 
 
-class CustomUser(models.Model):
+class CustomUser(AbstractUser):
     '''Модель для обычного пользователя сайта. Наследуется от модели User
        Поля first_name и last_name не используются, поэтому задаётся значение None.
        Поля данных:
@@ -149,7 +149,7 @@ class CustomUser(models.Model):
     is_superuser = None
     last_login = None
     password = None
-    USERNAME_FIELD = 'username'
+
 
     refresh_token = None
     id = models.BigAutoField(primary_key=True, unique=True, default=None)

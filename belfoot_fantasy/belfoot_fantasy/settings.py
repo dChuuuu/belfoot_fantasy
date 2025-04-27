@@ -174,7 +174,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Модель, используемая для аутентификации.
-AUTH_USER_MODEL = 'users.CustomUserLocalCredentials'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Настройка урлов для логина, логаута пользователей и редиректа в случае наличия сессии //TODO ЛИЧНЫЙ КАБИНЕТ
