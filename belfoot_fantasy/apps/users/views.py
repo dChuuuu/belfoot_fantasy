@@ -7,6 +7,7 @@ from random import randint
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 
 from django.urls import reverse
 from django.core.mail import send_mail
@@ -339,7 +340,7 @@ class ResetPassword(APIView):
             email_instance.otp = str(randint(100000, 999999))
             email_instance.save()
 
-            return Response(data=f'{email_instance.password}', status=status.HTTP_200_OK)
+            return Response("Пароль успешно изменён", status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_403_FORBIDDEN)
 
@@ -366,6 +367,7 @@ class OAuth2Complete(APIView):
     def get(self, request):
         # Получение гугловских токенов доступа
         token_response = get_google_token(request)
+        print(token_response)
         access_token = token_response['access_token']
         # Формирование запроса гуглу для получения userinfo
         userinfo_headers = {'Authorization': 'Bearer ' + access_token}
@@ -379,8 +381,12 @@ class OAuth2Complete(APIView):
             return Response(data=data, status=status.HTTP_200_OK)
         except:
             # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
-            username = create_username(username=username)
-            data = create_social_user(token_response, email, username, access_token)
+            try:
+                username = create_username(username=username)
+                data = create_social_user(token_response, email, username, access_token)
+            except IntegrityError:
+                return Response('Уже существует', status=status.HTTP_400_BAD_REQUEST)
+
             return Response(data=data, status=status.HTTP_200_OK)
 
 
