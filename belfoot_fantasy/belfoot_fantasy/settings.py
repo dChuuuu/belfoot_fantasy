@@ -63,15 +63,16 @@ INSTALLED_APPS = [
     'corsheaders',
     #'allauth',
     #'allauth.account',
-    #'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
     'social_django'
 ]
 
 #OAuth
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2'
 )
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '220674503117-lqqb63n9q816loquk17fhsipf9cr2eo9.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
@@ -225,6 +226,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     )
 }
 CORS_ALLOW_CREDENTIALS = True

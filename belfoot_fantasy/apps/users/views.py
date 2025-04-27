@@ -29,6 +29,7 @@ from .serializers import CustomUserSerializer, UserSerializer
 from .models import CustomUser, CustomUserGoogleCredentials, \
     CustomUserLocalCredentials, CustomUserTelegramCredentials
 
+from .authentication import custom_authenticate
 from ..custom_exceptions import CustomUserException400
 from ..custom_methods import LocalUser
 
@@ -36,8 +37,9 @@ from ..custom_methods import LocalUser
 def create_social_user(token_response, email, username, access_token):
     # создание социального аккаунта
 
-    refresh_token = token_response['refresh_token']
-    credentials = CustomUserGoogleCredentials.objects.create(email=email, refresh_token=refresh_token)
+    refresh_token_google = token_response['refresh_token']
+    credentials = CustomUserGoogleCredentials.objects.create(email=email, refresh_token_google=refresh_token_google)
+
     try:
         CustomUser.objects.get(username=username)
         username = username + str(randint(0, 99999))
@@ -48,9 +50,15 @@ def create_social_user(token_response, email, username, access_token):
                                              CustomUserGoogleCredentials),
                                          otp=str(randint(100000, 999999))
                                          )
+        token = RefreshToken.for_user(user)
+        access_token = token.access_token
+        refresh_token = token
+        credentials.refresh_token = refresh_token
+        credentials.save()
+
         data = {'username': user.username,
                 'email': user.email,
-                'refresh_token': credentials.refresh_token,
+                'refresh_token': refresh_token,
                 'access_token': access_token,
                 'user_id': user.object_id}
 
@@ -62,10 +70,16 @@ def create_social_user(token_response, email, username, access_token):
                                                          CustomUserGoogleCredentials),
                                          otp=str(randint(100000, 999999))
                                          )
+        token = RefreshToken.for_user(user)
+        access_token = token.access_token
+        refresh_token = token
+        credentials.refresh_token = refresh_token
+        credentials.save()
         data = {'username': user.username,
                 'email': user.email,
-                'refresh_token': credentials.refresh_token,
+                'refresh_token': refresh_token,
                 'access_token': access_token}
+
     return data
 
 
@@ -259,7 +273,7 @@ class SecuredView(APIView):
     '''Тестовое представление для проверки прав доступа(авторизации)!!!ДЛЯ БЭКЕНДА'''
 
     def get(self, request):
-
+        #
         return Response('Успешный запрос')
 
 

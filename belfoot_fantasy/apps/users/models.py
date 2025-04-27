@@ -93,6 +93,7 @@ class CustomUserLocalCredentials(AbstractUser):
 
 class CustomUserGoogleCredentials(models.Model):
     refresh_token = models.TextField()
+    google_refresh_token = models.TextField(default=None)
     email = models.EmailField(unique=True, default=None)
     objects = CustomUserManager()
 
