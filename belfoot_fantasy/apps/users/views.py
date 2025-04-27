@@ -38,7 +38,7 @@ def create_social_user(token_response, email, username, access_token):
     # создание социального аккаунта
 
     refresh_token_google = token_response['refresh_token']
-    credentials = CustomUserGoogleCredentials.objects.create(email=email, refresh_token_google=refresh_token_google)
+    credentials = CustomUserGoogleCredentials.objects.create(email=email, google_refresh_token=refresh_token_google)
 
     try:
         CustomUser.objects.get(username=username)
