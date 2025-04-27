@@ -34,7 +34,7 @@ from ..custom_exceptions import CustomUserException400
 from ..custom_methods import LocalUser
 
 
-def create_social_user(token_response, email, username, access_token):
+def create_social_user(token_response, email, username):
     # создание социального аккаунта
 
     refresh_token_google = token_response['refresh_token']
@@ -51,7 +51,7 @@ def create_social_user(token_response, email, username, access_token):
                                          otp=str(randint(100000, 999999))
                                          )
         token = RefreshToken.for_user(user)
-        access_token = token.access_token
+        access_token = str(token.access_token)
         refresh_token = str(token)
         credentials.refresh_token = refresh_token
         credentials.save()
@@ -71,14 +71,15 @@ def create_social_user(token_response, email, username, access_token):
                                          otp=str(randint(100000, 999999))
                                          )
         token = RefreshToken.for_user(user)
-        access_token = token.access_token
+
         refresh_token = str(token)
         credentials.refresh_token = refresh_token
         credentials.save()
         data = {'username': user.username,
                 'email': user.email,
                 'refresh_token': refresh_token,
-                'access_token': access_token}
+                'access_token': str(token.access_token)
+                }
 
     return data
 
@@ -86,6 +87,10 @@ def create_social_user(token_response, email, username, access_token):
 def get_social_user(email, access_token):
     user = CustomUser.objects.get(email=email)
     credential = CustomUserGoogleCredentials.objects.get(id=user.object_id)
+    token = RefreshToken.for_user(user)
+    access_token = str(token.access_token)
+    refresh_token = str(token)
+    user.refresh_token = refresh_token
     data = {'username': user.username,
             'email': credential.email,
             'refresh_token': credential.refresh_token,
@@ -402,7 +407,7 @@ class OAuth2Complete(APIView):
             # Создание записи в БД о новом социальном аккаунте, возврат пары токенов
             try:
                 username = create_username(username=username)
-                data = create_social_user(token_response, email, username, access_token)
+                data = create_social_user(token_response, email, username)
             except IntegrityError:
                 return Response('Уже существует', status=status.HTTP_400_BAD_REQUEST)
 
