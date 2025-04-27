@@ -177,6 +177,8 @@ class RegisterUser(APIView):
 
                 response = serializer.data
                 response['access_token'] = str(access_token)    # Расширение запроса access-токеном т.к. он не хранится в БД
+                response['object_id'] = user.id
+                del response['id']
                 return Response(data=response, status=status.HTTP_200_OK)
 
 
@@ -281,14 +283,14 @@ class ForgotPassword(APIView):
     @swagger_auto_schema(request_body=request_schema_dict, responses={200: 'OK'})
     def post(self, request):
         # Проверка полноты данных предоставленных в запросе и возврат кредов
-        input_data = LocalUser(request=request).input_data_check()
-        email = input_data.email
+        input_data = LocalUser(request=request).input_data_email()
+        email = input_data
 
         email_instance = CustomUser.objects.get_object_or_false(email=email)
         serializer = UserSerializer(instance=email_instance)
-
+        otp = email_instance.otp
         send_mail('Код для восстановления пароля',
-                  f'Ваш код для восстановления пароля - {serializer.data["otp"]}. Не передавайте его никому',
+                  f'Ваш код для восстановления пароля - {otp}. Не передавайте его никому',
                   "root@bf13.by",
                   [f'{email}'],
                   fail_silently=False, )

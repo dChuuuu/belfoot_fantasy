@@ -46,29 +46,29 @@ class CustomUserManager(BaseUserManager):
         user.save()
 
     def get_object_or_false(self, object_id=None, username=None, email=None):
-        try:
-            if object_id:
-                user = CustomUser.objects.get(object_id=object_id)
-                return user
-            elif username:
-                user = CustomUser.objects.get(username=username)
-                return user
-            elif email:
-                user = CustomUser.objects.get(email=email)
-                return user
-        except:
-             raise Http404
+
+        if object_id:
+            user = CustomUser.objects.get(object_id=object_id)
+            return user
+        elif username:
+            user = CustomUser.objects.get(username=username)
+            return user
+        elif email:
+            user = CustomUser.objects.get(email=email)
+            return user
+        else:
+            raise Http404
 
 
 
 class CustomUserLocalCredentials(AbstractUser):
     email = models.EmailField(_("email address"), blank=True, unique=True)
 
-    password = models.CharField(_("password"), max_length=128)
+    password = models.CharField(_("password"), max_length=150)
     refresh_token = models.TextField(null=True)
     username = models.CharField(
         _("username"),
-        max_length=150,
+        max_length=18,
         unique=True,
         help_text=_(
             "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."

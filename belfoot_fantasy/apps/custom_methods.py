@@ -35,3 +35,10 @@ class LocalUser:
             return self
         except KeyError:
             raise CustomUserException400('Поле username в теле запроса пустое')
+
+    def input_data_email(self):
+        try:
+            self.email = self.request.data['email']
+            return self.email
+        except KeyError:
+            raise CustomUserException400('Поле email в теле запроса пустое')
