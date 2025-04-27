@@ -52,7 +52,7 @@ def create_social_user(token_response, email, username, access_token):
                                          )
         token = RefreshToken.for_user(user)
         access_token = token.access_token
-        refresh_token = token
+        refresh_token = str(token)
         credentials.refresh_token = refresh_token
         credentials.save()
 
@@ -72,7 +72,7 @@ def create_social_user(token_response, email, username, access_token):
                                          )
         token = RefreshToken.for_user(user)
         access_token = token.access_token
-        refresh_token = token
+        refresh_token = str(token)
         credentials.refresh_token = refresh_token
         credentials.save()
         data = {'username': user.username,
