@@ -332,7 +332,7 @@ class ResetPassword(APIView):
         except KeyError:
             raise CustomUserException400('Неполные данные в теле запроса(otp, email, new_password')
 
-        email_instance = CustomUser.objects.get_user_or_false(email=email)
+        email_instance = CustomUser.objects.get_object_or_false(email=email)
 
         if otp == email_instance.otp:
             email_instance.password = new_password
