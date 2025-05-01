@@ -160,7 +160,7 @@ class ChangeEmailConfirmation(APIView):
 
 
 
-@permission_classes([])
+@permission_classes([IsAuthenticated])
 class DeleteAccount(APIView):
     '''Представление для удаления аккаунта пользователя'''
     def post(self, request):
@@ -214,7 +214,7 @@ class DeleteAccount(APIView):
             return Response('Отказано в доступе', status=status.HTTP_403_FORBIDDEN)
 
 
-@permission_classes([])
+@permission_classes([IsAuthenticated])
 class DeleteAccountConfirmation(APIView):
     '''Представление для удаления аккаунта'''
     def post(self, request):
