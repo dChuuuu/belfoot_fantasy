@@ -168,12 +168,14 @@ class DeleteAccount(APIView):
                             'google': CustomUserGoogleCredentials,
                             'telegram': CustomUserTelegramCredentials}
 
-        try:
-            user_id = request.data['user_id']
-            user = CustomUser.objects.get_object_or_false(object_id=user_id)
-            auth_provider = request.data['auth_provider']
-        except KeyError:
-            raise CustomUserException400('Поля user_id, auth_provider в теле запроса пустые')
+
+        access_token = request.headers['Authorization'].lstrip('Bearer')
+        user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
+                             algorithms=['HS256'], options={'verify_signature': False})['user_id']
+        user = CustomUser.objects.get_object_or_false(object_id=user_id)
+        auth_provider = str(user.auth_provider)
+
+
 
         try:
             credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)

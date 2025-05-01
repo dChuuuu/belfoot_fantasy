@@ -457,7 +457,7 @@ class TelegramAuth(APIView):
                                                                        user_id=data['id']
                                                                        )
 
-            user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
+            user = CustomUser.objects.create(username=data['username'], auth_provider='telegram',
                                              object_id=credentials.id,
                                              content_type=ContentType.objects.get_for_model(
                                                      CustomUserTelegramCredentials),
