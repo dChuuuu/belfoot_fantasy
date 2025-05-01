@@ -201,7 +201,7 @@ class RegisterUser(APIView):
 
                 response = serializer.data
                 response['access_token'] = str(access_token)    # Расширение запроса access-токеном т.к. он не хранится в БД
-                response['object_id'] = user.id
+                response['object_id'] = user.object_id
 
                 return Response(data=response, status=status.HTTP_200_OK)
 

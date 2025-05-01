@@ -178,7 +178,6 @@ class DeleteAccount(APIView):
         try:
             credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
             if auth_provider == 'local':
-                JWTAuthentication(request)
                 email = credentials.email
                 send_mail('Код для удаления аккаунта',
                           f'Ваш код для удаления аккаунта - {user.otp}. Не передавайте его никому',
