@@ -222,13 +222,12 @@ class DeleteAccountConfirmation(APIView):
         credentials_dict = {'local': CustomUserLocalCredentials,
                             'google': CustomUserGoogleCredentials,
                             'telegram': CustomUserTelegramCredentials}
-        try:
-            user_id = request.data['user_id']
-            otp = request.data['otp']
-            auth_provider = request.data['auth_provider']
-        except KeyError:
-            raise CustomUserException400('Поля user_id, otp, auth_provider в теле запроса не должны быть пустыми')
-
+        access_token = request.headers['Authorization'].lstrip('Bearer')
+        user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
+                             algorithms=['HS256'], options={'verify_signature': False})['user_id']
+        user = CustomUser.objects.get_object_or_false(object_id=user_id)
+        auth_provider = str(user.auth_provider)
+        otp = request.data["otp"]
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         if otp == user.otp:
             credentials = credentials_dict[auth_provider].objects.get(id=user.object_id)
