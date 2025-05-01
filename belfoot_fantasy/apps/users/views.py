@@ -450,12 +450,18 @@ class TelegramAuth(APIView):
                                                                        first_name=data['first_name'],
                                                                        photo_url=data['photo_url'],
                                                                        user_id=data['id'])
+
             user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
                                              object_id=credentials.id,
                                              content_type=ContentType.objects.get_for_model(
                                                      CustomUserTelegramCredentials),
                                              otp=str(randint(100000, 999999)))
+            token = RefreshToken.for_user(user)
+            refresh_token = token
+            access_token = token.access_token
             data['user_id'] = user.object_id
+            data['refresh_token'] = str(refresh_token)
+            data['access_token'] = str(access_token)
             return Response(data=data, status=status.HTTP_200_OK)
 
         return Response(data={"status": "login failed due to invalid data"}, status=status.HTTP_403_FORBIDDEN)

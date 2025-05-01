@@ -107,6 +107,7 @@ class CustomUserTelegramCredentials(models.Model):
     user_id = models.CharField(default=None)
     photo_url = models.TextField(default=None)
     objects = CustomUserManager()
+    refresh_token = models.TextField(default=None)
 
 
 class CustomUser(AbstractUser):
