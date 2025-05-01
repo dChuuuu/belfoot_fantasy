@@ -438,7 +438,12 @@ class TelegramAuth(APIView):
                     'username': user.username,
                     'photo_url': credentials.photo_url,
                     'auth_date': credentials.auth_date}
-
+            token = RefreshToken.for_user(user)
+            refresh_token = token
+            access_token = token.access_token
+            data['user_id'] = user.object_id
+            data['refresh_token'] = str(refresh_token)
+            data['access_token'] = str(access_token)
             # Проверка цифровой подписи на соответствие хэшу из БД
             if signing_key == credentials.hash:
                 return Response(data=data, status=status.HTTP_200_OK)
@@ -449,7 +454,8 @@ class TelegramAuth(APIView):
                                                                        hash=data['hash'],
                                                                        first_name=data['first_name'],
                                                                        photo_url=data['photo_url'],
-                                                                       user_id=data['id'])
+                                                                       user_id=data['id']
+                                                                       )
 
             user = CustomUser.objects.create(username=data['username'], auth_provider=['telegram'],
                                              object_id=credentials.id,
