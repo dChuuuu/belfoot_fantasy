@@ -67,7 +67,10 @@ class ProfilePicture(APIView):
     def get(self, request):
         # Проверка на полноту запроса
         try:
-            user_id = request.GET.get('user_id')
+            access_token = request.headers['Authorization'].lstrip('Bearer')
+
+            user_id = jwt.decode(jwt=access_token, key=settings.SECRET_KEY,
+                                 algorithms=['HS256'], options={'verify_signature': False})['user_id']
         except AttributeError:
             return Response('query user_id в строке запроса не должно быть пустым',
                             status=status.HTTP_400_BAD_REQUEST)

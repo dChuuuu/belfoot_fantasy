@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.contenttypes import fields
@@ -47,16 +48,19 @@ class CustomUserManager(BaseUserManager):
 
     def get_object_or_false(self, object_id=None, username=None, email=None):
 
-        if object_id:
-            user = CustomUser.objects.get(object_id=object_id)
-            return user
-        elif username:
-            user = CustomUser.objects.get(username=username)
-            return user
-        elif email:
-            user = CustomUser.objects.get(email=email)
-            return user
-        else:
+        try:
+            if object_id:
+                user = CustomUser.objects.get(object_id=object_id)
+                return user
+            elif username:
+                user = CustomUser.objects.get(username=username)
+                return user
+            elif email:
+                user = CustomUser.objects.get(email=email)
+                return user
+            else:
+                raise Http404
+        except ObjectDoesNotExist:
             raise Http404
 
 
@@ -107,7 +111,7 @@ class CustomUserTelegramCredentials(models.Model):
     user_id = models.CharField(default=None)
     photo_url = models.TextField(default=None)
     objects = CustomUserManager()
-    refresh_token = models.TextField(default=None)
+
 
 
 class CustomUser(AbstractUser):
