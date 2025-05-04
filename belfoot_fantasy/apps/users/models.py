@@ -151,7 +151,6 @@ class CustomUser(AbstractUser):
     last_name = None
     date_joined = None
     is_staff = None
-    is_superuser = None
     last_login = None
     password = None
 

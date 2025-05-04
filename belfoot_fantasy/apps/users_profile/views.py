@@ -257,4 +257,5 @@ class GetUserInfo(APIView):
             raise CustomUserException400('Значение user_id в query запроса отсутствует')
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         user_serializer = UserSerializer(user)
+        del user_serializer.data['refresh_token']
         return Response(user_serializer.data, status=status.HTTP_200_OK)
