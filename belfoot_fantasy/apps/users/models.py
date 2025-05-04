@@ -151,9 +151,8 @@ class CustomUser(AbstractUser):
     last_name = None
     date_joined = None
     is_staff = None
-    is_superuser = None
     last_login = None
-    password = None
+    password = models.CharField(_("password"), max_length=128, default=None, null=True, blank=True)
 
 
     refresh_token = None
@@ -173,9 +172,9 @@ class CustomUser(AbstractUser):
     )
 
     auth_provider = models.CharField(max_length=20, choices=[('local', 'Local'), ('google', 'Google'),
-                                                            ('telegram', 'Telegram')], default=None)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+                                                            ('telegram', 'Telegram')], default=None, null=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    object_id = models.PositiveIntegerField(null=True)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
     email = models.EmailField(unique=True, null=True, blank=True)
     picture = models.TextField(null=True, blank=True)

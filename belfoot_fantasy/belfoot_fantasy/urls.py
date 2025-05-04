@@ -20,7 +20,7 @@ from django.contrib.auth import logout
 from django.urls import path, include, re_path
 from apps.users.views import (RegisterUser, SecuredView, LoginUser,  ForgotPassword,
                               ResetPassword, OAuth2, OAuth2Complete,
-                              TelegramAuth,)
+                              TelegramAuth, RegisterAdminUser)
 from apps.users_profile.views import (ProfilePicture, ChangeUsername, ChangeEmail, ChangeEmailConfirmation,
                                       DeleteAccount, DeleteAccountConfirmation, GetUserInfo)
 
@@ -56,13 +56,14 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
-#//TODO РОУТЕРЫ
+
 urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
     path('users/admin/', admin.site.urls),
 
     path('users/auth/register', RegisterUser.as_view(), name='register_user'),
+    path('users/auth/register/admin', RegisterAdminUser.as_view(), name='register_user'),
     path('users/auth/login', LoginUser.as_view(), name='login_user'),
     path('users/auth/secured_view', SecuredView.as_view(), name='test_secured_view'),
     path('users/auth/logout', TokenBlacklistView.as_view(), name='logout_user'),

@@ -13,8 +13,7 @@ import requests
 import re
 from random import randint
 
-from django.contrib.auth import authenticate, login
-from django.contrib.contenttypes.models import ContentType
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.core.mail import send_mail
@@ -30,16 +29,13 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken, Token
-from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 from apps.users.serializers import CustomUserSerializer, UserSerializer
-# from apps.users.models import CustomUser, CustomUserGoogleCredentials, \
-#     CustomUserLocalCredentials, CustomUserTelegramCredentials
+
 from apps.users.models import (CustomUser, CustomUserGoogleCredentials, CustomUserLocalCredentials,
                                                CustomUserTelegramCredentials)
-#from apps.users.telegram_auth import main as telegram_bot
-from rest_framework_simplejwt.models import TokenUser
+
 
 from ..custom_methods import LocalUser
 from ..custom_exceptions import CustomUserException400
@@ -257,4 +253,5 @@ class GetUserInfo(APIView):
             raise CustomUserException400('Значение user_id в query запроса отсутствует')
         user = CustomUser.objects.get_object_or_false(object_id=user_id)
         user_serializer = UserSerializer(user)
+        del user_serializer.data['refresh_token']
         return Response(user_serializer.data, status=status.HTTP_200_OK)

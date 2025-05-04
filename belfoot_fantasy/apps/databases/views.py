@@ -1,12 +1,16 @@
 from rest_framework import status
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .custom_methods import collect_data
 from .custom_exceptions import IncompleteIdQueryException400
 from .serializers import MatchesSerializer, TurnsSerializer, PlayersSerializer
 from .models import Turns, Matches, Players
+from ..custom_permissions import IsAdmin
 
 
+@permission_classes([IsAuthenticated, IsAdmin])
 class CRUDTurns(APIView):
     def post(self, request):
         data = collect_data(request, table_name='turns')
@@ -51,6 +55,7 @@ class CRUDTurns(APIView):
         return Response('Объект удалён', status=status.HTTP_200_OK)
 
 
+@permission_classes([IsAuthenticated, IsAdmin])
 class CRUDMatches(APIView):
     def post(self, request):
         data = collect_data(request, table_name='matches')
@@ -97,6 +102,7 @@ class CRUDMatches(APIView):
         return Response('Объект удалён', status=status.HTTP_200_OK)
 
 
+@permission_classes([IsAuthenticated, IsAdmin])
 class CRUDPlayers(APIView):
     def post(self, request):
         data = collect_data(request, table_name='players')

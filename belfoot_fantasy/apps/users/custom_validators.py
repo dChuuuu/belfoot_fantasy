@@ -3,20 +3,27 @@ import re
 from rest_framework import status
 from rest_framework.response import Response
 
+from .custom_exceptions import TooLongPassword400, TooShortPassword400, UpperCasePassword400, SymbolPassword400, \
+    DigitPassword400, LowerCasePassword400
+
 
 def password_validator(password):
     if len(password) > 36:
-        return Response({"ошибка": "слишком длинный пароль"}, status=status.HTTP_403_FORBIDDEN)
+        raise TooLongPassword400
 
     if len(password) < 8:
-        return Response({"ошибка": "слишком короткий пароль"}, status=status.HTTP_403_FORBIDDEN)
+        raise TooShortPassword400
 
-    if re.search(r'[A-Z]', password) is False:
-        return Response({"ошибка": "пароль должен содержать заглавную букву"}, status=status.HTTP_403_FORBIDDEN)
+    if re.search(r'[A-Z]', password) is None:
+        print(password)
+        raise UpperCasePassword400
 
-    if re.search(r'[!@#$%^&]', password) is False:
-        return Response({"ошибка": "пароль должен содержать хотя бы один из следующих символов: !@#$%^&"})
+    if re.search(r'[a-z]', password) is None:
+        raise LowerCasePassword400
 
-    if re.search(r'[0123456789]', password) is False:
-        return Response({"ошибка": "пароль должен содержать хотя бы одну цифру"})
+    if re.search(r'[!@#$%^&]', password) is None:
+        raise SymbolPassword400
+
+    if re.search(r'[0123456789]', password) is None:
+        raise DigitPassword400
 

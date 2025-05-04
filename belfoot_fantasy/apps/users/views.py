@@ -1,5 +1,6 @@
 import base64
 import hashlib, hmac
+import re
 
 import requests
 
@@ -32,6 +33,7 @@ from .models import CustomUser, CustomUserGoogleCredentials, \
 from .authentication import custom_authenticate
 from ..custom_exceptions import CustomUserException400
 from ..custom_methods import LocalUser
+from .custom_exceptions import TooLongPassword400, TooShortPassword400, UpperCasePassword400, SymbolPassword400, DigitPassword400
 
 
 def create_social_user(token_response, email, username):
@@ -171,9 +173,11 @@ class RegisterUser(APIView):
         if serializer.is_valid(raise_exception=True):
             # Кастомный валидатор для проверки пароля
 
-            if password_validator(password) is None:
-                password = make_password(password)  # sha256 шифровка пароля
-                credential = CustomUserLocalCredentials.objects.create(email=email,
+            password_validator(password)
+
+
+            password = make_password(password)  # sha256 шифровка пароля
+            credential = CustomUserLocalCredentials.objects.create(email=email,
                                                                        password=password,
                                                                        refresh_token=None,
                                                                        username=username)
@@ -182,33 +186,92 @@ class RegisterUser(APIView):
                    # Выписываем пару токенов
 
                   # Ссылка на зависимую таблицу с кредами для локального auth
-                credential.save()
-                otp = str(randint(100000, 999999))
+            credential.save()
+            otp = str(randint(100000, 999999))
 
-                user = CustomUser.objects.create(username=username,
+            user = CustomUser.objects.create(username=username,
                                                  auth_provider='local',
                                                  content_type=ContentType.objects.get_for_model(
                                                      CustomUserLocalCredentials),
                                                  object_id=credential.id,
                                                  email=email,
                                                  otp=otp)
-                serializer = UserSerializer(user)
-                token = RefreshToken.for_user(user)
-                access_token = token.access_token
-                refresh_token = token
-                user.refresh_token = str(refresh_token)
-                user.save()
+            serializer = UserSerializer(user)
+            token = RefreshToken.for_user(user)
+            access_token = token.access_token
+            refresh_token = token
+            user.refresh_token = str(refresh_token)
+            user.save()
 
-                response = serializer.data
-                response['access_token'] = str(access_token)    # Расширение запроса access-токеном т.к. он не хранится в БД
-                response['object_id'] = user.object_id
+            response = serializer.data
+            response['access_token'] = str(access_token)    # Расширение запроса access-токеном т.к. он не хранится в БД
+            response['object_id'] = user.object_id
 
-                return Response(data=response, status=status.HTTP_200_OK)
+            return Response(data=response, status=status.HTTP_200_OK)
 
 
-            return password_validator(password) # Возврат ошибки по паролю
 
         return Response("Ошибка сериализатора", status=status.HTTP_400_BAD_REQUEST)
+
+
+@authentication_classes([])
+@permission_classes([])
+class RegisterAdminUser(APIView):
+    '''Класс для регистрации пользователей, принимающий только один метод POST'''
+
+    def post(self, request):
+        # Проверка полноты данных предоставленных в запросе и возврат кредов
+        input_data = LocalUser(request=request).input_data_check()
+        password = input_data.password
+        email = input_data.email
+        username = input_data.username
+
+        serializer = CustomUserSerializer(data=request.data)
+
+        # Проверка корректности данных для связей в БД, создание записи пользователя в БД и генерация токена
+        if serializer.is_valid(raise_exception=True):
+            # Кастомный валидатор для проверки пароля
+            try:
+                secret_key = request.data['secret_key']
+                if secret_key != ":I0TJ;;;4sbHlLIo&T_{<hC4])W(&s?>iYVw{pe4rry#?0rP8AB+{Cv5RcN/I:L":
+                    return Response('secret_key неверен', status=status.HTTP_403_FORBIDDEN)
+            except KeyError:
+                return Response('secret_key не предоставлен', status=status.HTTP_403_FORBIDDEN)
+
+            password_validator(password)
+            password = make_password(password)  # sha256 шифровка пароля
+            credential = CustomUserLocalCredentials.objects.create(email=email,
+                                                                   password=password,
+                                                                   refresh_token=None,
+                                                                   username=username)
+
+            # Выписываем пару токенов
+
+            # Ссылка на зависимую таблицу с кредами для локального auth
+            credential.save()
+            otp = str(randint(100000, 999999))
+
+            user = CustomUser.objects.create(username=username,
+                                             auth_provider='local',
+                                             content_type=ContentType.objects.get_for_model(
+                                                 CustomUserLocalCredentials),
+                                             object_id=credential.id,
+                                             email=email,
+                                             otp=otp,
+                                             is_superuser=True)
+
+            serializer = UserSerializer(user)
+            token = RefreshToken.for_user(user)
+            access_token = token.access_token
+            refresh_token = token
+            user.refresh_token = str(refresh_token)
+            user.save()
+
+            response = serializer.data
+            response['access_token'] = str(access_token)  # Расширение запроса access-токеном т.к. он не хранится в БД
+            response['object_id'] = user.object_id
+
+            return Response(data=response, status=status.HTTP_200_OK)
 
 
 @authentication_classes([])
