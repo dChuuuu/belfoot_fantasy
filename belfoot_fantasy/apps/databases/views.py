@@ -104,6 +104,7 @@ class CRUDMatches(APIView):
 
 @permission_classes([IsAuthenticated, IsAdmin])
 class CRUDPlayers(APIView):
+
     def post(self, request):
         data = collect_data(request, table_name='players')
         players_serializer = PlayersSerializer(data=data)
@@ -140,6 +141,7 @@ class CRUDPlayers(APIView):
         player = Players.objects.get(id=id)
         players_serializer = PlayersSerializer(instance=player)
         return Response(players_serializer.data, status=status.HTTP_200_OK)
+
 
     def delete(self, request):
         try:
