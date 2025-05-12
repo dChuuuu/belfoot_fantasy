@@ -62,7 +62,7 @@ urlpatterns = [
 
     path('users/admin/', admin.site.urls),
 
-    path('users/auth/register', RegisterUser.as_view(), name='register_user'),
+    path('users/auth/register', RegisterUser.as_view(), name='register_admin'),
     path('users/auth/register/admin', RegisterAdminUser.as_view(), name='register_user'),
     path('users/auth/login', LoginUser.as_view(), name='login_user'),
     path('users/auth/secured_view', SecuredView.as_view(), name='test_secured_view'),
