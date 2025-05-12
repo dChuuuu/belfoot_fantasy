@@ -9,14 +9,14 @@ def client():
 @pytest.fixture
 def user_data():
     data = {"username": "test_username",
-            "password": "test_password",
+            "password": "test!_pA1assword",
             "email": "test_email@example.com"}
     return data
 
 @pytest.fixture
 def user_data_custom():
     data = {"username": "test_username",
-            "password": "test_password",
+            "password": "test!_pA1assword",
             "email": "test_email@example.com"}
     return data
 
@@ -50,6 +50,7 @@ class TestAuth:
 
         response = client.post(register_user_url, user_data)
 
+
         assert response.status_code == 200
         assert response.data['access_token']
         assert response.data['refresh_token']
@@ -58,8 +59,7 @@ class TestAuth:
         user_data['email'] = ''
         user_data['password'] = ''
         response = client.post(register_user_url, user_data)
-
-        assert response.status_code == 403
+        assert response.status_code == 400
 
 
     def test_login(self, client, user_data, user_data_custom, register_user, login_user_url):
