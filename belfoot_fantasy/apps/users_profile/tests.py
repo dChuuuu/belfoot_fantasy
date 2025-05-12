@@ -17,7 +17,7 @@ def picture_url():
 @pytest.fixture
 def user_data():
     data = {"username": "test_username",
-            "password": "test_password",
+            "password": "test_1!Apassword",
             "email": "test_email@example.com"}
     return data
 
@@ -72,7 +72,7 @@ class TestsProfiles:
         assert response.data['username'] == 'changed_username'
 
     def test_get_info(self, client, register, get_info_url):
-        user_id = register.data['id']
+        user_id = register.data['object_id']
         response = client.get(get_info_url + f'?user_id={user_id}')
 
         assert response.status_code == 200
